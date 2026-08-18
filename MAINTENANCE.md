@@ -1,8 +1,8 @@
 # Maintenance policy
 
-This repository is maintained on a best-effort basis as an engineering portfolio
-and research preview. Maintenance capacity may vary and no response deadline is
-promised.
+This repository is maintained on a best-effort basis as an open-source
+engineering and research project. Maintenance capacity may vary and no response
+deadline is promised.
 
 There is no supported release line or compatibility window. Fixes may be made
 to the default branch when practical; archived commits receive no routine

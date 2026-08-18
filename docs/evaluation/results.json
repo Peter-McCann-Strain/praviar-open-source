@@ -1,0 +1,125 @@
+{
+  "schema_version": "chemical-patent-analysis.evaluation-summary.v1",
+  "published_on": "2026-08-19",
+  "records": [
+    {
+      "id": "live-us-page-to-smiles-128",
+      "run_kind": "live_inference",
+      "recorded_at": "2026-04-29T08:39:23Z",
+      "scope": "128 real US patent pages through MolDet, crop classification, five-model OCSR fusion and canonical-SMILES scoring",
+      "metrics": {
+        "pages": 128,
+        "annotated_regions": 1069,
+        "matched_regions": 1035,
+        "detection_recall": 0.9681945743685687,
+        "scalar_labeled_targets": 86,
+        "exact_end_to_end": 62,
+        "exact_end_to_end_rate": 0.7209302325581395,
+        "resolved_targets": 70,
+        "exact_given_resolved": 0.8857142857142857
+      },
+      "source_artifact_sha256": "4172c13d6f46316a3314d28adc3e1c44307cb75cb9f16d516c7d9cbb36a0e8bf"
+    },
+    {
+      "id": "live-us-five-model-ocsr-50-patents",
+      "run_kind": "live_inference",
+      "recorded_at": "2026-03-31T18:14:26Z",
+      "scope": "Five-model OCSR fusion over chemical-structure crops from 50 USPTO patents",
+      "metrics": {
+        "patents": 50,
+        "images": 447,
+        "exact_matches": 410,
+        "exact_match_rate": 0.9172259507829977,
+        "valid_outputs": 447,
+        "valid_output_rate": 1.0,
+        "elapsed_seconds": 20034.5
+      },
+      "source_results_sha256": "641d10c8df988edae72844bb93319efa4d8ba02a98cc0ce9f63db286c1069476",
+      "source_summary_sha256": "9475d1f0ec195aa0edcbb38ad5d14e029e306055dca339e7e8059d4735b82bbb"
+    },
+    {
+      "id": "live-us-five-model-ablation-76",
+      "run_kind": "deterministic_ablation_of_live_outputs",
+      "scope": "76 eligible crops from the live 128-page run with all five voter outputs available",
+      "metrics": {
+        "eligible_crops": 76,
+        "ensemble_exact": 62,
+        "ensemble_exact_rate": 0.8157894736842105,
+        "best_single_model": "MolScribe",
+        "best_single_exact": 59,
+        "best_single_exact_rate": 0.7763157894736842,
+        "ensemble_gain_percentage_points": 3.9473684210526305
+      },
+      "source_artifact_sha256": "e244198a18d1828d1f9c9a85726733425cd560a7c9b2b08d5253687f3e953e66"
+    },
+    {
+      "id": "live-multi-jurisdiction-ocsr-358",
+      "run_kind": "live_inference",
+      "recorded_at": "2026-03-31T18:30:33Z",
+      "scope": "PatCID chemical-structure crops from CN, EU, JP, KR and US patent material",
+      "metrics": {
+        "scored_rows": 358,
+        "unique_images": 355,
+        "exact_matches": 254,
+        "exact_match_rate": 0.7094972067039106,
+        "valid_output_rate": 1.0
+      },
+      "source_results_sha256": "0f51f63e32f535c800055b4496d5ff5e6a0fc22a56ea53f0718cf516732640c8",
+      "source_summary_sha256": "df02148ec92685e4c67df77005a7d1d4ef1f54118ecb681fe058fb7aec858884"
+    },
+    {
+      "id": "us-patent-drawing-detection-50-pages",
+      "run_kind": "live_inference",
+      "scope": "Patent-drawing detector evaluation over 50 real US patent pages at IoU >= 0.5",
+      "metrics": {
+        "pages": 50,
+        "annotated_regions": 393,
+        "predicted_regions": 400,
+        "true_positives": 380,
+        "false_positives": 20,
+        "false_negatives": 13,
+        "precision": 0.95,
+        "recall": 0.9669211195928753,
+        "f1": 0.9583858764186632,
+        "mean_matched_iou": 0.8100239439309136
+      },
+      "source_artifact_sha256": "c6f431fe60e837ea8d47fd7653e217cccf31b0b3f7982e32122745f5ab29c32c"
+    },
+    {
+      "id": "cached-cross-dataset-ocsr-12560",
+      "run_kind": "deterministic_rescore_of_cached_model_outputs",
+      "recorded_at": "2026-07-12",
+      "scope": "Cached five-model outputs from USPTO, CLEF, UOB and ACS chemistry-document datasets rescored under one canonical exact-match policy",
+      "metrics": {
+        "images": 12560,
+        "exact_matches": 11416,
+        "exact_match_rate": 0.9089171974522293,
+        "uspto": { "images": 5633, "exact": 5360, "rate": 0.951535594 },
+        "clef": { "images": 905, "exact": 800, "rate": 0.883977901 },
+        "uob": { "images": 5740, "exact": 5040, "rate": 0.87804878 },
+        "acs": { "images": 282, "exact": 216, "rate": 0.765957447 }
+      },
+      "source_artifact_sha256": "e4bccc50a99c909a71c31aacafa4d3077d5f8859c9ee66ceb95422a6215a0cfa"
+    },
+    {
+      "id": "real-compound-retrieval-50",
+      "run_kind": "provider_backed_retrieval",
+      "scope": "Batch patent retrieval for 50 named therapeutics spanning small molecules and biologics",
+      "metrics": {
+        "compounds": 50,
+        "completed": 49,
+        "failed": 1,
+        "deduplicated_ranked_step2_patent_hits": 17584,
+        "mean_hits_per_compound": 351.7
+      },
+      "source_artifact_sha256": "a7ea123d1dc44e870b02526e8f23e86a98908998a66263f59c707f67b3a262c8"
+    }
+  ],
+  "boundaries": [
+    "These records measure engineering and recorded evaluation protocols, not counsel-adjudicated legal accuracy.",
+    "The public summary does not redistribute source patent images, per-image outputs, datasets or model weights.",
+    "The live March and April artifacts do not embed the exact Git revision or every model checkpoint digest.",
+    "Training-set overlap and patent-family-independent splitting were not excluded for the OCSR evaluations.",
+    "MolDet is non-commercially licensed and MolNexTR provenance remains unresolved; consult MODEL_LICENSES.md."
+  ]
+}

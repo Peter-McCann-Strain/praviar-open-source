@@ -1,6 +1,6 @@
-# Praviar Pipeline — Technical Documentation
+# Chemical Patent Analysis Pipeline — Technical Documentation
 
-> **Praviar Pipeline** is a research pipeline for constructing counsel-review patent evidence around chemical compounds. Given a compound identifier (name, SMILES, CAS, InChI, or InChIKey), it attempts source retrieval, LLM-assisted triage and claim analysis, Doctrine of Equivalents and invalidity screening, deterministic consistency checks, and structured report assembly. Its output is not a legal opinion, does not establish freedom to operate, and has no validated public legal-accuracy result.
+> This working research pipeline constructs counsel-review patent evidence around chemical compounds. Given a compound identifier (name, SMILES, CAS, InChI, or InChIKey), it performs configured source retrieval, LLM-assisted triage and claim analysis, Doctrine of Equivalents and invalidity screening, computer-vision extraction, deterministic consistency checks, and structured report assembly. Its output is not a legal opinion and does not establish freedom to operate.
 
 ---
 
@@ -70,7 +70,7 @@ User Input (compound name/SMILES/CAS/InChI)
 [Step 6]  Invalidity Screening .......... PTAB API, Semantic Scholar, OpenAlex,
     |                                     BigQuery + Claude Sonnet
     v
-[Step 7]  Deterministic Verification .... 10 rule-based checks (no LLM)
+[Step 7]  Deterministic Verification .... configured rule-based check set (no LLM)
     |
     v
 [Step 8]  Report Generation ............. Unified multi-stage pipeline;
@@ -90,7 +90,9 @@ FTOReport (JSON / Markdown / PDF) ........ manifest + output after decision meta
 ```
 
 **Key Design Principles:**
-- **Async throughout** — every I/O operation uses `async`/`await`
+
+- **Async-first orchestration** — network I/O is asynchronous; blocking,
+  subprocess, and CPU-bound work is isolated at explicit boundaries
 - **No silent evidence fallback** — required-evidence failures propagate; explicitly optional paths are configured and recorded
 - **Central runtime policy** — operator-controlled thresholds, weights, and limits live in validated `Settings`; schema and algorithm constants remain in code
 - **Structured logging** — `structlog` with structured key-value pairs at every decision point
@@ -100,6 +102,7 @@ FTOReport (JSON / Markdown / PDF) ........ manifest + output after decision meta
 - **Checkpoint-aware orchestration** — completed resumable stages save checkpoints; failed runs resume only from a compatible completed stage
 
 **Technology Stack:**
+
 - Python 3.11+, asyncio, Pydantic v2, pydantic-settings
 - LLM: Anthropic Claude (Haiku for triage/query expansion/evaluation, Sonnet/Opus-class models for adaptive claim analysis, report narratives, and agentic escalation)
 - Chemistry: RDKit (fingerprints, SMARTS matching, SMILES validation), MolDet/MolScribe/MolSight/MolNexTR/MolGrapher-compatible OCSR components governed by production-evidence gates
@@ -124,7 +127,6 @@ FTOReport (JSON / Markdown / PDF) ........ manifest + output after decision meta
    SearchFunnelEntry[])                               |
             |                                         |
       rank_patents -> family_expansion                |
-      -> drawing_analysis                             |
             |                                         |
             v                                         |
     ranked PatentHit[]                                |
@@ -134,6 +136,9 @@ FTOReport (JSON / Markdown / PDF) ........ manifest + output after decision meta
             v
     TriageResult[] (RELEVANT + POSSIBLY_RELEVANT only)
             |
+      drawing_analysis (post-triage relevant set)
+            |
+            v
       run_world_class_claim_analysis  <----- BigQuery (claims enrichment)
       (single-pass first; agentic escalation when signals require it)
             |
@@ -155,14 +160,17 @@ DoEAssessment[]    v
       verify_analysis  (deterministic, no LLM)
             |
             v
-    VerificationResult (10 checks)
+    VerificationResult (11 checks)
             |
       generate_report  (unified five-stage agentic pipeline)
             |
             v
-        FTOReport
+        provenance-bound FTOReport
             |
-      build_clearance_outputs  (post-report decisioning layer)
+      REPORT_REVIEW checkpoint (blocking when configured)
+            |
+      attach_report_runtime_metadata
+      -> build_clearance_outputs  (post-review decisioning layer)
             |
             v
     ClearanceDecision, MatterGraph, EvidenceIndex
@@ -172,16 +180,16 @@ DoEAssessment[]    v
 
 ## 3. Unified Adaptive Execution
 
-Praviar now has one backend execution profile: `world_class_adaptive`. Public `pipeline_mode`, `claim_analysis_depth`, `--mode`, `--depth`, and `report_pipeline_v2` controls have been removed from API schemas, runtime config, CLI args, org defaults, and checkpoint metadata. Requests or flags that still send those fields are rejected as invalid input rather than translated.
+The pipeline has one backend execution profile: `world_class_adaptive`. Public `pipeline_mode`, `claim_analysis_depth`, `--mode`, `--depth`, and `report_pipeline_v2` controls have been removed from API schemas, runtime config, CLI args, org defaults, and checkpoint metadata. Requests or flags that still send those fields are rejected as invalid input rather than translated.
 
 The former fast and agentic behaviors are preserved as internal stages:
 
-| Stage | Behavior |
-|-------|----------|
-| Single-pass stage | Every patent starts with deterministic context assembly, enriched claims/prosecution/spec evidence, one structured claim-analysis call with extended thinking, and a Haiku evaluator pass. |
-| Agentic escalation stage | The pipeline escalates into `ClaimAnalysisAgent` with tool access for specification lookup, claim-term construction, prosecution context, reasoning traces, and optional perspectives. |
-| Adaptive reviewer | Step 4b uses a compact portfolio review for simple portfolios and agentic critic behavior for dense, high-risk, uncertain, or reviewer-critical portfolios. |
-| Unified report | Step 8 always uses the five-stage agentic report generator and stamps report metadata with `world_class_adaptive`. |
+| Stage                    | Behavior                                                                                                                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Single-pass stage        | Every patent starts with deterministic context assembly, enriched claims/prosecution/spec evidence, one structured claim-analysis call with extended thinking, and a Haiku evaluator pass. |
+| Agentic escalation stage | The pipeline escalates into `ClaimAnalysisAgent` with tool access for specification lookup, claim-term construction, prosecution context, reasoning traces, and optional perspectives.     |
+| Adaptive reviewer        | Step 4b uses a compact portfolio review for simple portfolios and agentic critic behavior for dense, high-risk, uncertain, or reviewer-critical portfolios.                                |
+| Unified report           | Step 8 always uses the five-stage agentic report generator and stamps report metadata with `world_class_adaptive`.                                                                         |
 
 Escalation is automatic and auditable. Signals include high-risk triage, dense patent sets, poor evaluator quality, uncertainty, weak source health, drawing evidence, Markush ambiguity, reviewer-critical findings, and runtime-global escalation reasons. `PatentAnalysis` records `analysis_execution_profile`, `analysis_stage`, `analysis_escalated`, and `analysis_escalation_reasons`; these are audit metadata, not user-selectable modes.
 
@@ -231,12 +239,12 @@ Resolves arbitrary user input into a fully characterised chemical compound with 
 
 Uses a search-agent pattern: Claude Haiku is given a `web_search` tool (Tavily) and autonomously decides what to search for — CPC codes, assignee names, production methods — then generates structured output grounded in real search results. The explicitly ungrounded screening profile can use constrained model-only expansion when Tavily is not configured and records `model_without_live_grounding` provenance. Counsel, required-record, and search-loop execution require grounding; missing or failed Tavily then propagates instead of silently weakening the evidence boundary.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `resolve_similarity_threshold` | 0.7 | PubChem similarity cutoff |
-| `resolve_max_related_compounds` | 20 | Max related compounds returned |
-| `resolve_max_synonyms` | 100 | Max synonyms stored |
-| `resolve_tanimoto_step` | 0.02 | Score decay per rank position |
+| Setting                         | Default | Description                    |
+| ------------------------------- | ------- | ------------------------------ |
+| `resolve_similarity_threshold`  | 0.7     | PubChem similarity cutoff      |
+| `resolve_max_related_compounds` | 20      | Max related compounds returned |
+| `resolve_max_synonyms`          | 100     | Max synonyms stored            |
+| `resolve_tanimoto_step`         | 0.02    | Score decay per rank position  |
 
 ---
 
@@ -253,32 +261,35 @@ set with legal status, family data, and patent-term calculations.
 
 **Phase 1 — Parallel multi-source search:**
 
-| Source capability | What It Searches | Match Type |
-|--------|-----------------|------------|
-| PubChem SDQ | CID-linked patents, rich metadata (title, abstract, CPC, dates, compound count) | exact |
-| SureChEMBL | Exact SMILES + Tanimoto similarity + substructure | exact/similarity/substructure |
-| BigQuery (full-text) | Claims text by name, top N synonyms, top M CAS numbers | text |
-| BigQuery (annotations) | NLP-extracted compound mentions | text |
-| PatCID | Local InChIKey index (exact + prefix/connectivity layer) | exact |
-| PubChem similarity / genus | Related structures or genus candidates when applicable | similarity/genus |
-| Expanded BigQuery / EPO | CPC, assignee, translated-claim and expanded-query paths when configured | text |
-| Jurisdiction sources | KIPRIS, PatentScope and USPTO ODP when requested and configured | source-specific |
-| NCBI patent sequence | Sequence records for biologic or peptide matters | sequence |
+| Source capability          | What It Searches                                                                | Match Type                    |
+| -------------------------- | ------------------------------------------------------------------------------- | ----------------------------- |
+| PubChem SDQ                | CID-linked patents, rich metadata (title, abstract, CPC, dates, compound count) | exact                         |
+| SureChEMBL                 | Exact SMILES + Tanimoto similarity + substructure                               | exact/similarity/substructure |
+| BigQuery (full-text)       | Claims text by name, top N synonyms, top M CAS numbers                          | text                          |
+| BigQuery (annotations)     | NLP-extracted compound mentions                                                 | text                          |
+| PatCID                     | Local InChIKey index (exact + prefix/connectivity layer)                        | exact                         |
+| PubChem similarity / genus | Related structures or genus candidates when applicable                          | similarity/genus              |
+| Expanded BigQuery / EPO    | CPC, assignee, translated-claim and expanded-query paths when configured        | text                          |
+| Jurisdiction sources       | KIPRIS, PatentScope and USPTO ODP when requested and configured                 | source-specific               |
+| NCBI patent sequence       | Sequence records for biologic or peptide matters                                | sequence                      |
 
 The selected source tasks run concurrently. Disabled, not-applicable,
 not-configured and failed capabilities are recorded explicitly in `SourceHealth`.
 
 **Phase 2 — Merge and deduplicate:**
+
 - Union by normalised patent ID
 - Merge sources, confidence scores, match types
 - Confidence based on source count: 1->0.30, 2->0.60, 3->0.85, 4+->0.95
 
 **Phase 3 — Citation network traversal** (if `search_citation_traversal_enabled`):
+
 - Seed IDs from multi-source search
 - Traverse examiner citations up to configurable depth
 - Add newly discovered patents
 
 **Phase 4 — Post-search enrichment** (concurrent, best-effort):
+
 - **Legal status** — EPO OPS INPADOC events
 - **Patent family** — EPO OPS DOCDB family members
 - **Patent term** — USPTO ODP for US granted patents
@@ -286,24 +297,24 @@ not-configured and failed capabilities are recorded explicitly in `SourceHealth`
 **Iterative search loop** (if `search_loop_enabled`):
 The search loop is implemented in `pipeline/search_loop.py` (consolidated from six files). When enabled, Steps 2 and 3 run in up to `search_loop_max_iterations` iterations. Between iterations a coverage assessment identifies gaps; subsequent iterations search with refined queries and triage only newly discovered patents. The loop exits early when `search_loop_coverage_threshold` is met. The adaptive runtime may enable or continue the loop when source-health, coverage, or reviewer-critical signals require more evidence; see Section 3.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `search_max_sdq_patents` | 50000 | Max from PubChem SDQ |
-| `search_max_ranked_results` | 1000 | Configured Top N after ranking |
-| `search_allowed_jurisdictions` | ["US", "WO", "EP", "JP", "KR", "CN", "IN", "CA", "AU"] | Jurisdiction targets |
-| `search_tanimoto_threshold` | 0.55 | SureChEMBL similarity cutoff |
-| `search_surechembl_substructure_enabled` | true | Enable substructure search |
-| `search_max_synonyms_bigquery` | 25 | Synonyms sent to BigQuery |
-| `search_max_cas_bigquery` | 10 | CAS numbers sent to BigQuery |
-| `search_citation_traversal_enabled` | true | Enable citation network |
-| `search_citation_max_depth` | 2 | Citation traversal depth |
-| `search_citation_max_per_level` | 50 | Max citations per level |
-| `search_max_legal_status_patents` | 200 | Patents enriched with legal status |
-| `search_max_family_patents` | 50 | Patents enriched with family data |
-| `search_max_patent_term_calc` | 50 | Patents with term calculation |
-| `search_loop_enabled` | false | Enable iterative search loop |
-| `search_loop_max_iterations` | 3 | Max search loop iterations |
-| `search_loop_coverage_threshold` | 0.7 | Early-exit coverage confidence |
+| Setting                                  | Default                                                | Description                        |
+| ---------------------------------------- | ------------------------------------------------------ | ---------------------------------- |
+| `search_max_sdq_patents`                 | 50000                                                  | Max from PubChem SDQ               |
+| `search_max_ranked_results`              | 1000                                                   | Configured Top N after ranking     |
+| `search_allowed_jurisdictions`           | ["US", "WO", "EP", "JP", "KR", "CN", "IN", "CA", "AU"] | Jurisdiction targets               |
+| `search_tanimoto_threshold`              | 0.55                                                   | SureChEMBL similarity cutoff       |
+| `search_surechembl_substructure_enabled` | true                                                   | Enable substructure search         |
+| `search_max_synonyms_bigquery`           | 25                                                     | Synonyms sent to BigQuery          |
+| `search_max_cas_bigquery`                | 10                                                     | CAS numbers sent to BigQuery       |
+| `search_citation_traversal_enabled`      | true                                                   | Enable citation network            |
+| `search_citation_max_depth`              | 2                                                      | Citation traversal depth           |
+| `search_citation_max_per_level`          | 50                                                     | Max citations per level            |
+| `search_max_legal_status_patents`        | 200                                                    | Patents enriched with legal status |
+| `search_max_family_patents`              | 50                                                     | Patents enriched with family data  |
+| `search_max_patent_term_calc`            | 50                                                     | Patents with term calculation      |
+| `search_loop_enabled`                    | false                                                  | Enable iterative search loop       |
+| `search_loop_max_iterations`             | 3                                                      | Max search loop iterations         |
+| `search_loop_coverage_threshold`         | 0.7                                                    | Early-exit coverage confidence     |
 
 ### Step 2b — Patent Ranking Funnel
 
@@ -354,17 +365,17 @@ configured BM25 pool (rank_bm25_pool_size)
 configured final cap (search_max_ranked_results)
 ```
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `rank_weight_cpc` | 0.30 | CPC relevance weight |
-| `rank_weight_compound_count` | 0.20 | Compound count weight |
-| `rank_weight_recency` | 0.15 | Recency weight |
-| `rank_weight_title` | 0.15 | Title match weight |
-| `rank_weight_multi_source` | 0.20 | Multi-source signal weight |
-| `rank_bm25_pool_size` | 1000 | Patents sent to BM25 stage |
-| `rank_blend_composite_2way` | 0.6 | Composite weight in 2-way blend |
-| `rank_blend_bm25_2way` | 0.4 | BM25 weight in 2-way blend |
-| `embedding_ranking_enabled` | true | Enable configured embedding re-ranking |
+| Setting                      | Default | Description                            |
+| ---------------------------- | ------- | -------------------------------------- |
+| `rank_weight_cpc`            | 0.30    | CPC relevance weight                   |
+| `rank_weight_compound_count` | 0.20    | Compound count weight                  |
+| `rank_weight_recency`        | 0.15    | Recency weight                         |
+| `rank_weight_title`          | 0.15    | Title match weight                     |
+| `rank_weight_multi_source`   | 0.20    | Multi-source signal weight             |
+| `rank_bm25_pool_size`        | 1000    | Patents sent to BM25 stage             |
+| `rank_blend_composite_2way`  | 0.6     | Composite weight in 2-way blend        |
+| `rank_blend_bm25_2way`       | 0.4     | BM25 weight in 2-way blend             |
+| `embedding_ranking_enabled`  | true    | Enable configured embedding re-ranking |
 
 ### Step 2c — Family Expansion
 
@@ -401,12 +412,12 @@ Uses Claude Haiku (fast, cheap) to classify each patent as RELEVANT, POSSIBLY_RE
 
 **Concurrency:** `asyncio.Semaphore(triage_concurrency)` limits parallel LLM calls. Prompt caching via `cache_system=True` reduces cost across batches.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `triage_batch_size` | 10 | Patents per LLM call |
-| `triage_concurrency` | 3 | Max parallel triage calls |
-| `triage_max_abstract_chars` | 5000 | Abstract truncation |
-| `triage_max_claims_chars` | 30000 | Claims truncation |
+| Setting                     | Default | Description               |
+| --------------------------- | ------- | ------------------------- |
+| `triage_batch_size`         | 10      | Patents per LLM call      |
+| `triage_concurrency`        | 3       | Max parallel triage calls |
+| `triage_max_abstract_chars` | 5000    | Abstract truncation       |
+| `triage_max_claims_chars`   | 30000   | Claims truncation         |
 
 ---
 
@@ -438,12 +449,12 @@ The core of the FTO analysis. For each triaged patent, it runs the unified `worl
 
 ### Risk Level Determination
 
-| Risk | Criteria |
-|------|----------|
-| HIGH | >=1 independent claim with ALL elements MET |
-| MEDIUM | Most elements MET with some UNCLEAR |
-| LOW | No claim fully met |
-| CLEAR | No claims cover the target compound |
+| Risk   | Criteria                                    |
+| ------ | ------------------------------------------- |
+| HIGH   | >=1 independent claim with ALL elements MET |
+| MEDIUM | Most elements MET with some UNCLEAR         |
+| LOW    | No claim fully met                          |
+| CLEAR  | No claims cover the target compound         |
 
 ### Step 4b — Portfolio Critic
 
@@ -451,18 +462,18 @@ The core of the FTO analysis. For each triaged patent, it runs the unified `worl
 
 After the per-patent analysis batch, an adaptive portfolio-level critic review runs when `critic_enabled=True`. Compact review is used for simple, clear portfolios; agentic critic behavior is used for dense, high-risk, uncertain, escalated, or reviewer-critical portfolios. It checks cross-portfolio consistency: conflicting risk ratings for related claims, patterns suggesting under- or over-claiming, and coherence across the patent landscape. It produces a `CriticReport` with findings and a quality score. When `critic_reanalysis_enabled=True`, the critic may flag up to `critic_reanalysis_max_patents` patents for re-analysis.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `max_analysis_patents` | 100 | Max patents analysed (cost control) |
-| `analysis_concurrency` | 5 | Max parallel analysis calls |
-| `analysis_thinking_budget_tokens` | 32000 | Extended thinking token budget |
-| `analysis_max_tokens` | 64000 | Max output tokens per analysis call |
-| `critic_enabled` | true | Enable portfolio critic review |
-| `critic_max_tokens` | 16384 | Max output tokens for critic |
-| `critic_reanalysis_enabled` | false | Allow critic to trigger re-analysis |
-| `critic_reanalysis_max_patents` | 3 | Max patents re-analysed by critic |
-| `agentic_max_agent_rounds` | 5 | Max research rounds for agentic escalation |
-| `deterministic_risk_computation` | true | Compute risk from element statuses |
+| Setting                           | Default | Description                                |
+| --------------------------------- | ------- | ------------------------------------------ |
+| `max_analysis_patents`            | 100     | Max patents analysed (cost control)        |
+| `analysis_concurrency`            | 5       | Max parallel analysis calls                |
+| `analysis_thinking_budget_tokens` | 32000   | Extended thinking token budget             |
+| `analysis_max_tokens`             | 64000   | Max output tokens per analysis call        |
+| `critic_enabled`                  | true    | Enable portfolio critic review             |
+| `critic_max_tokens`               | 16384   | Max output tokens for critic               |
+| `critic_reanalysis_enabled`       | false   | Allow critic to trigger re-analysis        |
+| `critic_reanalysis_max_patents`   | 3       | Max patents re-analysed by critic          |
+| `agentic_max_agent_rounds`        | 5       | Max research rounds for agentic escalation |
+| `deterministic_risk_computation`  | true    | Compute risk from element statuses         |
 
 ---
 
@@ -493,10 +504,10 @@ For elements that were NOT_MET or PARTIALLY_MET in HIGH/MEDIUM risk patents, che
 
 5. **Confidence bands:** HIGH (>=0.65), MODERATE (>=0.40), LOW (<0.40)
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `max_doe_candidates` | 15 | Max elements assessed for DoE |
-| `doe_concurrency` | 2 | Max parallel FWR calls |
+| Setting              | Default | Description                   |
+| -------------------- | ------- | ----------------------------- |
+| `max_doe_candidates` | 15      | Max elements assessed for DoE |
+| `doe_concurrency`    | 2       | Max parallel FWR calls        |
 
 ---
 
@@ -509,14 +520,15 @@ For HIGH and MEDIUM risk patents, screens for potential invalidity arguments und
 
 **Per blocking patent, 4 tasks run in parallel:**
 
-| Task | Source | Output |
-|------|--------|--------|
-| PTAB check | USPTO PTAB API | `PTABResult` — proceedings, challenged/cancelled claims |
-| Scholarly prior art | Semantic Scholar + OpenAlex | `list[PriorArtReference]` — papers published before priority date |
-| Examiner citations | BigQuery (batch) | Dict of examiner + applicant cited references |
-| LLM invalidity screening | Claude Sonnet | `InvalidityLLMResponse` — arguments, claim charts, Graham factors |
+| Task                     | Source                      | Output                                                            |
+| ------------------------ | --------------------------- | ----------------------------------------------------------------- |
+| PTAB check               | USPTO PTAB API              | `PTABResult` — proceedings, challenged/cancelled claims           |
+| Scholarly prior art      | Semantic Scholar + OpenAlex | `list[PriorArtReference]` — papers published before priority date |
+| Examiner citations       | BigQuery (batch)            | Dict of examiner + applicant cited references                     |
+| LLM invalidity screening | Claude Sonnet               | `InvalidityLLMResponse` — arguments, claim charts, Graham factors |
 
 **LLM invalidity screening produces:**
+
 - Invalidity arguments (anticipation, obviousness, written description)
 - Claim charts — element-by-element mapping to prior art disclosures
 - Graham factors — scope of prior art, differences, level of ordinary skill, secondary considerations
@@ -524,10 +536,11 @@ For HIGH and MEDIUM risk patents, screens for potential invalidity arguments und
 
 **Confidence bands:** HIGH (>=0.70), MODERATE (>=0.45), LOW (<0.45)
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `scholarly_max_synonyms` | 5 | Synonyms used in scholarly search |
-| `scholarly_early_exit_threshold` | 20 | Stop secondary queries if enough results |
+| Setting                          | Default | Description                              |
+| -------------------------------- | ------- | ---------------------------------------- |
+| `scholarly_max_synonyms`         | 5       | Synonyms used in scholarly search        |
+| `scholarly_early_exit_threshold` | 20      | Stop secondary queries if enough results |
+
 Lens client wrappers exist for offline experiments, but the active runtime plan keeps Lens out of Step 2 and Step 6. Do not require or document `LENS_API_KEY` for the hosted reference until that gate is intentionally reopened.
 
 ---
@@ -537,22 +550,23 @@ Lens client wrappers exist for offline experiments, but the active runtime plan 
 **File:** `praviar_pipeline/src/praviar_pipeline/pipeline/step7_verify.py`
 **Entry point:** `def verify_analysis(analyses, doe_assessments, invalidity_assessments, search_results) -> VerificationResult`
 
-Runs 10 deterministic checks (no LLM) to validate internal consistency across all pipeline outputs. This is the safety net before report generation.
+Runs 11 deterministic checks (no LLM) to validate internal consistency across all pipeline outputs. This is the safety net before report generation.
 
-**The 10 Checks:**
+**The 11 Checks:**
 
-| # | Check | What It Validates |
-|---|-------|-------------------|
-| 1 | Citation grounding | Every analysed patent ID exists in search results |
-| 2 | Chemical entity validation | SMILES in design-around suggestions parse in RDKit |
-| 3 | Risk consistency | HIGH risk requires >=1 MET/PARTIALLY_MET claim |
-| 4 | Date consistency | Expiry years fall in 1990-2050 range |
-| 5 | Legal status consistency | HIGH risk patents have ACTIVE/UNKNOWN status (not EXPIRED/LAPSED/REVOKED) |
-| 6 | DoE consistency | All DoE assessments reference valid patent/claim combos from Step 4 |
-| 7 | Invalidity consistency | Invalidity assessments reference analysed patents with valid strength values |
-| 8 | Claims grounded | Analysed patents have claims text in search results |
-| 9 | Claim chart consistency | Chart references point to valid prior art IDs |
-| 10 | Prosecution history consistency | `estoppel_applies` matches narrowing amendment counts |
+| #   | Check                           | What It Validates                                                            |
+| --- | ------------------------------- | ---------------------------------------------------------------------------- |
+| 1   | Citation grounding              | Every analysed patent ID exists in search results                            |
+| 2   | Chemical entity validation      | SMILES in design-around suggestions parse in RDKit                           |
+| 3   | Risk consistency                | HIGH risk requires >=1 MET/PARTIALLY_MET claim                               |
+| 4   | Date consistency                | Expiry years fall in 1990-2050 range                                         |
+| 5   | Legal status consistency        | HIGH risk patents have ACTIVE/UNKNOWN status (not EXPIRED/LAPSED/REVOKED)    |
+| 6   | DoE consistency                 | All DoE assessments reference valid patent/claim combos from Step 4          |
+| 7   | Invalidity consistency          | Invalidity assessments reference analysed patents with valid strength values |
+| 8   | Claims grounded                 | Analysed patents have claims text in search results                          |
+| 9   | Claim chart consistency         | Chart references point to valid prior art IDs                                |
+| 10  | Prosecution history consistency | `estoppel_applies` matches narrowing amendment counts                        |
+| 11  | Orange Book cross-reference     | Analysed patents are checked against available FDA Orange Book listings      |
 
 All checks run — no early exit. Issues are aggregated in `VerificationResult`.
 
@@ -589,21 +603,24 @@ Key output fields include `bibliography` (auto-generated with Google Patents / D
 
 Sections that fail validation are retried up to `report_max_section_retries` times.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `report_section_concurrency` | 6 | Max concurrent section generation calls |
-| `report_verification_enabled` | true | Enable LLM fact verification stage |
-| `report_bibliography_enabled` | true | Enable auto-generated reference appendix |
-| `report_verification_thinking_budget` | 32768 | Extended thinking budget for verification agent |
-| `report_max_section_retries` | 2 | Max retries per section after validation failure |
+| Setting                               | Default | Description                                      |
+| ------------------------------------- | ------- | ------------------------------------------------ |
+| `report_section_concurrency`          | 6       | Max concurrent section generation calls          |
+| `report_verification_enabled`         | true    | Enable LLM fact verification stage               |
+| `report_bibliography_enabled`         | true    | Enable auto-generated reference appendix         |
+| `report_verification_thinking_budget` | 32768   | Extended thinking budget for verification agent  |
+| `report_max_section_retries`          | 2       | Max retries per section after validation failure |
 
 ### Output Formats
 
-| Format | Implementation |
-|--------|---------------|
-| JSON | Native Pydantic serialisation |
-| Markdown | `render_markdown(report)` — deterministic, no LLM |
-| PDF | `render_pdf(report)` — Typst template + Matplotlib charts |
+The pipeline and CLI write JSON, Markdown, or PDF directly. The application
+export service adds role-authorised DOCX, PPTX, XLSX, and CSV renderers around
+the same report contract.
+
+| Surface           | Formats                          | Implementation                                                                                                          |
+| ----------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Pipeline and CLI  | JSON, Markdown, PDF              | Native Pydantic serialisation, `render_markdown(report)`, and Typst/Matplotlib PDF rendering                            |
+| API and workbench | PDF, DOCX, PPTX, XLSX, CSV, JSON | `api/src/api/services/reports.py` plus format-specific modules under `praviar_pipeline/src/praviar_pipeline/rendering/` |
 
 ---
 
@@ -615,19 +632,19 @@ The runtime orchestration layer wraps the 8 pipeline steps in checkpoint-aware, 
 
 **Key files:**
 
-| File | Responsibility |
-|------|---------------|
-| `run_execution.py` | Top-level flow: `execute_resolution_to_search_flow`, `execute_analysis_to_verification_flow` |
-| `pipeline_steps.py` | Per-step runners: `run_resolution_step`, `run_query_expansion_step`, `run_search_step`, `run_triage_step`, `run_analysis_step` |
-| `post_analysis.py` | Post-analysis runners: `run_critic_review`, `run_doe_assessment`, `run_invalidity_assessment`, `run_verification_step` |
-| `flow_bootstrap.py` | `bootstrap_run_context` — creates the mutable run context, restores from checkpoint if `--resume` is supplied, seeds the RNG, installs cost/provenance/cache context, and enables the search loop when initial adaptive-escalation reasons require it |
-| `flow_finalize.py` | `finalize_report_output` — tears down the cost tracker, stamps the manifest |
-| `checkpoints.py` | `RuntimeCheckpointState`, `restore_runtime_state` |
-| `search_enrichment.py` | `run_post_search_enrichment`, `run_claims_enrichment` |
-| `live_collectors.py` | `execute_live_evidence_collectors` — deterministic authoritative collectors for gaps identified at runtime |
-| `audit.py` | `build_triage_audit`, `build_analysis_audit` |
-| `run_lifecycle.py` | Cancellation helpers, step timing, deadline enforcement |
-| `reanalysis.py` | Critic-triggered re-analysis flow |
+| File                   | Responsibility                                                                                                                                                                                                                                        |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `run_execution.py`     | Top-level flow: `execute_resolution_to_search_flow`, `execute_analysis_to_verification_flow`                                                                                                                                                          |
+| `pipeline_steps.py`    | Per-step runners: `run_resolution_step`, `run_query_expansion_step`, `run_search_step`, `run_triage_step`, `run_analysis_step`                                                                                                                        |
+| `post_analysis.py`     | Post-analysis runners: `run_critic_review`, `run_doe_assessment`, `run_invalidity_assessment`, `run_verification_step`                                                                                                                                |
+| `flow_bootstrap.py`    | `bootstrap_run_context` — creates the mutable run context, restores from checkpoint if `--resume` is supplied, seeds the RNG, installs cost/provenance/cache context, and enables the search loop when initial adaptive-escalation reasons require it |
+| `flow_finalize.py`     | `finalize_report_output` — tears down the cost tracker, stamps the manifest                                                                                                                                                                           |
+| `checkpoints.py`       | `RuntimeCheckpointState`, `restore_runtime_state`                                                                                                                                                                                                     |
+| `search_enrichment.py` | `run_post_search_enrichment`, `run_claims_enrichment`                                                                                                                                                                                                 |
+| `live_collectors.py`   | `execute_live_evidence_collectors` — deterministic authoritative collectors for gaps identified at runtime                                                                                                                                            |
+| `audit.py`             | `build_triage_audit`, `build_analysis_audit`                                                                                                                                                                                                          |
+| `run_lifecycle.py`     | Cancellation helpers, step timing, deadline enforcement                                                                                                                                                                                               |
+| `reanalysis.py`        | Critic-triggered re-analysis flow                                                                                                                                                                                                                     |
 
 **Checkpoint behaviour:**
 `checkpoint_enabled` (default `True`) saves a `PipelineCheckpoint` after each completed step. A run interrupted mid-pipeline can be resumed from the last checkpoint using `--resume <checkpoint_dir>`. Current checkpoints carry `execution_profile="world_class_adaptive"` and `analysis_escalation_reasons`. Legacy mode/depth checkpoint fields are rejected; there is no compatibility shim for `pipeline_mode` or `claim_analysis_depth`.
@@ -639,7 +656,7 @@ When `hitl_enabled=True`, configured identity, analysis, and report-review check
 
 ## 13. Decisioning and Evidence Graph Layer
 
-**Directory:** `praviar_pipeline/src/praviar_pipeline/pipeline/runtime/` (decisioning_* and evidence_* files, matter_graph_*, matter_store.py)
+**Directory:** `praviar_pipeline/src/praviar_pipeline/pipeline/runtime/` (decisioning*\* and evidence*_ files, matter*graph*_, matter_store.py)
 
 Report finalization builds an initial non-vision `MatterEvidenceIndex` into the draft before the blocking report-review checkpoint. After approval (or when review is not configured), the runtime builds the deterministic clearance layer that answers the top-line question: is this compound clear? `attach_report_runtime_metadata` invokes `build_clearance_outputs` only after that checkpoint; the builder reconstructs the index from the completed report and patent records, computes coverage and gates, and assembles clearance metadata. This layer is not LLM-driven.
 
@@ -762,16 +779,16 @@ ClearanceDecision
 
 ### Key Enums
 
-| Enum | Values | Used In |
-|------|--------|---------|
-| `RiskLevel` | HIGH, MEDIUM, LOW, CLEAR | PatentAnalysis, RiskSummary |
-| `ElementStatus` | MET, NOT_MET, PARTIALLY_MET, UNCLEAR | ClaimElement, ClaimAnalysis |
-| `Relevance` | RELEVANT, POSSIBLY_RELEVANT, NOT_RELEVANT | TriageResult |
-| `PatentSource` | BIGQUERY, SURECHEMBL, PUBCHEM, PATCID, INPADOC | PatentHit |
-| `LegalStatus` | ACTIVE, EXPIRED, LAPSED, REVOKED, PENDING, UNKNOWN | PatentHit enrichment |
-| `SourceStatus` | OK, FAILED, SKIPPED | SourceHealthEntry |
-| `ClearanceOutcome` | CLEAR (`clear`), UNCLEAR (`unclear`), BLOCKED (`blocked`) | ClearanceDecision |
-| `MatterNodeType` | COMPOUND, PATENT, CLAIM, APPLICATION, PRIOR_ART, ... | MatterGraph |
+| Enum               | Values                                                    | Used In                     |
+| ------------------ | --------------------------------------------------------- | --------------------------- |
+| `RiskLevel`        | HIGH, MEDIUM, LOW, CLEAR                                  | PatentAnalysis, RiskSummary |
+| `ElementStatus`    | MET, NOT_MET, PARTIALLY_MET, UNCLEAR                      | ClaimElement, ClaimAnalysis |
+| `Relevance`        | RELEVANT, POSSIBLY_RELEVANT, NOT_RELEVANT                 | TriageResult                |
+| `PatentSource`     | BIGQUERY, SURECHEMBL, PUBCHEM, PATCID, INPADOC            | PatentHit                   |
+| `LegalStatus`      | ACTIVE, EXPIRED, LAPSED, REVOKED, PENDING, UNKNOWN        | PatentHit enrichment        |
+| `SourceStatus`     | OK, FAILED, SKIPPED                                       | SourceHealthEntry           |
+| `ClearanceOutcome` | CLEAR (`clear`), UNCLEAR (`unclear`), BLOCKED (`blocked`) | ClearanceDecision           |
+| `MatterNodeType`   | COMPOUND, PATENT, CLAIM, APPLICATION, PRIOR_ART, ...      | MatterGraph                 |
 
 ---
 
@@ -779,22 +796,23 @@ ClearanceDecision
 
 All clients inherit from `AsyncClientMixin` (async context manager). Located in `praviar_pipeline/src/praviar_pipeline/clients/`.
 
-| Client | External Service | Auth | Rate Limit | Key Methods |
-|--------|-----------------|------|------------|-------------|
-| `PubChemClient` | PubChem PUG REST + SDQ | None (public) | Operator-configured local cap | `resolve_by_name`, `sdq_search_patents`, `similarity_search` |
-| `BigQueryClient` | Google BigQuery (patents-public-data) | Service account | Bytes billed cap | `search_patents_by_compound`, `get_patent_claims_batch`, `get_examiner_citations_batch` |
-| `SureChEMBLClient` | SureChEMBL REST | None | Operator-configured local cap | `search_by_smiles`, `similarity_search`, `substructure_search` |
-| `PatCIDClient` | Local SQLite index | None | None | `lookup_by_inchikey`, `lookup_by_inchikey_prefix` |
-| `USPTOODPClient` | USPTO Open Data Portal v1 | API key | Operator-configured local cap | `get_file_wrapper_documents`, `get_application_data`, `get_continuity_data` |
-| `PTABClient` | USPTO PTAB API v3 | Bearer token | — | `get_proceedings`, `get_final_written_decisions` |
-| `EPOOPSClient` | EPO OPS v3.2 | OAuth2 (key/secret) | Operator-configured local cap | `get_legal_status`, `get_family` |
-| `SemanticScholarClient` | Semantic Scholar Graph API | Optional API key | Conservative local cap | `search_papers`, `get_paper` |
-| `OpenAlexClient` | OpenAlex API | API key required when used | Operator-configured local cap | `search_works` |
-| `LensClient` | Lens.org API | Bearer token | Operator-configured local cap | Dormant/offline experiments only; not scheduled by the active runtime |
-| `TavilyClient` | Tavily Search API | API key | SDK-managed | `search` (used by query expansion agent) |
-| `ClaudeClient` | Anthropic Claude API | API key | SDK-managed | `complete`, `complete_with_thinking`, `complete_text` |
+| Client                  | External Service                      | Auth                       | Rate Limit                    | Key Methods                                                                             |
+| ----------------------- | ------------------------------------- | -------------------------- | ----------------------------- | --------------------------------------------------------------------------------------- |
+| `PubChemClient`         | PubChem PUG REST + SDQ                | None (public)              | Operator-configured local cap | `resolve_by_name`, `sdq_search_patents`, `similarity_search`                            |
+| `BigQueryClient`        | Google BigQuery (patents-public-data) | Service account            | Bytes billed cap              | `search_patents_by_compound`, `get_patent_claims_batch`, `get_examiner_citations_batch` |
+| `SureChEMBLClient`      | SureChEMBL REST                       | None                       | Operator-configured local cap | `search_by_smiles`, `similarity_search`, `substructure_search`                          |
+| `PatCIDClient`          | Local SQLite index                    | None                       | None                          | `lookup_by_inchikey`, `lookup_by_inchikey_prefix`                                       |
+| `USPTOODPClient`        | USPTO Open Data Portal v1             | API key                    | Operator-configured local cap | `get_file_wrapper_documents`, `get_application_data`, `get_continuity_data`             |
+| `PTABClient`            | USPTO PTAB API v3                     | Bearer token               | —                             | `get_proceedings`, `get_final_written_decisions`                                        |
+| `EPOOPSClient`          | EPO OPS v3.2                          | OAuth2 (key/secret)        | Operator-configured local cap | `get_legal_status`, `get_family`                                                        |
+| `SemanticScholarClient` | Semantic Scholar Graph API            | Optional API key           | Conservative local cap        | `search_papers`, `get_paper`                                                            |
+| `OpenAlexClient`        | OpenAlex API                          | API key required when used | Operator-configured local cap | `search_works`                                                                          |
+| `LensClient`            | Lens.org API                          | Bearer token               | Operator-configured local cap | Dormant/offline experiments only; not scheduled by the active runtime                   |
+| `TavilyClient`          | Tavily Search API                     | API key                    | SDK-managed                   | `search` (used by query expansion agent)                                                |
+| `ClaudeClient`          | Anthropic Claude API                  | API key                    | SDK-managed                   | `complete`, `complete_with_thinking`, `complete_text`                                   |
 
 ### Retry Strategy (all HTTP clients)
+
 - **tenacity**: 3 attempts, exponential backoff (1s initial, 10-20s max)
 - **Authentication errors**: never retried (fail immediately)
 - **404 responses**: return empty dict/list (resource not found is not an error)
@@ -808,44 +826,44 @@ All settings are in `praviar_pipeline/src/praviar_pipeline/config.py` via `pydan
 
 ### API Keys
 
-| Setting | Env Var | Required |
-|---------|---------|----------|
-| `anthropic_api_key` | `ANTHROPIC_API_KEY` | Yes (raises `ConfigurationError`) |
-| `google_application_credentials` | `GOOGLE_APPLICATION_CREDENTIALS` | For BigQuery |
-| `bigquery_project_id` | `BIGQUERY_PROJECT_ID` | For BigQuery |
-| `uspto_odp_api_key` | `USPTO_ODP_API_KEY` | For USPTO/PTAB |
-| `ops_consumer_key` | `OPS_CONSUMER_KEY` | For EPO OPS |
-| `ops_consumer_secret` | `OPS_CONSUMER_SECRET` | For EPO OPS |
-| `semantic_scholar_api_key` | `SEMANTIC_SCHOLAR_API_KEY` | Optional (faster rate) |
-| `openalex_api_key` | `OPENALEX_API_KEY` | Required when OpenAlex is used (fails before request when missing) |
-| `tavily_api_key` | `TAVILY_API_KEY` | Optional (query expansion grounding) |
+| Setting                          | Env Var                          | Required                                                           |
+| -------------------------------- | -------------------------------- | ------------------------------------------------------------------ |
+| `anthropic_api_key`              | `ANTHROPIC_API_KEY`              | Yes (raises `ConfigurationError`)                                  |
+| `google_application_credentials` | `GOOGLE_APPLICATION_CREDENTIALS` | For BigQuery                                                       |
+| `bigquery_project_id`            | `BIGQUERY_PROJECT_ID`            | For BigQuery                                                       |
+| `uspto_odp_api_key`              | `USPTO_ODP_API_KEY`              | For USPTO/PTAB                                                     |
+| `ops_consumer_key`               | `OPS_CONSUMER_KEY`               | For EPO OPS                                                        |
+| `ops_consumer_secret`            | `OPS_CONSUMER_SECRET`            | For EPO OPS                                                        |
+| `semantic_scholar_api_key`       | `SEMANTIC_SCHOLAR_API_KEY`       | Optional (faster rate)                                             |
+| `openalex_api_key`               | `OPENALEX_API_KEY`               | Required when OpenAlex is used (fails before request when missing) |
+| `tavily_api_key`                 | `TAVILY_API_KEY`                 | Optional (query expansion grounding)                               |
 
 ### LLM Models
 
-| Setting | Default | Used For |
-|---------|---------|----------|
-| `claude_triage_model` | claude-haiku-4-5-20251001 | Triage (Step 3), evaluator (Step 4), query expansion (Step 1b) |
-| `claude_analysis_model` | claude-sonnet-4-6 | DoE FWR (Step 5), invalidity (Step 6), report narratives (Step 8), and adaptive portfolio review |
-| `claude_deep_model` | claude-sonnet-4-6 | Step 4 single-pass analysis and agentic escalation model role |
+| Setting                 | Default                   | Used For                                                                                         |
+| ----------------------- | ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `claude_triage_model`   | claude-haiku-4-5-20251001 | Triage (Step 3), evaluator (Step 4), query expansion (Step 1b)                                   |
+| `claude_analysis_model` | claude-sonnet-4-6         | DoE FWR (Step 5), invalidity (Step 6), report narratives (Step 8), and adaptive portfolio review |
+| `claude_deep_model`     | claude-sonnet-4-6         | Step 4 single-pass analysis and agentic escalation model role                                    |
 
 ### Execution Profile
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `search_loop_enabled` | false | Enable iterative search loop. Runtime signals may also enable it during adaptive execution. |
-| `agentic_max_agent_rounds` | 5 | Max research rounds for agentic escalation. |
-| `agentic_observation_masking` | true | Mask old tool outputs during agentic escalation. |
-| `agentic_scratchpad_enabled` | true | Maintain structured scratchpad state across agent rounds. |
+| Setting                       | Default | Description                                                                                 |
+| ----------------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `search_loop_enabled`         | false   | Enable iterative search loop. Runtime signals may also enable it during adaptive execution. |
+| `agentic_max_agent_rounds`    | 5       | Max research rounds for agentic escalation.                                                 |
+| `agentic_observation_masking` | true    | Mask old tool outputs during agentic escalation.                                            |
+| `agentic_scratchpad_enabled`  | true    | Maintain structured scratchpad state across agent rounds.                                   |
 
 ### Pipeline Concurrency
 
-| Setting | Default | Controls |
-|---------|---------|----------|
-| `triage_concurrency` | 3 | Parallel Haiku calls in Step 3 |
-| `analysis_concurrency` | 5 | Parallel patent-analysis calls in Step 4 and invalidity calls in Step 6 |
-| `doe_concurrency` | 2 | Parallel FWR calls in Step 5 |
-| `narrative_concurrency` | 2 | Parallel per-patent narrative calls in Step 8 |
-| `report_section_concurrency` | 6 | Parallel section generation calls in Step 8 |
+| Setting                      | Default | Controls                                                                |
+| ---------------------------- | ------- | ----------------------------------------------------------------------- |
+| `triage_concurrency`         | 3       | Parallel Haiku calls in Step 3                                          |
+| `analysis_concurrency`       | 5       | Parallel patent-analysis calls in Step 4 and invalidity calls in Step 6 |
+| `doe_concurrency`            | 2       | Parallel FWR calls in Step 5                                            |
+| `narrative_concurrency`      | 2       | Parallel per-patent narrative calls in Step 8                           |
+| `report_section_concurrency` | 6       | Parallel section generation calls in Step 8                             |
 
 ### Singleton Access
 
@@ -865,23 +883,23 @@ settings.rate_limits.pubchem_rps    # 5.0
 
 Located in `praviar_pipeline/src/praviar_pipeline/prompts/`. Loaded at runtime via `ClaudeClient.load_prompt()`.
 
-| File | Step | Model | Purpose |
-|------|------|-------|---------|
-| `query_expansion_system.txt` | 1b | Haiku | LLM query expansion with optional Tavily grounding |
-| `triage_system.txt` | 3 | Haiku | Classify patents as RELEVANT/POSSIBLY_RELEVANT/NOT_RELEVANT |
-| `claim_analysis_system.txt` | 4 | Opus/Sonnet | Element-by-element claim analysis with risk determination |
-| `multi_perspective_section.txt` | 4 | Opus/Sonnet | Multi-perspective appendix for adaptive review |
-| `evaluator_system.txt` | 4 | Haiku | QA pass on claim analysis (risk-claim mismatch, calibration) |
-| `doe_fwr_system.txt` | 5 | Sonnet | Function-Way-Result test (basic) |
-| `doe_fwr_screening_system.txt` | 5 | Sonnet | FWR with chemical equivalence context + estoppel |
-| `invalidity_system.txt` | 6 | Sonnet | Invalidity assessment (basic) |
-| `invalidity_screening_system.txt` | 6 | Sonnet | Full invalidity with claim charts, Graham factors, enablement |
-| `report_s1_executive.txt` | 8 | Sonnet | S1 Executive Summary (agentic, with data tool access) |
-| `report_s2_key_patents.txt` | 8 | Sonnet | S2 Key Patent Analysis |
-| `report_s3_damages_injunction.txt` | 8 | Sonnet | S3 Damages and Injunction Risk |
-| `report_s4_invalidity.txt` | 8 | Sonnet | S4 Invalidity, DoE, and PTAB |
-| `report_s5_recommendations.txt` | 8 | Sonnet | S5 Recommendations and Monitoring |
-| `report_s6_data_quality.txt` | 8 | Sonnet | S6 Data Quality and Limitations |
+| File                               | Step | Model       | Purpose                                                       |
+| ---------------------------------- | ---- | ----------- | ------------------------------------------------------------- |
+| `query_expansion_system.txt`       | 1b   | Haiku       | LLM query expansion with optional Tavily grounding            |
+| `triage_system.txt`                | 3    | Haiku       | Classify patents as RELEVANT/POSSIBLY_RELEVANT/NOT_RELEVANT   |
+| `claim_analysis_system.txt`        | 4    | Opus/Sonnet | Element-by-element claim analysis with risk determination     |
+| `multi_perspective_section.txt`    | 4    | Opus/Sonnet | Multi-perspective appendix for adaptive review                |
+| `evaluator_system.txt`             | 4    | Haiku       | QA pass on claim analysis (risk-claim mismatch, calibration)  |
+| `doe_fwr_system.txt`               | 5    | Sonnet      | Function-Way-Result test (basic)                              |
+| `doe_fwr_screening_system.txt`     | 5    | Sonnet      | FWR with chemical equivalence context + estoppel              |
+| `invalidity_system.txt`            | 6    | Sonnet      | Invalidity assessment (basic)                                 |
+| `invalidity_screening_system.txt`  | 6    | Sonnet      | Full invalidity with claim charts, Graham factors, enablement |
+| `report_s1_executive.txt`          | 8    | Sonnet      | S1 Executive Summary (agentic, with data tool access)         |
+| `report_s2_key_patents.txt`        | 8    | Sonnet      | S2 Key Patent Analysis                                        |
+| `report_s3_damages_injunction.txt` | 8    | Sonnet      | S3 Damages and Injunction Risk                                |
+| `report_s4_invalidity.txt`         | 8    | Sonnet      | S4 Invalidity, DoE, and PTAB                                  |
+| `report_s5_recommendations.txt`    | 8    | Sonnet      | S5 Recommendations and Monitoring                             |
+| `report_s6_data_quality.txt`       | 8    | Sonnet      | S6 Data Quality and Limitations                               |
 
 ---
 
@@ -891,41 +909,42 @@ The pipeline is exposed via FastAPI at `api/src/api/`. Key routes:
 
 ### Pipeline Execution
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/analyses` | Start the pipeline (Cloud Tasks in the hosted reference profile; explicit local dispatcher in development) |
-| `GET` | `/analyses/{id}/stream` | SSE endpoint for real-time pipeline progress (Redis PubSub) |
+| Method | Path                    | Description                                                                                                |
+| ------ | ----------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `POST` | `/analyses`             | Start the pipeline (Cloud Tasks in the hosted reference profile; explicit local dispatcher in development) |
+| `GET`  | `/analyses/{id}/stream` | SSE endpoint for real-time pipeline progress (Redis PubSub)                                                |
 
 ### Results
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/analyses` | List analyses (org-scoped, paginated) |
-| `GET` | `/analyses/{id}` | Get single analysis |
-| `GET` | `/reports/{id}` | Full FTO report (ATTORNEY+ only) |
-| `GET` | `/reports/{id}/summary` | Executive summary (all roles) |
-| `POST` | `/reports/{id}/export` | Export as PDF/DOCX/XLSX/JSON |
-| `GET` | `/patents` | Browse patents across analyses |
-| `GET` | `/patents/{patent_id}` | Deep-dive with DoE + invalidity data |
+| Method | Path                    | Description                           |
+| ------ | ----------------------- | ------------------------------------- |
+| `GET`  | `/analyses`             | List analyses (org-scoped, paginated) |
+| `GET`  | `/analyses/{id}`        | Get single analysis                   |
+| `GET`  | `/reports/{id}`         | Full FTO report (ATTORNEY+ only)      |
+| `GET`  | `/reports/{id}/summary` | Executive summary (all roles)         |
+| `POST` | `/reports/{id}/export`  | Export as PDF/DOCX/XLSX/JSON          |
+| `GET`  | `/patents`              | Browse patents across analyses        |
+| `GET`  | `/patents/{patent_id}`  | Deep-dive with DoE + invalidity data  |
 
 ### Collaboration
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/comments` | Comment on analysis (threaded) |
-| `POST` | `/feedback` | Attorney corrections on report |
-| `POST` | `/reports/{id}/share` | Create and deliver a recipient-bound external report grant |
-| `GET` | `/reports/{id}/share` | List recipient-bound grants without exposing their secret tokens |
+| Method | Path                  | Description                                                      |
+| ------ | --------------------- | ---------------------------------------------------------------- |
+| `POST` | `/comments`           | Comment on analysis (threaded)                                   |
+| `POST` | `/feedback`           | Attorney corrections on report                                   |
+| `POST` | `/reports/{id}/share` | Create and deliver a recipient-bound external report grant       |
+| `GET`  | `/reports/{id}/share` | List recipient-bound grants without exposing their secret tokens |
 
 ### Configuration
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/configs/presets` | List org configuration presets |
-| `POST` | `/configs/presets` | Create preset (ATTORNEY only) |
-| `PUT` | `/configs/defaults` | Set org-wide defaults (ATTORNEY only) |
+| Method | Path                | Description                           |
+| ------ | ------------------- | ------------------------------------- |
+| `GET`  | `/configs/presets`  | List org configuration presets        |
+| `POST` | `/configs/presets`  | Create preset (ATTORNEY only)         |
+| `PUT`  | `/configs/defaults` | Set org-wide defaults (ATTORNEY only) |
 
 ### Auth
+
 - Clerk webhooks for user/org sync (`POST /webhooks/clerk`)
 - Role-based access: ADMIN, ATTORNEY, SCIENTIST, CLIENT
 - Org-level multi-tenancy on all data
@@ -934,7 +953,7 @@ The pipeline is exposed via FastAPI at `api/src/api/`. Key routes:
 
 ## 19. Error Handling Philosophy
 
-Praviar Pipeline follows a **fail-fast, no-fallbacks** development philosophy:
+The pipeline follows a **fail-fast, no-fallbacks** development philosophy:
 
 1. **No silent exception swallowing** — every `except` block either raises or logs at `error` level with `exc_info=True`
 2. **No fallback data** — if a data source fails, the error propagates (no returning empty results and pretending success)

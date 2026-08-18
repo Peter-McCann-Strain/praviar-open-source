@@ -1,12 +1,12 @@
 # Known limitations
 
-This is the canonical limitation statement for the Praviar public source
-archive. It applies even when a code path, adapter, test, diagram, or reference
-configuration appears complete.
+This is the canonical limitation statement for the open-source chemical patent
+analysis system. It applies even when a code path, adapter, test, diagram, or
+reference configuration appears complete.
 
 ## Legal and professional boundary
 
-- Praviar does not provide legal advice, a freedom-to-operate opinion, claim
+- The software does not provide legal advice, a freedom-to-operate opinion, claim
   construction, or a guarantee of non-infringement.
 - Evidence retrieval and structured reports do not establish clearance,
   validity, enforceability, expiry, safe-harbour availability, or an appropriate
@@ -45,8 +45,11 @@ configuration appears complete.
 - Software tests cover behaviour and contracts; they do not measure legal
   accuracy, search completeness, false-clear performance, reviewer quality, or
   real-world utility.
-- No public, independently counsel-adjudicated held-out evaluation supports an
-  accuracy, superiority, speed, return-on-investment, or reliability claim.
+- The published engineering evaluations are not an independently
+  counsel-adjudicated measure of legal accuracy, search completeness,
+  false-clear rate, or report reliability. See
+  [Evaluation results](evaluation/README.md) for the measured computer-vision,
+  retrieval, and recorded prompt-protocol results that are available.
 
 ## Security, privacy, and tenancy
 
@@ -61,7 +64,7 @@ configuration appears complete.
 ## Deployment and integrations
 
 - Infrastructure, operations, identity, storage, queue, and cloud documents are
-  unvalidated reference designs. No hosted Praviar service is provided.
+  unvalidated reference designs. No hosted service is provided.
 - There is no production guarantee, supported connector catalogue, generic
   connector SDK, SCIM, buyer-VPC, on-premises, air-gapped, CMEK, or BYOK offer.
 - Example integrations may require material engineering, schema mapping,

@@ -1,19 +1,23 @@
 cff-version: 1.2.0
-message: "If you use Praviar in research, cite the software and the exact commit."
-title: "Praviar: an evidence-traceable patent landscape research preview"
+message: "If you use this chemical patent analysis system in research, cite the software and the exact commit."
+title: "Chemical Patent Analysis: an open-source FTO evidence pipeline"
 type: software
 authors:
   - family-names: "McCann-Strain"
     given-names: "Peter"
-repository-code: "https://github.com/Peter-McCann-Strain/praviar-open-source"
-url: "https://github.com/Peter-McCann-Strain/praviar-open-source"
+repository-code: "https://github.com/Peter-McCann-Strain/chemical-patent-analysis"
+url: "https://github.com/Peter-McCann-Strain/chemical-patent-analysis"
 license: Apache-2.0
 keywords:
   - patent analytics
+  - freedom to operate
   - cheminformatics
+  - optical chemical structure recognition
   - evidence provenance
   - research software
 abstract: >-
-  Praviar is an engineering portfolio and research preview for structured,
-  counsel-supervised patent-landscape evidence triage. It is not legal advice
-  and does not provide a freedom-to-operate opinion.
+  An open-source research system for structured, counsel-supervised chemical
+  patent evidence: compound resolution, patent retrieval and family grouping,
+  claim mapping, optical chemical structure recognition, deterministic checks,
+  human review, and report generation. It is not legal advice and does not
+  provide a freedom-to-operate opinion.

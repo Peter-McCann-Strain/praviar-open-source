@@ -1,16 +1,18 @@
 # Changelog
 
-This file records notable changes to the public source archive. The archive has
-no promised release cadence, compatibility policy, or supported-version window.
+This file records notable changes to the open-source research project. The
+project has no promised release cadence, compatibility policy, or
+supported-version window.
 
-## Public archive snapshot — 2026-08-18
+## Open-source publication — 2026-08-18
 
 ### Added
 
-- Initial unsupported research-archive source snapshot.
+- Initial history-free open-source source snapshot.
 - Apache-2.0 licensing and third-party, model, asset, trademark, support, and
   maintenance policies.
-- A fictional local demo and concise getting-started documentation.
+- A working local interface tour with synthetic data and concise
+  getting-started documentation.
 - Selected application, pipeline, test, research, and reference-infrastructure
   source with private, generated, credential, model-weight, and commercial
   material excluded.

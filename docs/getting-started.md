@@ -1,7 +1,7 @@
 # Getting started
 
-This is the shortest supported path through the archived source. It starts only
-the fictional web demo: no API, database, account, patent-source subscription,
+This is the shortest path into the working web interface. It starts the bundled
+synthetic demonstration: no API, database, account, patent-source subscription,
 or model provider is needed.
 
 > [!WARNING]
@@ -17,14 +17,14 @@ or model provider is needed.
 ## Install and run
 
 ```bash
-git clone https://github.com/Peter-McCann-Strain/praviar-open-source.git
-cd praviar-open-source
+git clone https://github.com/Peter-McCann-Strain/chemical-patent-analysis.git
+cd chemical-patent-analysis
 corepack enable
 pnpm install --frozen-lockfile
 pnpm demo
 ```
 
-Open <http://localhost:3000/>. The useful fictional routes are:
+Open <http://localhost:3000/>. Useful demonstration routes are:
 
 - <http://localhost:3000/sample-reports/example-molecule-alpha>
 - <http://localhost:3000/analyses/new>
@@ -57,6 +57,7 @@ If installation reports a lockfile mismatch, do not use `--no-frozen-lockfile`.
 Confirm that the clone is unchanged and retry with the package-manager version
 pinned in the root `package.json`.
 
-The full API and provider-backed pipeline require separate environment,
-identity, data-rights, and cost decisions. They are outside this quick start;
-see [Known limitations](limitations.md) before exploring them.
+The provider-backed API and evidence pipeline are separate from this
+credential-free interface tour. Read the [compound-to-report pipeline](PIPELINE.md),
+[measured evaluation results](evaluation/README.md), and
+[known limitations](limitations.md) before configuring live providers.

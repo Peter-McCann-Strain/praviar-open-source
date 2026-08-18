@@ -18,7 +18,7 @@ describe("methodology public claims", () => {
       screen.getByText(/candidate patent families can be prioritised/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/research-preview portfolio project/i),
+      screen.getByText(/working open-source research system/i),
     ).toBeInTheDocument();
     expect(
       screen.getAllByRole("link", { name: "Open the fictional sample" })[0],

@@ -13,16 +13,16 @@ and output-directory selection to Vercel's monorepo and Next.js detection. A
 remote build still has to prove that Vercel found the repository-root lockfile
 and the declared package-manager version on the exact revision being evaluated.
 
-| Surface                  | Current, inspectable state                                                                                                                                                                              |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Monorepo package manager | [`package.json`](../package.json) declares `pnpm@9.15.4`; [`pnpm-lock.yaml`](../pnpm-lock.yaml) is lockfile version 9 and [`pnpm-workspace.yaml`](../pnpm-workspace.yaml) includes `web`.               |
-| Validation               | No hosted build is supplied or claimed by this archive. A downstream evaluator must run and record the checks appropriate to its own revision and environment.                                                     |
-| Vercel commands          | [`vercel.json`](./vercel.json) does not override `installCommand`, `buildCommand`, or `outputDirectory`; Vercel must detect the root pnpm workspace and Next.js project defaults.                       |
-| Next.js output           | [`next.config.ts`](./next.config.ts) sets `output: "standalone"`; no Vercel output override competes with the framework default.                                                                        |
-| Regions                  | `vercel.json` does not pin regions. No regional-placement claim is made here.                                                                                                                           |
-| External redirects       | `vercel.json` publishes no external redirect. A deployer must not add one without proving control of the destination.                                                                                   |
-| Git deployments          | `git.deploymentEnabled` is `false`, disabling Git-connected deployments; `github.autoAlias` is also `false`. Manual preview deployment remains an explicit external action.                             |
-| Archive posture          | The repository is an unsupported research archive; this document is an unvalidated reference design.                                                                                                  |
+| Surface                  | Current, inspectable state                                                                                                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Monorepo package manager | [`package.json`](../package.json) declares `pnpm@9.15.4`; [`pnpm-lock.yaml`](../pnpm-lock.yaml) is lockfile version 9 and [`pnpm-workspace.yaml`](../pnpm-workspace.yaml) includes `web`. |
+| Validation               | No hosted build is supplied or claimed by this archive. A downstream evaluator must run and record the checks appropriate to its own revision and environment.                            |
+| Vercel commands          | [`vercel.json`](./vercel.json) does not override `installCommand`, `buildCommand`, or `outputDirectory`; Vercel must detect the root pnpm workspace and Next.js project defaults.         |
+| Next.js output           | [`next.config.ts`](./next.config.ts) sets `output: "standalone"`; no Vercel output override competes with the framework default.                                                          |
+| Regions                  | `vercel.json` does not pin regions. No regional-placement claim is made here.                                                                                                             |
+| External redirects       | `vercel.json` publishes no external redirect. A deployer must not add one without proving control of the destination.                                                                     |
+| Git deployments          | `git.deploymentEnabled` is `false`, disabling Git-connected deployments; `github.autoAlias` is also `false`. Manual preview deployment remains an explicit external action.               |
+| Research posture         | The repository contains a working open-source research system; this deployment document remains an unvalidated reference design.                                                          |
 
 Vercel detects a package manager from the repository lockfile and can use the
 root `packageManager` field through Corepack. See Vercel's

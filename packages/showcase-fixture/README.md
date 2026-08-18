@@ -1,4 +1,4 @@
-# Praviar showcase fixture
+# Synthetic chemical-patent showcase fixture
 
 This internal package owns one deterministic, wholly fictional data contract for
 future portfolio captures and cross-language fixture work. It contains no real

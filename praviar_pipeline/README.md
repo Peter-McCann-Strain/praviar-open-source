@@ -1,7 +1,7 @@
-# Praviar Pipeline
+# Chemical patent-evidence pipeline
 
-The Praviar pipeline is a research runtime for chemistry-aware patent-evidence
-triage. It resolves a compound, retrieves and ranks candidate material,
+The `praviar_pipeline` package is the original internal namespace for a working
+chemistry-aware patent-evidence runtime. It resolves a compound, retrieves and ranks candidate material,
 structures claim evidence, records uncertainty and provenance, and produces a
 report for qualified human review.
 

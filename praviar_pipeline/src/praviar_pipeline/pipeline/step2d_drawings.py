@@ -1,11 +1,12 @@
 """Step 2.75: Patent Drawing Analysis — Full Option C Pipeline.
 
 Complete pipeline for extracting and analyzing chemical structures from
-patent drawings. Runs between search (step 2) and triage (step 3).
+patent drawings. The active runtime runs it on the post-triage relevant set,
+before adaptive claim analysis.
 
 Architecture (PatCID-style):
 1. Fetch patent drawing pages from EPO OPS
-2. MolDet segmentation by default -> crop individual structure regions
+2. Configured page segmentation (DECIMER by default) -> structure-region crops
 3. Classify each crop: molecule / reaction / Markush / non-chemical
 4. Adaptive preprocessing (jurisdiction-aware)
 5. Confidence cascade OCSR (MolScribe first -> escalate if uncertain)
@@ -88,10 +89,10 @@ def _get_runners(tool_names: list[str], settings: Settings) -> dict[str, OCSRRun
 def _get_segmentation_runner(settings: Settings) -> SegmentationRunner | None:
     """Create the configured segmentation runner.
 
-    Backend is chosen by ``settings.drawing_segmentation_tool``. Default
-    ``moldet`` uses the per-molecule YOLO11l detector; ``decimer`` is the
-    archived region-level backend and ``chemsam`` is the SAM-based
-    Markush-aware detector.
+    Backend is chosen by ``settings.drawing_segmentation_tool``. The reviewed
+    default is ``decimer``; ``moldet`` uses a per-molecule YOLO11l detector but
+    is restricted to non-commercial research, and ``chemsam`` is an optional
+    SAM-based Markush-aware detector.
     """
     return cast(
         "SegmentationRunner | None",

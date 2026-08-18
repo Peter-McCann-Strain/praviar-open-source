@@ -632,9 +632,9 @@ test.describe("Public UI QA", () => {
       project.getByRole("link", { name: "View source on GitHub" }),
     ).toHaveAttribute(
       "href",
-      "https://github.com/Peter-McCann-Strain/praviar-open-source",
+      "https://github.com/Peter-McCann-Strain/chemical-patent-analysis",
     );
-    await expect(project).toContainText("research-preview portfolio project");
+    await expect(project).toContainText("working open-source research system");
   });
 
   for (const viewport of [

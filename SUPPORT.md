@@ -1,6 +1,7 @@
 # Support
 
-Praviar is a best-effort research and engineering portfolio project. It has no
+This chemical patent-analysis system is a best-effort open-source research and
+engineering project. It has no
 service-level agreement, guaranteed response time, uptime commitment, or legal
 support obligation.
 

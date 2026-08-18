@@ -53,9 +53,9 @@ export function HomePageProjectSection() {
               Inspect the implementation, evidence trail, and limits.
             </h2>
             <p className="text-base leading-7 text-[var(--text-secondary)]">
-              Praviar is an unsupported research archive published for
-              inspection. It exposes the implemented engineering approach and
-              its limits without claiming a validated legal outcome.
+              The complete chemical patent-analysis system is open source for
+              inspection, local use, and contribution: interface, API, evidence
+              pipeline, vision ensemble, tests, and evaluation tools.
             </p>
           </div>
 

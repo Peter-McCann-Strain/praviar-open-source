@@ -96,6 +96,7 @@ redisdata/
 !web/public/brand/visuals/praviar-report-provenance-field.png
 !docs/architecture/rendered/*.png
 !docs/gallery/images/*.png
+!docs/product-tour/*.png
 
 # Archived code
 _archive/

@@ -17,7 +17,7 @@ describe("TrustPageContent", () => {
     expect(screen.getByText("Trace the evidence")).toBeInTheDocument();
     expect(screen.getByText("Record the review")).toBeInTheDocument();
     expect(
-      screen.getByText(/research-preview portfolio project/i),
+      screen.getByText(/working open-source research system/i),
     ).toBeInTheDocument();
     expect(screen.getByTestId("trust-control-visual")).toHaveTextContent(
       "The work stays visible",

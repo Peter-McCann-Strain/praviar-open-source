@@ -1,3 +1,3 @@
-"""Praviar Pipeline: AI-powered Freedom-to-Operate analysis for green chemistry."""
+"""Chemical patent-evidence pipeline for retrieval, analysis, review, and reporting."""
 
 __version__ = "0.1.0"

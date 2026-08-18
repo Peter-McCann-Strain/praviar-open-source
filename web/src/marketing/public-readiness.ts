@@ -22,9 +22,9 @@ export const PUBLIC_METHODOLOGY_ACTION = {
 } as const;
 
 export const PUBLIC_CONTACT_ACTION = {
-  href: "https://github.com/Peter-McCann-Strain/praviar-open-source",
+  href: "https://github.com/Peter-McCann-Strain/chemical-patent-analysis",
   label: "View source on GitHub",
 } as const;
 
 export const PUBLIC_PURCHASING_NOTICE =
-  "This is a research-preview portfolio project. Purchasing, confidential-data use, and production reliance are unavailable.";
+  "This is a working open-source research system and engineering portfolio. It is not a hosted legal service: do not submit confidential matters or rely on it as legal advice.";

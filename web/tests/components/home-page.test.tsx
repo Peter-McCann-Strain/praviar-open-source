@@ -216,7 +216,7 @@ describe("MarketingHomePage", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getAllByText(/research-preview portfolio project/).length,
+      screen.getAllByText(/working open-source research system/).length,
     ).toBeGreaterThan(0);
   });
 

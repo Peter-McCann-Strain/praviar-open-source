@@ -28,7 +28,7 @@ describe("public marketing readiness", () => {
       "/sample-reports/example-molecule-alpha",
     );
     expect(PUBLIC_CONTACT_ACTION.href).toBe(
-      "https://github.com/Peter-McCann-Strain/praviar-open-source",
+      "https://github.com/Peter-McCann-Strain/chemical-patent-analysis",
     );
 
     const sourceFiles = MARKETING_SOURCE_ROOTS.flatMap(collectSourceFiles);

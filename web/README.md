@@ -1,14 +1,14 @@
-# Praviar Web Frontend
+# Chemical patent-analysis workbench
 
-Next.js 16 frontend for the Praviar Freedom-to-Operate (FTO) patent-research
-platform. It provides a dashboard for submitting compounds, tracking
+Next.js 16 frontend for the chemical patent-analysis and FTO evidence research
+system. It provides a dashboard for submitting compounds, tracking
 multi-phase analyses, reviewing evidence, and preparing structured research
 reports for human review.
 
-## Archive posture
+## Research posture
 
-This repository is published as an unsupported **research archive**. Praviar supports
-patent-landscape research and reviewer workflows; it does not provide legal
+The workbench implements patent-landscape research and reviewer workflows. It
+does not provide legal
 advice, replace qualified counsel, or independently establish freedom to
 operate. Report conclusions remain subject to source coverage, jurisdiction,
 data freshness, pipeline configuration, and human review.

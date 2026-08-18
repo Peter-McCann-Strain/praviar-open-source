@@ -247,7 +247,7 @@ describe("secondary marketing pages", () => {
     expect(screen.queryByText(/\$\d+/)).not.toBeInTheDocument();
     expect(screen.queryByText(/indicative pricing/i)).not.toBeInTheDocument();
     expect(
-      screen.getAllByText(/research-preview portfolio project/i).length,
+      screen.getAllByText(/working open-source research system/i).length,
     ).toBeGreaterThan(0);
     for (const link of screen.getAllByRole("link")) {
       expect(link.getAttribute("href") ?? "").not.toMatch(
@@ -342,7 +342,7 @@ describe("secondary marketing pages", () => {
       ).length,
     ).toBeGreaterThan(0);
     expect(
-      screen.getByText(/research-preview portfolio project/i),
+      screen.getByText(/working open-source research system/i),
     ).toBeInTheDocument();
     expect(screen.getByText(/SOC 2 certified/i)).toBeInTheDocument();
     expect(screen.queryByText(/visual system asset/i)).not.toBeInTheDocument();

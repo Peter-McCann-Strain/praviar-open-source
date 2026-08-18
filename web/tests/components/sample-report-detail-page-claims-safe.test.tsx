@@ -33,7 +33,7 @@ describe("sample report detail public actions", () => {
     const { container } = render(page);
 
     expect(
-      screen.getByText(/research-preview portfolio project/i),
+      screen.getByText(/working open-source research system/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Inspect the fictional run record" }),

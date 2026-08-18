@@ -152,8 +152,8 @@ const ASSURANCE_RESOURCES = [
   },
   {
     area: "Performance evidence",
-    state: "No public result yet",
-    body: "The fictional dossier shows the product format. It is not evidence of recall, accuracy or legal quality.",
+    state: "Engineering results published",
+    body: "The source repository publishes measured patent-page detection, OCSR and retrieval results with denominators and limitations. They establish working engineering paths, not search completeness or legal accuracy.",
   },
 ] as const;
 

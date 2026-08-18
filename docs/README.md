@@ -1,14 +1,16 @@
-# Documentation
+# Chemical patent analysis documentation
 
-Praviar is an unsupported research archive. These documents explain the source
-and its design; they do not certify a deployment, establish legal accuracy, or
-provide operating assurance.
+This is the documentation hub for the working application, evidence pipeline,
+evaluation system, and reference deployment designs. The original `Praviar`
+name remains in internal namespaces and interface assets for compatibility.
 
 ## Start here
 
 | Document                                     | Use it for                                                                                |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | [Getting started](getting-started.md)        | Run the fictional interface without accounts, external services, or credentials           |
+| [Product tour](product-tour/README.md)       | Inspect 14 real captures of the working application using synthetic demonstration data    |
+| [Evaluation results](evaluation/README.md)   | Review measured results on real patent pages, drawings, and named compounds               |
 | [Known limitations](limitations.md)          | Understand the legal, data, model, security, deployment, and support boundaries           |
 | [Pipeline reference](PIPELINE.md)            | Inspect the implemented stages, checkpoints, models, and data flow                        |
 | [Architecture index](architecture/README.md) | Navigate the system, container, sequence, trust-boundary, data, runtime, and vision views |
