@@ -1,0 +1,36 @@
+digraph A04 {
+  graph [rankdir=TB, bgcolor="white", pad=0.35, nodesep=0.35, ranksep=0.5,
+         fontname="Helvetica", label="A04 — Evidence pipeline", labelloc=t, fontsize=22];
+  node [shape=box, style="rounded,filled", fillcolor="#ecfeff", color="#0f766e",
+        fontcolor="#134e4a", fontname="Helvetica", fontsize=10, margin="0.15,0.09"];
+  edge [color="#4b5563", fontcolor="#374151", fontname="Helvetica", fontsize=9];
+
+  input [label="Authorized compound +\nproduct / process scope"];
+  s1 [label="1  Resolve identity and query context"];
+  s2 [label="2  Search, normalize, rank, family grouping"];
+  g1 [label="Source health and\nminimum evidence?", shape=diamond, fillcolor="#fff7ed", color="#c2410c", fontcolor="#7c2d12"];
+  f1 [label="Fail / abstain with reason", fillcolor="#fef2f2", color="#b91c1c", fontcolor="#7f1d1d"];
+  s3 [label="3  Structured triage"];
+  s4 [label="4  Claim analysis"];
+  gate [label="Risk, uncertainty, dense set,\ndrawings, or weak evidence?", shape=diamond, fillcolor="#fff7ed", color="#c2410c", fontcolor="#7c2d12"];
+  escalate [label="Internal agentic escalation"];
+  s5 [label="5  Equivalents issue screening"];
+  s6 [label="6  Invalidity-material screening"];
+  s7 [label="7  Deterministic verification"];
+  g2 [label="Verification passes?", shape=diamond, fillcolor="#fff7ed", color="#c2410c", fontcolor="#7c2d12"];
+  gaps [label="Record blocking verification gaps", fillcolor="#fef2f2", color="#b91c1c", fontcolor="#7f1d1d"];
+  s8 [label="8  Build report + provenance"];
+  human [label="Qualified human review"];
+  output [label="Review record and governed artefact"];
+
+  input -> s1 -> s2 -> g1;
+  g1 -> f1 [label="no"];
+  g1 -> s3 [label="yes"];
+  s3 -> s4 -> gate;
+  gate -> escalate [label="yes"];
+  gate -> s5 [label="no"];
+  escalate -> s5 -> s6 -> s7 -> g2;
+  g2 -> gaps [label="no"];
+  g2 -> s8 [label="yes"];
+  gaps -> s8 -> human -> output;
+}

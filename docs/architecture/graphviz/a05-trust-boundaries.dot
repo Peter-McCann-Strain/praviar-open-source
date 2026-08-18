@@ -1,0 +1,41 @@
+digraph A05 {
+  graph [rankdir=LR, bgcolor="white", pad=0.35, nodesep=0.4, ranksep=0.7,
+         compound=true, fontname="Helvetica", label="A05 — Trust boundaries", labelloc=t, fontsize=22];
+  node [shape=box, style="rounded,filled", fillcolor="#f8fafc", color="#64748b",
+        fontcolor="#0f172a", fontname="Helvetica", fontsize=10, margin="0.15,0.09"];
+  edge [color="#475569", fontcolor="#334155", fontname="Helvetica", fontsize=8];
+
+  subgraph cluster_client { label="Untrusted client"; color="#fecaca"; browser [label="Browser"]; }
+  subgraph cluster_app {
+    label="Application identity"; color="#99f6e4";
+    api [label="API authorization"];
+    queue [label="Cloud Tasks delivery"];
+    launcher [label="OIDC-authenticated launcher"];
+    job [label="Fenced analysis Job"];
+  }
+  subgraph cluster_tenant {
+    label="Tenant data"; color="#bfdbfe";
+    database [label="PostgreSQL / org_id / RLS", shape=cylinder];
+    objects [label="Private export objects", shape=cylinder];
+    events [label="Progress events + audit records"];
+  }
+  subgraph cluster_secrets { label="Credential boundary"; color="#fde68a"; secrets [label="Environment / secret manager"]; }
+  subgraph cluster_external { label="External providers"; color="#d1d5db"; providers [label="Patent, chemistry, literature, model APIs"]; }
+
+  browser -> api [label="session / scoped request"];
+  api -> database [label="SET LOCAL tenant context"];
+  api -> events;
+  api -> queue [label="durable task"];
+  queue -> launcher [label="signed OIDC"];
+  launcher -> database [label="reserve execution id"];
+  launcher -> job [label="launch with id"];
+  job -> database;
+  job -> objects;
+  job -> events;
+  secrets -> api [style=dashed, label="runtime credentials"];
+  secrets -> launcher [style=dashed];
+  secrets -> job [style=dashed];
+  job -> providers [label="bounded egress"];
+  database -> api [label="reviewable report"];
+  api -> browser [label="policy-gated response"];
+}

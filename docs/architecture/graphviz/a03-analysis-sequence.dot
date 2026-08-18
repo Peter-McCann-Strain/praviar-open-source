@@ -1,0 +1,26 @@
+digraph A03 {
+  graph [rankdir=TB, bgcolor="white", pad=0.35, nodesep=0.25, ranksep=0.32,
+         fontname="Helvetica", label="A03 — Analysis sequence (ordered interaction view)", labelloc=t, fontsize=22];
+  node [shape=box, style="rounded,filled", fillcolor="#f8fafc", color="#64748b",
+        fontcolor="#0f172a", fontname="Helvetica", fontsize=10, margin="0.16,0.1"];
+  edge [color="#64748b", arrowsize=0.65];
+
+  n01 [label="1  Researcher → Web\nSubmit authorized matter and product scope"];
+  n02 [label="2  Web → API\nPOST /analyses"];
+  n03 [label="3  API → PostgreSQL\nCreate tenant-owned analysis"];
+  n04 [label="4  API → Cloud Tasks\nEnqueue durable task"];
+  n05 [label="5  Web → API\nSubscribe to analysis SSE"];
+  n06 [label="6  API → PostgreSQL / Redis\nReplay persisted events, then subscribe live"];
+  n07 [label="7  Cloud Tasks → Launcher\nOIDC-authenticated launch request"];
+  n08 [label="8  Launcher → PostgreSQL\nReserve or reuse execution fence"];
+  n09 [label="9  Launcher → Analysis Job\nStart Job with execution id"];
+  n10 [label="10  Job → PostgreSQL\nClaim tenant-scoped execution lease"];
+  n11 [label="11  Job → PostgreSQL + Redis\nPersist and publish each stage event", fillcolor="#ecfeff", color="#0f766e"];
+  n12 [label="12  Redis → API → Web\nStream SSE progress"];
+  n13 [label="13  Job → PostgreSQL\nPersist report or explicit failure"];
+  n14 [label="14  Reviewer → API → PostgreSQL\nRecord decision and audit event"];
+  n15 [label="15  Reviewer → API\nRequest governed export or share"];
+  n16 [label="16  API → Reviewer\nReturn artefact or blocking findings"];
+
+  n01 -> n02 -> n03 -> n04 -> n05 -> n06 -> n07 -> n08 -> n09 -> n10 -> n11 -> n12 -> n13 -> n14 -> n15 -> n16;
+}

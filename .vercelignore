@@ -1,0 +1,46 @@
+# Large non-frontend directories — not needed for web build
+api/
+praviar_pipeline/
+research/
+ops/
+infra/
+docs/
+bench/
+scripts/
+benchmark_results/
+test-results/
+
+# Build artifacts
+web/.next/
+web/node_modules/
+web/playwright-report/
+web/test-results/
+packages/shared-types/node_modules/
+
+# Node
+node_modules/
+.turbo/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Git
+.git/

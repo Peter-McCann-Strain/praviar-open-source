@@ -1,0 +1,210 @@
+{
+  "schema_version": "praviar.showcase.v1",
+  "fixture_id": "praviar-fictional-showcase",
+  "fixture_version": "1.0.0",
+  "fixture_digest_algorithm": "sha256-canonical-json-payload-v1",
+  "fixture_digest": "e86f201bd650c269dee510c79d36e381fa1bd675c11a57464eed922610b478f2",
+  "fictional": true,
+  "payload": {
+    "clock": "2026-01-15T10:30:00Z",
+    "disclaimer": "Fictional research preview for software demonstration only. Not legal advice or an FTO opinion.",
+    "organization": {
+      "id": "org_fictional_northstar",
+      "name": "Fictional Northstar Research"
+    },
+    "matter": {
+      "id": "matter_fictional_0042",
+      "reference": "DEMO-0042",
+      "title": "Example Molecule Alpha evidence review",
+      "owner": {
+        "id": "user_fictional_casey",
+        "display_name": "Casey Example"
+      },
+      "confidential_data_allowed": false
+    },
+    "compound": {
+      "display_name": "Example Molecule Alpha",
+      "submitted_identity": "PVX-FICTIONAL-0042",
+      "structure": {
+        "kind": "withheld_fictional_placeholder",
+        "value": "FICTIONAL_STRUCTURE_0042"
+      },
+      "jurisdictions": [
+        "FICTIONAL-JURISDICTION-A",
+        "FICTIONAL-JURISDICTION-B"
+      ],
+      "intended_use": "Fictional topical research formulation"
+    },
+    "analysis": {
+      "id": "ana_fictional_0042",
+      "status": "review_required",
+      "posture": "potential_blocking_claim_identified",
+      "started_at": "2026-01-15T10:00:00Z",
+      "completed_at": "2026-01-15T10:24:00Z",
+      "searched_sources": [
+        {
+          "id": "source_fictional_register_a",
+          "label": "Fictional Patent Register A",
+          "coverage": "Synthetic records only",
+          "freshness_as_of": "2026-01-14",
+          "status": "complete"
+        },
+        {
+          "id": "source_fictional_register_b",
+          "label": "Fictional Patent Register B",
+          "coverage": "Synthetic records only",
+          "freshness_as_of": "2026-01-13",
+          "status": "partial"
+        }
+      ],
+      "pipeline_steps": [
+        {
+          "id": "identity_resolution",
+          "label": "Resolve submitted identity",
+          "status": "complete",
+          "evidence_count": 2
+        },
+        {
+          "id": "candidate_retrieval",
+          "label": "Retrieve candidate families",
+          "status": "complete",
+          "evidence_count": 6
+        },
+        {
+          "id": "claim_review",
+          "label": "Prepare claim-level evidence",
+          "status": "complete",
+          "evidence_count": 4
+        },
+        {
+          "id": "human_review",
+          "label": "Qualified reviewer decision",
+          "status": "review_required",
+          "evidence_count": 0
+        }
+      ],
+      "families": [
+        {
+          "id": "family_fictional_001",
+          "title": "Fictional substituted scaffold compositions",
+          "assignee": "Fictional Meridian Therapeutics",
+          "priority_date": "2024-02-20",
+          "status": "active_unverified",
+          "posture": "potential_blocking_claim_identified",
+          "publications": [
+            "XX-FICTION-0001-A1",
+            "YY-FICTION-0001-B1"
+          ],
+          "claims": [
+            {
+              "id": "claim_fictional_001_01",
+              "number": "1",
+              "text": "A fictional composition comprising Example Molecule Alpha and a fictional carrier.",
+              "mapping": "candidate_overlap",
+              "confidence": "medium",
+              "review_note": "Confirm construction and legal status with qualified counsel."
+            }
+          ],
+          "evidence_ids": [
+            "evidence_fictional_claim_001",
+            "evidence_fictional_status_001"
+          ]
+        },
+        {
+          "id": "family_fictional_002",
+          "title": "Fictional preparation method for example compounds",
+          "assignee": "Fictional Atlas Chemistry",
+          "priority_date": "2022-09-01",
+          "status": "expired_unverified",
+          "posture": "no_blocker_identified_in_searched_record",
+          "publications": [
+            "XX-FICTION-0002-A1"
+          ],
+          "claims": [
+            {
+              "id": "claim_fictional_002_07",
+              "number": "7",
+              "text": "A fictional method using precursor Z under fictional conditions.",
+              "mapping": "no_candidate_overlap",
+              "confidence": "low",
+              "review_note": "Synthetic example; no legal conclusion is represented."
+            }
+          ],
+          "evidence_ids": [
+            "evidence_fictional_claim_002"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "evidence_fictional_claim_001",
+          "kind": "claim_text",
+          "source_id": "source_fictional_register_a",
+          "source_reference": "XX-FICTION-0001-A1#claim-1",
+          "retrieved_at": "2026-01-15T10:10:00Z",
+          "content_sha256": "2ae1489a6f5ba2d5ecbbf1c8e5f40ef320aa45be933737728a3f62fb45b6439a",
+          "synthetic": true
+        },
+        {
+          "id": "evidence_fictional_status_001",
+          "kind": "legal_status_snapshot",
+          "source_id": "source_fictional_register_b",
+          "source_reference": "YY-FICTION-0001-B1#status",
+          "retrieved_at": "2026-01-15T10:12:00Z",
+          "content_sha256": "6e787090384a60103f6862747a51f30730be4ca8ee3d47db89b15f3455efbeb8",
+          "synthetic": true
+        },
+        {
+          "id": "evidence_fictional_claim_002",
+          "kind": "claim_text",
+          "source_id": "source_fictional_register_a",
+          "source_reference": "XX-FICTION-0002-A1#claim-7",
+          "retrieved_at": "2026-01-15T10:14:00Z",
+          "content_sha256": "27a998540872737c67020b93a9c78d2831d299dad39c1072df34024bf829718e",
+          "synthetic": true
+        }
+      ],
+      "limitations": [
+        "All records, identifiers, organizations and claims are fictional.",
+        "The showcase performs no live patent retrieval.",
+        "No legal accuracy, completeness or jurisdictional coverage is represented.",
+        "The partial synthetic source demonstrates an explicit coverage limitation."
+      ]
+    },
+    "review": {
+      "state": "awaiting_qualified_reviewer",
+      "assigned_to": {
+        "id": "reviewer_fictional_riley",
+        "display_name": "Riley Example"
+      },
+      "required_actions": [
+        "Confirm the searched record is sufficient for the intended question.",
+        "Review the candidate claim construction and current legal status.",
+        "Record an independent decision before any external use."
+      ],
+      "decision": null
+    },
+    "export": {
+      "state": "blocked_pending_review",
+      "watermark": "FICTIONAL RESEARCH PREVIEW — NOT LEGAL ADVICE",
+      "allowed_formats": [
+        "json",
+        "pdf"
+      ]
+    },
+    "failure_states": [
+      {
+        "id": "source_partial_coverage",
+        "severity": "warning",
+        "message": "Fictional Patent Register B returned a partial synthetic snapshot.",
+        "user_action": "A qualified reviewer must confirm coverage before relying on the record."
+      },
+      {
+        "id": "export_requires_review",
+        "severity": "blocking",
+        "message": "External export is blocked until a qualified reviewer records a decision.",
+        "user_action": "Complete the fictional review workflow."
+      }
+    ]
+  }
+}

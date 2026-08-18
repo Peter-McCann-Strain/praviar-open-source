@@ -1,0 +1,10 @@
+{
+  "include": ["src", "tests"],
+  "extraPaths": ["src", "../praviar_pipeline/src"],
+  "pythonVersion": "3.11",
+  "reportMissingImports": "error",
+  "reportUnusedVariable": "none",
+  "reportUnusedExpression": "none",
+  "reportUnusedFunction": "none",
+  "reportPrivateUsage": "none"
+}

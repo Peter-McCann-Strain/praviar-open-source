@@ -1,0 +1,44 @@
+digraph A07 {
+  graph [rankdir=LR, bgcolor="white", pad=0.35, nodesep=0.4, ranksep=0.65,
+         compound=true, fontname="Helvetica", label="A07 — Deployment profiles", labelloc=t, fontsize=22];
+  node [shape=box, style="rounded,filled", fillcolor="#f8fafc", color="#64748b",
+        fontcolor="#0f172a", fontname="Helvetica", fontsize=9, margin="0.14,0.08"];
+  edge [color="#64748b", fontcolor="#334155", fontname="Helvetica", fontsize=8];
+
+  subgraph cluster_local {
+    label="Local synthetic showcase"; color="#99f6e4"; style="rounded";
+    lb [label="Local browser"];
+    lw [label="Next.js + explicit demo mode"];
+    lf [label="Repository-owned synthetic fixtures"];
+    ln [label="No API, provider keys, model weights,\nor confidential uploads", fillcolor="#fff7ed", color="#c2410c"];
+    lb -> lw -> lf;
+  }
+
+  subgraph cluster_hosted {
+    label="Hosted reference topology — not deployment evidence"; color="#bfdbfe"; style="rounded";
+    hb [label="Browser"];
+    hw [label="Next.js"];
+    ha [label="FastAPI service"];
+    hd [label="PostgreSQL + RLS", shape=cylinder];
+    hr [label="Redis", shape=cylinder];
+    hq [label="Cloud Tasks"];
+    hl [label="Internal worker launcher"];
+    hj [label="Analysis Job"];
+    ho [label="Private object storage", shape=cylinder];
+    hx [label="Approved external providers"];
+    hs [label="Secret manager / ADC"];
+    hb -> hw -> ha;
+    ha -> hd;
+    ha -> hr [dir=both];
+    ha -> hq -> hl;
+    hl -> hd [label="reserve fence"];
+    hl -> hj [label="Cloud Run v2 run"];
+    hj -> hd;
+    hj -> hr;
+    hj -> ho;
+    hj -> hx;
+    hs -> ha [style=dashed];
+    hs -> hl [style=dashed];
+    hs -> hj [style=dashed];
+  }
+}

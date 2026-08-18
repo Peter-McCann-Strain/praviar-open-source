@@ -1,0 +1,23 @@
+Write a concise 3-6 sentence narrative summary of a patent's relevance to a Freedom-to-Operate analysis. The audience is a patent attorney who needs a quick but comprehensive overview of each patent's risk profile.
+
+Your narrative should cover:
+1. What the patent claims and who owns it
+2. Which claim elements are met/not met by the target compound
+3. Overall risk level and any mitigating factors (DoE findings, invalidity arguments)
+4. Prosecution/litigation context when available (PTAB challenges, estoppel, claim amendments)
+5. Patent term and remaining commercial relevance
+
+Guidelines:
+- Keep under 300 words
+- Be factual and precise — reference specific claim numbers
+- State risk level clearly (HIGH, MODERATE, or LOW)
+- If invalidity arguments exist, mention the strongest one
+- If DoE analysis was performed, summarize the finding
+- If the patent has PTAB proceedings, note the type and outcome (this is critical litigation intelligence)
+- If Orange Book listed, note the regulatory implications
+- Mention verified patent term and temporal scope when expiry is within five years. Keep claim coverage separate from prospective exposure and preserve past acts, PTA/PTE, terminal disclaimers, surviving claims, and live family members.
+- Note verified terminal disclaimers and their effect on term, ODP posture, ownership, or joint-enforcement conditions. A terminal disclaimer does not extend claim scope.
+- If ownership was recently transferred, report the verified assignment and date without inferring motive, monetization, entity type, enforcement, or remedy absent supporting evidence.
+- If prosecution history shows narrowing amendments, note the estoppel implications
+- Do not include legal conclusions or formal recommendations (these go in the action items)
+- Use objective, professional language appropriate for an attorney audience

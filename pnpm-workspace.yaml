@@ -1,0 +1,20 @@
+packages:
+  - "web"
+  - "packages/*"
+
+allowBuilds:
+  '@clerk/shared': set this to true or false
+  esbuild: set this to true or false
+  sharp: set this to true or false
+  unrs-resolver: set this to true or false
+
+overrides:
+  '@babel/core': 7.29.6
+  brace-expansion: 1.1.18
+  esbuild: 0.28.1
+  flatted: 3.4.2
+  js-yaml: 4.3.0
+  picomatch: 4.0.4
+  postcss: 8.5.15
+  vite: 7.3.5
+  ws: 8.21.0

@@ -1,0 +1,14 @@
+# Isolated worker-only OCSR environment. Regenerate the lock for the production
+# linux/amd64 Python 3.11 target; never install this input file directly.
+DECIMER==2.8.0
+decimer-segmentation==1.5.0
+tensorflow==2.15.1
+numpy>=1.26,<2
+Pillow>=12.3,<13
+cryptography>=50,<51
+pyasn1>=0.6.4,<0.7
+click>=8.3.3,<9
+idna>=3.15,<4
+Pygments>=2.20,<3
+requests>=2.33,<3
+urllib3>=2.7,<3

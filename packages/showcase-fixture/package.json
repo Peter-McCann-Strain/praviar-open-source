@@ -1,0 +1,19 @@
+{
+  "name": "@praviar/showcase-fixture",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "test": "tsc --noEmit false --outDir .test-dist && node --test typescript/index.test.mjs",
+    "type-check": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./typescript/index.ts",
+    "./fixture": "./src/praviar_showcase_fixture/showcase.v1.json",
+    "./schema": "./src/praviar_showcase_fixture/showcase.schema.v1.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  }
+}

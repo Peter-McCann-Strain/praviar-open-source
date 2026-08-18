@@ -1,0 +1,13 @@
+# Default ownership keeps every public path reviewable. More-specific rules
+# document the principal maintenance surfaces without changing the owner.
+* @Peter-McCann-Strain
+
+/web/ @Peter-McCann-Strain
+/api/ @Peter-McCann-Strain
+/praviar_pipeline/ @Peter-McCann-Strain
+/research/ @Peter-McCann-Strain
+/packages/ @Peter-McCann-Strain
+/public-archive/ @Peter-McCann-Strain
+/scripts/ @Peter-McCann-Strain
+/docs/ @Peter-McCann-Strain
+/.github/ @Peter-McCann-Strain

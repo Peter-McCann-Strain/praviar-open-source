@@ -1,0 +1,1816 @@
+[
+  {
+    "path": "src/praviar_pipeline/agents/base_runtime.py",
+    "file_name": "base_runtime.py",
+    "functions": [
+      {
+        "name": "execute_research_loop",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/agents/tools/patent_tools.py",
+    "file_name": "patent_tools.py",
+    "functions": [
+      {
+        "name": "PatentResearchToolkit::_search_definitions",
+        "complexity": 26
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/agents/tools/report_verification_tool_checks.py",
+    "file_name": "report_verification_tool_checks.py",
+    "functions": [
+      {
+        "name": "exec_check_date",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/certification_policy.py",
+    "file_name": "certification_policy.py",
+    "functions": [
+      {
+        "name": "certification_policy_from_settings",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/checkpoint.py",
+    "file_name": "checkpoint.py",
+    "functions": [
+      {
+        "name": "load_latest_checkpoint",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/checkpoint_restoration.py",
+    "file_name": "checkpoint_restoration.py",
+    "functions": [
+      {
+        "name": "_restore_patent_hits",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/cli.py",
+    "file_name": "cli.py",
+    "functions": [
+      {
+        "name": "main",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/cli_patcid.py",
+    "file_name": "cli_patcid.py",
+    "functions": [
+      {
+        "name": "index_jsonl",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/cli_replay.py",
+    "file_name": "cli_replay.py",
+    "functions": [
+      {
+        "name": "main",
+        "complexity": 16
+      },
+      {
+        "name": "_format_preconditions",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/claude_prompting.py",
+    "file_name": "claude_prompting.py",
+    "functions": [
+      {
+        "name": "repair_truncated_json",
+        "complexity": 16
+      },
+      {
+        "name": "extract_json",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/epo_ops_parsing.py",
+    "file_name": "epo_ops_parsing.py",
+    "functions": [
+      {
+        "name": "parse_family",
+        "complexity": 16
+      },
+      {
+        "name": "parse_legal_status",
+        "complexity": 16
+      },
+      {
+        "name": "_explicit_family_application_number",
+        "complexity": 22
+      },
+      {
+        "name": "parse_claims_text",
+        "complexity": 22
+      },
+      {
+        "name": "parse_biblio",
+        "complexity": 32
+      },
+      {
+        "name": "parse_register",
+        "complexity": 50
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/epo_ops_search.py",
+    "file_name": "epo_ops_search.py",
+    "functions": [
+      {
+        "name": "search_published_data",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/epo_publication_server.py",
+    "file_name": "epo_publication_server.py",
+    "functions": [
+      {
+        "name": "_extract_proceedings_language_claims",
+        "complexity": 17
+      },
+      {
+        "name": "_extract_b9_correction",
+        "complexity": 18
+      },
+      {
+        "name": "_resolve_ep_central_claims",
+        "complexity": 18
+      },
+      {
+        "name": "_semantic_evidence_reason",
+        "complexity": 19
+      },
+      {
+        "name": "_validate_json_lexical_depth",
+        "complexity": 20
+      },
+      {
+        "name": "_prepare_current_checkpoint_advances",
+        "complexity": 21
+      },
+      {
+        "name": "_parse_and_validate_xml",
+        "complexity": 23
+      },
+      {
+        "name": "_validate_json_value_limits",
+        "complexity": 25
+      },
+      {
+        "name": "_publication_preflight_reason",
+        "complexity": 52
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/kipris.py",
+    "file_name": "kipris.py",
+    "functions": [
+      {
+        "name": "KIPRISClient::_parse_items",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/openfda_gsrs.py",
+    "file_name": "openfda_gsrs.py",
+    "functions": [
+      {
+        "name": "OpenFDAGSRSClient::resolve_exact_biologic",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/orange_book.py",
+    "file_name": "orange_book.py",
+    "functions": [
+      {
+        "name": "_extract_orange_book_files",
+        "complexity": 26
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/paragraph_iv.py",
+    "file_name": "paragraph_iv.py",
+    "functions": [
+      {
+        "name": "_extract_row",
+        "complexity": 20
+      },
+      {
+        "name": "parse_paragraph_iv_pdf",
+        "complexity": 34
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/primary_legal_status.py",
+    "file_name": "primary_legal_status.py",
+    "functions": [
+      {
+        "name": "_ptab_artifact_replay",
+        "complexity": 16
+      },
+      {
+        "name": "_complete_response_records",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/pte_data.py",
+    "file_name": "pte_data.py",
+    "functions": [
+      {
+        "name": "_fetch_pte_records",
+        "complexity": 17
+      },
+      {
+        "name": "_parse_pte_workbook_from_rows",
+        "complexity": 20
+      },
+      {
+        "name": "_parse_pte_workbook",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/pubchem.py",
+    "file_name": "pubchem.py",
+    "functions": [
+      {
+        "name": "PubChemClient::sdq_search_patents",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/pubchem_client_ops.py",
+    "file_name": "pubchem_client_ops.py",
+    "functions": [
+      {
+        "name": "get_patent_links_for_cids",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/purple_book.py",
+    "file_name": "purple_book.py",
+    "functions": [
+      {
+        "name": "PurpleBookIndex::lookup_biologic",
+        "complexity": 30
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/clients/tavily.py",
+    "file_name": "tavily.py",
+    "functions": [
+      {
+        "name": "TavilyClient::search",
+        "complexity": 26
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/config_sections.py",
+    "file_name": "config_sections.py",
+    "functions": [
+      {
+        "name": "DrawingPipelineSettingsMixin::_validate_drawing_thresholds",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/dryrun.py",
+    "file_name": "dryrun.py",
+    "functions": [
+      {
+        "name": "_canned_patcid_for_url",
+        "complexity": 16
+      },
+      {
+        "name": "assert_report_valid",
+        "complexity": 27
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/logging_processors.py",
+    "file_name": "logging_processors.py",
+    "functions": [
+      {
+        "name": "_mask_value",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/manifest.py",
+    "file_name": "manifest.py",
+    "functions": [
+      {
+        "name": "build_manifest",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/model_supply_chain.py",
+    "file_name": "model_supply_chain.py",
+    "functions": [
+      {
+        "name": "require_resolved_drawing_model_supply_chain",
+        "complexity": 33
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/accused_acts.py",
+    "file_name": "accused_acts.py",
+    "functions": [
+      {
+        "name": "AccusedActRecord::validate_temporal_and_regulatory_contract",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/analysis_claims.py",
+    "file_name": "analysis_claims.py",
+    "functions": [
+      {
+        "name": "ClaimAnalysis::_validate_all_limitations_status",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/audit.py",
+    "file_name": "audit.py",
+    "functions": [
+      {
+        "name": "SearchFunnelEntry::_check_filter_reason",
+        "complexity": 28
+      },
+      {
+        "name": "SearchQueryPlan::_verify_plan_digest",
+        "complexity": 30
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/drawing.py",
+    "file_name": "drawing.py",
+    "functions": [
+      {
+        "name": "DrawingGovernanceProvenance::validate_live_provenance",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/epo_publication.py",
+    "file_name": "epo_publication.py",
+    "functions": [
+      {
+        "name": "EPAuthorityAcquisitionManifest::_validate_coverage_semantics",
+        "complexity": 18
+      },
+      {
+        "name": "EPCentralProcedureEvidence::_validate_register_evidence",
+        "complexity": 19
+      },
+      {
+        "name": "EPControllingClaimsResolution::_validate_resolution",
+        "complexity": 24
+      },
+      {
+        "name": "EPRegisterAcquisitionManifest::_validate_event_semantics",
+        "complexity": 29
+      },
+      {
+        "name": "_reparse_eps_artifact",
+        "complexity": 55
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/markush_evidence.py",
+    "file_name": "markush_evidence.py",
+    "functions": [
+      {
+        "name": "build_markush_evidence_receipt",
+        "complexity": 20
+      },
+      {
+        "name": "MarkushEvidenceReceipt::_verify_evidence_contract",
+        "complexity": 50
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/patent.py",
+    "file_name": "patent.py",
+    "functions": [
+      {
+        "name": "trusted_legal_status_observations",
+        "complexity": 16
+      },
+      {
+        "name": "_restore_checkpoint_legal_status_attestation",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/models/report_decisioning_core.py",
+    "file_name": "report_decisioning_core.py",
+    "functions": [
+      {
+        "name": "BlockerFamilyRecord::_validate_family_membership",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/calibration_contract.py",
+    "file_name": "calibration_contract.py",
+    "functions": [
+      {
+        "name": "_bind_tool_parameters",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/cropping.py",
+    "file_name": "cropping.py",
+    "functions": [
+      {
+        "name": "split_crop",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/ensemble.py",
+    "file_name": "ensemble.py",
+    "functions": [
+      {
+        "name": "fuse",
+        "complexity": 36
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/ensemble_helpers.py",
+    "file_name": "ensemble_helpers.py",
+    "functions": [
+      {
+        "name": "pick_best_stereo",
+        "complexity": 16
+      },
+      {
+        "name": "confidence_cascade",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/esmiles_adapter.py",
+    "file_name": "esmiles_adapter.py",
+    "functions": [
+      {
+        "name": "esmiles_to_cxsmiles",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/postprocessing_pubchem.py",
+    "file_name": "postprocessing_pubchem.py",
+    "functions": [
+      {
+        "name": "recover_stereo_from_pubchem",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/runner.py",
+    "file_name": "runner.py",
+    "functions": [
+      {
+        "name": "SegmentationRunner::segment",
+        "complexity": 16
+      },
+      {
+        "name": "OCSRRunner::predict",
+        "complexity": 17
+      },
+      {
+        "name": "OCSRRunner::predict_persistent",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/text_validation.py",
+    "file_name": "text_validation.py",
+    "functions": [
+      {
+        "name": "validate_against_text",
+        "complexity": 32
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/workers/doc2sar_worker.py",
+    "file_name": "doc2sar_worker.py",
+    "functions": [
+      {
+        "name": "_parse_mllm_output",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/workers/markushgrapher_worker.py",
+    "file_name": "markushgrapher_worker.py",
+    "functions": [
+      {
+        "name": "predict",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/workers/model_integrity.py",
+    "file_name": "model_integrity.py",
+    "functions": [
+      {
+        "name": "_require_approved_license_evidence",
+        "complexity": 26
+      },
+      {
+        "name": "_validate_transformer_snapshot_structure",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/ocsr/workers/molscribe_worker.py",
+    "file_name": "molscribe_worker.py",
+    "functions": [
+      {
+        "name": "get_model",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/output_safety.py",
+    "file_name": "output_safety.py",
+    "functions": [
+      {
+        "name": "_replace_diagnostic_at_path",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/adaptive_decision.py",
+    "file_name": "adaptive_decision.py",
+    "functions": [
+      {
+        "name": "claim_analysis_escalation_reasons",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/enrichment.py",
+    "file_name": "enrichment.py",
+    "functions": [
+      {
+        "name": "_enrich_claims_from_patentsview",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/prosecution.py",
+    "file_name": "prosecution.py",
+    "functions": [
+      {
+        "name": "fetch_prosecution_context_impl",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/prosecution_parsing.py",
+    "file_name": "prosecution_parsing.py",
+    "functions": [
+      {
+        "name": "build_prosecution_context_payload",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/prosecution_parsing_classifiers.py",
+    "file_name": "prosecution_parsing_classifiers.py",
+    "functions": [
+      {
+        "name": "extract_rejection_bases",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/prosecution_parsing_normalization.py",
+    "file_name": "prosecution_parsing_normalization.py",
+    "functions": [
+      {
+        "name": "_extract_claim_numbers",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/prosecution_parsing_profile.py",
+    "file_name": "prosecution_parsing_profile.py",
+    "functions": [
+      {
+        "name": "derive_prosecution_profile",
+        "complexity": 45
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/risk.py",
+    "file_name": "risk.py",
+    "functions": [
+      {
+        "name": "compute_risk_from_elements",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/analysis/single_pass.py",
+    "file_name": "single_pass.py",
+    "functions": [
+      {
+        "name": "_build_single_pass_user_prompt",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/doe/estoppel.py",
+    "file_name": "estoppel.py",
+    "functions": [
+      {
+        "name": "check_estoppel",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/doe/fwr.py",
+    "file_name": "fwr.py",
+    "functions": [
+      {
+        "name": "build_prosecution_context_summary",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/drawings/cascade.py",
+    "file_name": "cascade.py",
+    "functions": [
+      {
+        "name": "run_cascade_ocsr",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/drawings/factories.py",
+    "file_name": "factories.py",
+    "functions": [
+      {
+        "name": "get_runners",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/drawings/markush_scope_apply.py",
+    "file_name": "markush_scope_apply.py",
+    "functions": [
+      {
+        "name": "apply_markush_scope_verdicts",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/drawings/structure_analysis.py",
+    "file_name": "structure_analysis.py",
+    "functions": [
+      {
+        "name": "prepare_structure_ocsr",
+        "complexity": 54
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/identity_review.py",
+    "file_name": "identity_review.py",
+    "functions": [
+      {
+        "name": "_build_variant_assessments",
+        "complexity": 28
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/invalidity/prompting.py",
+    "file_name": "prompting.py",
+    "functions": [
+      {
+        "name": "build_invalidity_prompt",
+        "complexity": 39
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/invalidity/ptab.py",
+    "file_name": "ptab.py",
+    "functions": [
+      {
+        "name": "check_ptab_impl",
+        "complexity": 50
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/ranking/pipeline.py",
+    "file_name": "pipeline.py",
+    "functions": [
+      {
+        "name": "rank_patents_impl",
+        "complexity": 57
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/ranking/scoring.py",
+    "file_name": "scoring.py",
+    "functions": [
+      {
+        "name": "apply_hard_filters",
+        "complexity": 36
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/blocker_family_records.py",
+    "file_name": "blocker_family_records.py",
+    "functions": [
+      {
+        "name": "build_blocker_family_records",
+        "complexity": 33
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/deterministic_checks.py",
+    "file_name": "deterministic_checks.py",
+    "functions": [
+      {
+        "name": "_check_claim_verbatim",
+        "complexity": 19
+      },
+      {
+        "name": "_check_date_in_term",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/evidence_index.py",
+    "file_name": "evidence_index.py",
+    "functions": [
+      {
+        "name": "build_matter_evidence_index",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/evidence_index_families.py",
+    "file_name": "evidence_index_families.py",
+    "functions": [
+      {
+        "name": "build_family_record",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/evidence_index_patent_statuses.py",
+    "file_name": "evidence_index_patent_statuses.py",
+    "functions": [
+      {
+        "name": "build_patent_gate_failures",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/finalization.py",
+    "file_name": "finalization.py",
+    "functions": [
+      {
+        "name": "_build_drawing_outputs",
+        "complexity": 34
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/governed_actions.py",
+    "file_name": "governed_actions.py",
+    "functions": [
+      {
+        "name": "build_governed_action_items",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/narratives.py",
+    "file_name": "narratives.py",
+    "functions": [
+      {
+        "name": "_generate_patent_narratives",
+        "complexity": 55
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/policy.py",
+    "file_name": "policy.py",
+    "functions": [
+      {
+        "name": "_determine_overall_risk",
+        "complexity": 42
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/prosecution_dossier.py",
+    "file_name": "prosecution_dossier.py",
+    "functions": [
+      {
+        "name": "build_prosecution_dossiers",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/retry_flow.py",
+    "file_name": "retry_flow.py",
+    "functions": [
+      {
+        "name": "_run_validation_retry_flow",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/summary_generation.py",
+    "file_name": "summary_generation.py",
+    "functions": [
+      {
+        "name": "_build_enrichment_section",
+        "complexity": 22
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report/verification_flow.py",
+    "file_name": "verification_flow.py",
+    "functions": [
+      {
+        "name": "_raise_if_verification_failed",
+        "complexity": 25
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report_bibliography_helpers.py",
+    "file_name": "report_bibliography_helpers.py",
+    "functions": [
+      {
+        "name": "build_prior_art_entries",
+        "complexity": 18
+      },
+      {
+        "name": "format_appendix",
+        "complexity": 48
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report_data_store.py",
+    "file_name": "report_data_store.py",
+    "functions": [
+      {
+        "name": "ReportDataStore::format_scope_and_reliance",
+        "complexity": 21
+      },
+      {
+        "name": "ReportDataStore::format_portfolio_summary",
+        "complexity": 43
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report_data_store_formatters.py",
+    "file_name": "report_data_store_formatters.py",
+    "functions": [
+      {
+        "name": "format_analysis_text",
+        "complexity": 18
+      },
+      {
+        "name": "format_prior_art_references_text",
+        "complexity": 24
+      },
+      {
+        "name": "format_invalidity_text",
+        "complexity": 32
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report_validation/patent_checks.py",
+    "file_name": "patent_checks.py",
+    "functions": [
+      {
+        "name": "PtabFormatValidator::validate",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report_validation/risk_checks.py",
+    "file_name": "risk_checks.py",
+    "functions": [
+      {
+        "name": "CrossSectionRiskConsistencyValidator::validate",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/report_verifier.py",
+    "file_name": "report_verifier.py",
+    "functions": [
+      {
+        "name": "_tool_receipts_support_outcomes",
+        "complexity": 26
+      },
+      {
+        "name": "verify_report",
+        "complexity": 36
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/resolution/biologic.py",
+    "file_name": "biologic.py",
+    "functions": [
+      {
+        "name": "resolve_biologic",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/resolution/identity_derivations.py",
+    "file_name": "identity_derivations.py",
+    "functions": [
+      {
+        "name": "_detect_unsupported_prodrug_motifs",
+        "complexity": 25
+      },
+      {
+        "name": "derive_prodrug_candidates",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/cli_args.py",
+    "file_name": "cli_args.py",
+    "functions": [
+      {
+        "name": "parse_run_args",
+        "complexity": 22
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/decisioning.py",
+    "file_name": "decisioning.py",
+    "functions": [
+      {
+        "name": "build_clearance_outputs",
+        "complexity": 50
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/decisioning_coverage.py",
+    "file_name": "decisioning_coverage.py",
+    "functions": [
+      {
+        "name": "collect_coverage_rollup",
+        "complexity": 48
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/decisioning_metrics.py",
+    "file_name": "decisioning_metrics.py",
+    "functions": [
+      {
+        "name": "build_decision_reasoning",
+        "complexity": 17
+      },
+      {
+        "name": "build_evidence_warnings",
+        "complexity": 24
+      },
+      {
+        "name": "build_clearance_gate_failures",
+        "complexity": 36
+      },
+      {
+        "name": "build_scope_contract",
+        "complexity": 42
+      },
+      {
+        "name": "build_jurisdiction_gate_failures",
+        "complexity": 46
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/decisioning_outputs.py",
+    "file_name": "decisioning_outputs.py",
+    "functions": [
+      {
+        "name": "build_evidence_collection_plan",
+        "complexity": 21
+      },
+      {
+        "name": "build_commercial_exposure",
+        "complexity": 23
+      },
+      {
+        "name": "build_run_observability",
+        "complexity": 29
+      },
+      {
+        "name": "build_jurisdiction_decisions",
+        "complexity": 44
+      },
+      {
+        "name": "build_claim_program_summary",
+        "complexity": 48
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/decisioning_signals.py",
+    "file_name": "decisioning_signals.py",
+    "functions": [
+      {
+        "name": "ep_event_counts",
+        "complexity": 16
+      },
+      {
+        "name": "build_prosecution_finding",
+        "complexity": 21
+      },
+      {
+        "name": "extract_patent_detail_signals",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/evidence_artifacts.py",
+    "file_name": "evidence_artifacts.py",
+    "functions": [
+      {
+        "name": "build_patent_record_artifacts",
+        "complexity": 23
+      },
+      {
+        "name": "build_adapter_collection_ledger",
+        "complexity": 34
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/evidence_claims.py",
+    "file_name": "evidence_claims.py",
+    "functions": [
+      {
+        "name": "missing_components_for_patent",
+        "complexity": 16
+      },
+      {
+        "name": "_primary_status_receipts",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/evidence_collectors.py",
+    "file_name": "evidence_collectors.py",
+    "functions": [
+      {
+        "name": "record_live_collector_attempts_impl",
+        "complexity": 22
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/evidence_policy.py",
+    "file_name": "evidence_policy.py",
+    "functions": [
+      {
+        "name": "build_record_completeness",
+        "complexity": 44
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/flow_bootstrap.py",
+    "file_name": "flow_bootstrap.py",
+    "functions": [
+      {
+        "name": "_initial_adaptive_escalation_reasons",
+        "complexity": 16
+      },
+      {
+        "name": "_install_response_cache",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/flow_finalize.py",
+    "file_name": "flow_finalize.py",
+    "functions": [
+      {
+        "name": "finalize_report_output",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/flow_helpers.py",
+    "file_name": "flow_helpers.py",
+    "functions": [
+      {
+        "name": "_opinion_readiness",
+        "complexity": 23
+      },
+      {
+        "name": "attach_report_runtime_metadata",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/live_collector_attempts.py",
+    "file_name": "live_collector_attempts.py",
+    "functions": [
+      {
+        "name": "build_live_collector_attempt",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/live_collector_claims.py",
+    "file_name": "live_collector_claims.py",
+    "functions": [
+      {
+        "name": "collect_claims_from_epo_impl",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/live_collector_context.py",
+    "file_name": "live_collector_context.py",
+    "functions": [
+      {
+        "name": "collect_uspto_odp_runtime_context_impl",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/matter_graph_snapshot.py",
+    "file_name": "matter_graph_snapshot.py",
+    "functions": [
+      {
+        "name": "extend_with_live_patent_hit_artifacts",
+        "complexity": 49
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/post_analysis.py",
+    "file_name": "post_analysis.py",
+    "functions": [
+      {
+        "name": "run_regulatory_enrichment",
+        "complexity": 44
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/runtime/run_execution.py",
+    "file_name": "run_execution.py",
+    "functions": [
+      {
+        "name": "execute_analysis_to_verification_flow",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/citation.py",
+    "file_name": "citation.py",
+    "functions": [
+      {
+        "name": "_traverse_citation_network",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/continuation_expansion.py",
+    "file_name": "continuation_expansion.py",
+    "functions": [
+      {
+        "name": "_expand_from_odp",
+        "complexity": 16
+      },
+      {
+        "name": "_expand_from_epo_family",
+        "complexity": 19
+      },
+      {
+        "name": "expand_continuations",
+        "complexity": 32
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/enrichment.py",
+    "file_name": "enrichment.py",
+    "functions": [
+      {
+        "name": "expand_families",
+        "complexity": 17
+      },
+      {
+        "name": "enrich_legal_status",
+        "complexity": 30
+      },
+      {
+        "name": "enrich_epo_register",
+        "complexity": 37
+      },
+      {
+        "name": "enrich_application_data",
+        "complexity": 43
+      },
+      {
+        "name": "enrich_ptab_proceedings",
+        "complexity": 45
+      },
+      {
+        "name": "enrich_orange_book",
+        "complexity": 53
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/hybrid_bigquery.py",
+    "file_name": "hybrid_bigquery.py",
+    "functions": [
+      {
+        "name": "_row_to_canonical_bigquery_row",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/literature_sources.py",
+    "file_name": "literature_sources.py",
+    "functions": [
+      {
+        "name": "_merge_and_dedupe",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/loop_helpers.py",
+    "file_name": "loop_helpers.py",
+    "functions": [
+      {
+        "name": "compute_search_stats",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/normalizers.py",
+    "file_name": "normalizers.py",
+    "functions": [
+      {
+        "name": "_bq_row_to_patent_hit",
+        "complexity": 19
+      },
+      {
+        "name": "_merge_supplementary_rows",
+        "complexity": 53
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/orchestration.py",
+    "file_name": "orchestration.py",
+    "functions": [
+      {
+        "name": "_build_source_metrics",
+        "complexity": 16
+      },
+      {
+        "name": "_coverage_required_failures",
+        "complexity": 30
+      },
+      {
+        "name": "partition_source_outcomes",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/plan.py",
+    "file_name": "plan.py",
+    "functions": [
+      {
+        "name": "build_search_plan",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/primary_sources.py",
+    "file_name": "primary_sources.py",
+    "functions": [
+      {
+        "name": "search_pubchem_genus",
+        "complexity": 21
+      },
+      {
+        "name": "search_surechembl",
+        "complexity": 52
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search/results.py",
+    "file_name": "results.py",
+    "functions": [
+      {
+        "name": "assemble_hits_from_summary",
+        "complexity": 34
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/search_loop.py",
+    "file_name": "search_loop.py",
+    "functions": [
+      {
+        "name": "run_search_loop",
+        "complexity": 20
+      },
+      {
+        "name": "synthesize_search_queries_from_directives",
+        "complexity": 21
+      },
+      {
+        "name": "build_search_gap_plan",
+        "complexity": 46
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/step1_resolve.py",
+    "file_name": "step1_resolve.py",
+    "functions": [
+      {
+        "name": "resolve_compound",
+        "complexity": 20
+      },
+      {
+        "name": "_is_likely_smiles",
+        "complexity": 27
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/step2c_families.py",
+    "file_name": "step2c_families.py",
+    "functions": [
+      {
+        "name": "_estimate_claim_breadth",
+        "complexity": 21
+      },
+      {
+        "name": "expand_and_select_families",
+        "complexity": 33
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/step3_triage.py",
+    "file_name": "step3_triage.py",
+    "functions": [
+      {
+        "name": "triage_patents",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/step4b_critic.py",
+    "file_name": "step4b_critic.py",
+    "functions": [
+      {
+        "name": "_format_portfolio_summary",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/triage/batching.py",
+    "file_name": "batching.py",
+    "functions": [
+      {
+        "name": "run_llm_triage_batches",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/pipeline/verification/orange_book.py",
+    "file_name": "orange_book.py",
+    "functions": [
+      {
+        "name": "check_orange_book",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/artifact_quality.py",
+    "file_name": "artifact_quality.py",
+    "functions": [
+      {
+        "name": "validate_pdf_artifact",
+        "complexity": 31
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/brand_mark.py",
+    "file_name": "brand_mark.py",
+    "functions": [
+      {
+        "name": "_path_polygon",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/docx_report_sections.py",
+    "file_name": "docx_report_sections.py",
+    "functions": [
+      {
+        "name": "build_report_sections",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/docx_report_sections_appendices.py",
+    "file_name": "docx_report_sections_appendices.py",
+    "functions": [
+      {
+        "name": "add_verification",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/docx_report_sections_body.py",
+    "file_name": "docx_report_sections_body.py",
+    "functions": [
+      {
+        "name": "add_patent_detail",
+        "complexity": 19
+      },
+      {
+        "name": "add_invalidity_section",
+        "complexity": 30
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/docx_report_sections_frontmatter.py",
+    "file_name": "docx_report_sections_frontmatter.py",
+    "functions": [
+      {
+        "name": "add_risk_matrix",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/evidence_scope.py",
+    "file_name": "evidence_scope.py",
+    "functions": [
+      {
+        "name": "summarize_evidence_scope",
+        "complexity": 17
+      },
+      {
+        "name": "collect_reported_jurisdiction_codes",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/markdown_sections_review.py",
+    "file_name": "markdown_sections_review.py",
+    "functions": [
+      {
+        "name": "render_appendices",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/markdown_support.py",
+    "file_name": "markdown_support.py",
+    "functions": [
+      {
+        "name": "format_patent_term_lines",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/pdf.py",
+    "file_name": "pdf.py",
+    "functions": [
+      {
+        "name": "_generate_structures",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/pptx_report_charts.py",
+    "file_name": "pptx_report_charts.py",
+    "functions": [
+      {
+        "name": "add_risk_matrix_slide",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/rendering/xlsx.py",
+    "file_name": "xlsx.py",
+    "functions": [
+      {
+        "name": "_write_risk_matrix",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/replay.py",
+    "file_name": "replay.py",
+    "functions": [
+      {
+        "name": "_extract_patent_ids",
+        "complexity": 17
+      },
+      {
+        "name": "verify_preconditions",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/report_certification_binding.py",
+    "file_name": "report_certification_binding.py",
+    "functions": [
+      {
+        "name": "verify_report_certification_binding",
+        "complexity": 22
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/tools_cache.py",
+    "file_name": "tools_cache.py",
+    "functions": [
+      {
+        "name": "build_known_patent_cache",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/claim_parser_parsing.py",
+    "file_name": "claim_parser_parsing.py",
+    "functions": [
+      {
+        "name": "_split_elements",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/claim_parser_risk.py",
+    "file_name": "claim_parser_risk.py",
+    "functions": [
+      {
+        "name": "compute_risk_from_claims",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/formatting.py",
+    "file_name": "formatting.py",
+    "functions": [
+      {
+        "name": "format_patent_context",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/legal_status_events.py",
+    "file_name": "legal_status_events.py",
+    "functions": [
+      {
+        "name": "derive_legal_status_from_events",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/patent_expiry.py",
+    "file_name": "patent_expiry.py",
+    "functions": [
+      {
+        "name": "get_patent_expiry_with_extensions",
+        "complexity": 53
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/patent_term.py",
+    "file_name": "patent_term.py",
+    "functions": [
+      {
+        "name": "calculate_patent_term",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/patent_term_dates.py",
+    "file_name": "patent_term_dates.py",
+    "functions": [
+      {
+        "name": "_effective_filing_date_from_continuity",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/private_artifacts.py",
+    "file_name": "private_artifacts.py",
+    "functions": [
+      {
+        "name": "_reject_symlink_components",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/prosecution_history_helpers.py",
+    "file_name": "prosecution_history_helpers.py",
+    "functions": [
+      {
+        "name": "build_rejections_from_office_actions",
+        "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/utils/spec_text.py",
+    "file_name": "spec_text.py",
+    "functions": [
+      {
+        "name": "chunk_spec_text",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/praviar_pipeline/vision_production.py",
+    "file_name": "vision_production.py",
+    "functions": [
+      {
+        "name": "VisionProductionRoster::validate_roster",
+        "complexity": 21
+      },
+      {
+        "name": "run_production_preflight",
+        "complexity": 42
+      }
+    ]
+  }
+]

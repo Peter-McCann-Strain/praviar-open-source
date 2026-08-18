@@ -1,0 +1,187 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "praviar-pipeline"
+version = "0.1.0"
+description = "Evidence-traceable patent-landscape research pipeline"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = [
+    # Core
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.14.2,<3",
+    "httpx>=0.27,<1",
+    "anthropic>=0.83,<2",
+    "rdkit>=2026.3.2,<2027",
+    "numpy<3",
+    "google-cloud-bigquery>=3.27,<4",
+    # Rate limiting & retries
+    "tenacity>=9.0,<10",
+    "aiolimiter>=1.1,<2",
+    # Text ranking
+    "bm25s>=0.2,<1",
+    # Utilities
+    "structlog>=24.4,<27",
+    "python-dotenv>=1.0,<2",
+    "urllib3>=2.7,<3",
+    "defusedxml>=0.7,<1",
+    "cryptography>=50.0.0,<51",
+    # Rendering
+    "matplotlib>=3.8,<4",
+    "openpyxl>=3.1,<4",
+    "pypdfium2>=4.28,<6",
+    # Database sync (CLI → web app)
+    "sqlalchemy>=2.0,<3",
+    "psycopg2-binary>=2.9,<3",
+]
+
+[project.scripts]
+praviar-pipeline = "praviar_pipeline.cli:main"
+
+[project.optional-dependencies]
+embeddings = [
+    "sentence-transformers>=5.0,<6",
+    "torch>=2.5,<3",
+]
+drawings = [
+    "Pillow>=12.3,<13",
+    "opencv-python-headless>=4.10,<5",
+    "scikit-image>=0.24,<1",
+]
+regulatory = [
+    "pdfplumber>=0.11,<1",
+    "xlrd>=2.0,<3",
+]
+export = [
+    "python-docx>=1.1,<2",
+    "python-pptx>=1.0,<2",
+    "cairosvg>=2.7,<3",
+    "lxml>=6.1,<7",
+]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-httpx>=0.34",
+    "pytest-cov>=6.0",
+    "PyYAML>=6.0,<7",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "grimp==3.15",
+    "complexipy==6.2.0",
+    "vulture==2.16",
+    "mutmut==3.6.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/praviar_pipeline"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "TCH", "W", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+# Pydantic models need runtime imports — TCH rules conflict with this
+"src/praviar_pipeline/models/*.py" = ["TCH001", "TCH002", "TCH003"]
+# pytest fixture type hints (e.g. HTTPXMock) must be importable at runtime; long
+# test strings and inline fixture data routinely exceed 100 chars
+"tests/*.py" = ["TCH002", "E501", "SIM117"]
+"tests/**/*.py" = ["TCH002", "E501"]
+# OCSR workers run in isolated venvs — imports won't resolve in primary env
+"src/praviar_pipeline/ocsr/workers/*.py" = ["E501"]
+
+[tool.vulture]
+exclude = ["*/__pycache__/*", "*/ocsr/workers/*"]
+ignore_names = ["exc_info", "exc_tb", "exc_val", "method_name", "tb"]
+min_confidence = 100
+paths = ["src"]
+
+[tool.coverage.run]
+source = ["praviar_pipeline"]
+omit = [
+    # CLI entrypoints are thin argparse/wiring wrappers; command behavior is
+    # covered through service/runtime modules and targeted CLI smoke tests.
+    "src/praviar_pipeline/__main__.py",
+    "src/praviar_pipeline/cli.py",
+    "src/praviar_pipeline/cli_*.py",
+    "*/praviar_pipeline/__main__.py",
+    "*/praviar_pipeline/cli.py",
+    "*/praviar_pipeline/cli_*.py",
+    # OCSR workers are isolated subprocess entrypoints that run in model-specific
+    # venvs. Keep coverage on shared OCSR logic, but exclude these wrappers.
+    "src/praviar_pipeline/ocsr/workers/*.py",
+    "*/praviar_pipeline/ocsr/workers/*.py",
+]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+omit = [
+    "src/praviar_pipeline/__main__.py",
+    "src/praviar_pipeline/cli.py",
+    "src/praviar_pipeline/cli_*.py",
+    "*/praviar_pipeline/__main__.py",
+    "*/praviar_pipeline/cli.py",
+    "*/praviar_pipeline/cli_*.py",
+    "src/praviar_pipeline/ocsr/workers/*.py",
+    "*/praviar_pipeline/ocsr/workers/*.py",
+]
+
+[tool.complexipy]
+failed = true
+max-complexity-allowed = 15
+paths = ["src"]
+sort = "desc"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+ignore_missing_imports = true
+check_untyped_defs = true
+strict_equality = true
+no_implicit_optional = true
+extra_checks = true
+
+[tool.mutmut]
+debug = false
+mutate_only_covered_lines = true
+only_mutate = ["src/praviar_pipeline/ocsr/calibration_contract.py"]
+pytest_add_cli_args_test_selection = [
+    "tests/test_ocsr_calibration_contract.py",
+    "-k",
+    "not signed_artifact_rejects_tampering_and_unknown_tools",
+]
+source_paths = ["src/praviar_pipeline"]
+
+[[tool.mypy.overrides]]
+module = [
+    "praviar_pipeline.models",
+    "praviar_pipeline.models.*",
+    "praviar_pipeline.utils",
+    "praviar_pipeline.utils.*",
+]
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "praviar_pipeline.clients.primary_legal_status",
+    "praviar_pipeline.ocsr.calibration_contract",
+    "praviar_pipeline.pipeline.report.evidence_index_patents",
+    "praviar_pipeline.pipeline.report_validation.corrections",
+]
+disallow_any_generics = true
+disallow_untyped_defs = true

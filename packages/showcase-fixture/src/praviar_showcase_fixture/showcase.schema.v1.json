@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://praviar.example/schemas/showcase.v1.json",
+  "title": "Praviar fictional showcase fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fixture_id",
+    "fixture_version",
+    "fixture_digest_algorithm",
+    "fixture_digest",
+    "fictional",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": { "const": "praviar.showcase.v1" },
+    "fixture_id": { "const": "praviar-fictional-showcase" },
+    "fixture_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
+    "fixture_digest_algorithm": { "const": "sha256-canonical-json-payload-v1" },
+    "fixture_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "fictional": { "const": true },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clock",
+        "disclaimer",
+        "organization",
+        "matter",
+        "compound",
+        "analysis",
+        "review",
+        "export",
+        "failure_states"
+      ],
+      "properties": {
+        "clock": { "type": "string", "format": "date-time" },
+        "disclaimer": { "type": "string", "minLength": 20 },
+        "organization": { "$ref": "#/$defs/identifiedName" },
+        "matter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "reference", "title", "owner", "confidential_data_allowed"],
+          "properties": {
+            "id": { "type": "string" },
+            "reference": { "type": "string" },
+            "title": { "type": "string" },
+            "owner": { "$ref": "#/$defs/person" },
+            "confidential_data_allowed": { "const": false }
+          }
+        },
+        "compound": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["display_name", "submitted_identity", "structure", "jurisdictions", "intended_use"],
+          "properties": {
+            "display_name": { "type": "string" },
+            "submitted_identity": { "type": "string", "pattern": "FICTIONAL" },
+            "structure": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "value"],
+              "properties": {
+                "kind": { "const": "withheld_fictional_placeholder" },
+                "value": { "type": "string", "pattern": "^FICTIONAL_" }
+              }
+            },
+            "jurisdictions": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "pattern": "^FICTIONAL-" }
+            },
+            "intended_use": { "type": "string" }
+          }
+        },
+        "analysis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "status", "posture", "started_at", "completed_at", "searched_sources", "pipeline_steps", "families", "evidence", "limitations"],
+          "properties": {
+            "id": { "type": "string" },
+            "status": { "enum": ["review_required", "reviewed"] },
+            "posture": { "$ref": "#/$defs/posture" },
+            "started_at": { "type": "string", "format": "date-time" },
+            "completed_at": { "type": "string", "format": "date-time" },
+            "searched_sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } },
+            "pipeline_steps": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/pipelineStep" } },
+            "families": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/family" } },
+            "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } },
+            "limitations": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+          }
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "assigned_to", "required_actions", "decision"],
+          "properties": {
+            "state": { "const": "awaiting_qualified_reviewer" },
+            "assigned_to": { "$ref": "#/$defs/person" },
+            "required_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "decision": { "type": "null" }
+          }
+        },
+        "export": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "watermark", "allowed_formats"],
+          "properties": {
+            "state": { "const": "blocked_pending_review" },
+            "watermark": { "type": "string", "pattern": "NOT LEGAL ADVICE" },
+            "allowed_formats": { "type": "array", "items": { "enum": ["json", "pdf"] } }
+          }
+        },
+        "failure_states": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/failureState" } }
+      }
+    }
+  },
+  "$defs": {
+    "identifiedName": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": { "id": { "type": "string" }, "name": { "type": "string" } }
+    },
+    "person": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "display_name"],
+      "properties": { "id": { "type": "string" }, "display_name": { "type": "string", "pattern": "Example$" } }
+    },
+    "posture": {
+      "enum": ["no_blocker_identified_in_searched_record", "review_required", "potential_blocking_claim_identified"]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "coverage", "freshness_as_of", "status"],
+      "properties": {
+        "id": { "type": "string" }, "label": { "type": "string", "pattern": "Fictional" },
+        "coverage": { "type": "string" }, "freshness_as_of": { "type": "string", "format": "date" },
+        "status": { "enum": ["complete", "partial"] }
+      }
+    },
+    "pipelineStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "status", "evidence_count"],
+      "properties": {
+        "id": { "type": "string" }, "label": { "type": "string" },
+        "status": { "enum": ["complete", "review_required"] },
+        "evidence_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "assignee", "priority_date", "status", "posture", "publications", "claims", "evidence_ids"],
+      "properties": {
+        "id": { "type": "string" }, "title": { "type": "string", "pattern": "Fictional" },
+        "assignee": { "type": "string", "pattern": "^Fictional" }, "priority_date": { "type": "string", "format": "date" },
+        "status": { "enum": ["active_unverified", "expired_unverified"] }, "posture": { "$ref": "#/$defs/posture" },
+        "publications": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "FICTION" } },
+        "claims": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/claim" } },
+        "evidence_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "number", "text", "mapping", "confidence", "review_note"],
+      "properties": {
+        "id": { "type": "string" }, "number": { "type": "string" }, "text": { "type": "string", "pattern": "fictional" },
+        "mapping": { "enum": ["candidate_overlap", "no_candidate_overlap"] },
+        "confidence": { "enum": ["low", "medium", "high"] }, "review_note": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "source_id", "source_reference", "retrieved_at", "content_sha256", "synthetic"],
+      "properties": {
+        "id": { "type": "string" }, "kind": { "enum": ["claim_text", "legal_status_snapshot"] },
+        "source_id": { "type": "string" }, "source_reference": { "type": "string", "pattern": "FICTION" },
+        "retrieved_at": { "type": "string", "format": "date-time" }, "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "synthetic": { "const": true }
+      }
+    },
+    "failureState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "severity", "message", "user_action"],
+      "properties": {
+        "id": { "type": "string" }, "severity": { "enum": ["warning", "blocking"] },
+        "message": { "type": "string", "minLength": 1 }, "user_action": { "type": "string" }
+      }
+    }
+  }
+}

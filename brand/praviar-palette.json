@@ -1,0 +1,34 @@
+{
+  "name": "Praviar Palette A",
+  "core": {
+    "ink": "#0B1F24",
+    "forensicTeal": "#0E6F68",
+    "clinicalMint": "#5FB7A6",
+    "clinicalCopper": "#B87333",
+    "paper": "#F6F4EF",
+    "softMint": "#D7ECE5"
+  },
+  "support": {
+    "deepTeal": "#0B4F4C",
+    "tealHover": "#0B5F59",
+    "tealRisk": "#0C766D",
+    "copperDepth": "#8A4F1F",
+    "copperEmphasis": "#7A451B",
+    "clinicalRed": "#C2413A",
+    "clinicalRedDepth": "#7F1D1D",
+    "evidenceMuted": "#516F68",
+    "borderDefault": "#C8D8D2",
+    "borderSubtle": "#D9E3DE",
+    "borderEmphasis": "#7FA69A",
+    "skeletonBase": "#E3ECE7",
+    "skeletonHighlight": "#F8F6F1",
+    "chartMint": "#8ED7C9",
+    "sidebarInkStart": "#06191D",
+    "sidebarInkMid": "#08262B",
+    "sidebarInkEnd": "#06363A",
+    "surfaceInvertedHover": "#123238",
+    "riskHighWash": "#FDECEC",
+    "riskMediumWash": "#F7EEE5",
+    "riskClearWash": "#EAF6F2"
+  }
+}

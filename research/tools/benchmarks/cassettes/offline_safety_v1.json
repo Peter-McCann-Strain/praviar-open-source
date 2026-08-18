@@ -1,0 +1,66 @@
+{
+  "schema_version": "offline-safety-cassette-v1",
+  "cases": [
+    {
+      "category": "active_blocker",
+      "input": {
+        "patent_id": "US9999999B2",
+        "overall_risk": "high",
+        "patent_risk": "high",
+        "discovery_source": "pubchem",
+        "unbound_legal_status": "expired"
+      },
+      "expected": {
+        "decision": "blocked",
+        "unresolved_contradictions": []
+      }
+    },
+    {
+      "category": "authoritative_status_conflict",
+      "input": {
+        "patent_id": "EP9999999B1",
+        "overall_risk": "high",
+        "patent_risk": "high",
+        "discovery_source": "epo_search",
+        "legal_status": "revoked",
+        "legal_status_artifact": {
+          "status": "Revoked",
+          "designated_states": ["DE", "FR"]
+        },
+        "ep_register_status": "Revoked",
+        "designated_states": ["DE", "FR"]
+      },
+      "expected": {
+        "decision": "unclear",
+        "required_contradiction_fragments": [
+          "authoritative legal status revoked",
+          "EP register status Revoked"
+        ]
+      }
+    },
+    {
+      "category": "markush_not_certified",
+      "input": {
+        "modality": "markush_candidate"
+      },
+      "expected": {
+        "counsel_certified_jurisdictions": []
+      }
+    },
+    {
+      "category": "ocsr_negative_not_exclusionary",
+      "input": {
+        "patent_id": "US111",
+        "structures": [
+          {"tanimoto": 0.05, "confidence": 0.90},
+          {"tanimoto": 0.03, "confidence": 0.85},
+          {"tanimoto": 0.08, "confidence": 0.92}
+        ]
+      },
+      "expected": {
+        "auto_triaged_patent_ids": [],
+        "remaining_patent_ids": ["US111"]
+      }
+    }
+  ]
+}

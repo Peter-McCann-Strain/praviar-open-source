@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 230">
+  <defs>
+    <radialGradient id="praviar-icon-glow" cx="30%" cy="18%" r="78%">
+      <stop offset="0" stop-color="#0E6F68" stop-opacity="0.42"/>
+      <stop offset="0.6" stop-color="#0E6F68" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#0E6F68" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="230" height="230" rx="52" fill="#0B1F24"/>
+  <rect width="230" height="230" rx="52" fill="url(#praviar-icon-glow)"/>
+  <path d="M48 34H156C187 34 207 51 211 79V211H109C74 211 48 185 48 150V34Z" fill="#F6F4EF"/>
+  <path d="M93 60C122 85 158 101 210 80V118C174 142 137 148 103 139C123 157 132 179 121 195C108 214 79 224 45 224C78 209 98 190 100 166C102 142 83 117 52 91L69 96C59 84 57 72 62 59C95 86 128 101 170 100C137 96 111 84 93 60Z" fill="#0B1F24"/>
+  <path d="M126 116C157 111 184 101 211 85V101C184 116 157 127 126 132Z" fill="#5FB7A6"/>
+  <path d="M120 145C154 141 184 128 211 113V132C183 148 153 159 120 161Z" fill="#0E6F68"/>
+  <path d="M128 177C158 172 185 158 211 142V164C184 180 159 190 134 194Z" fill="#B87333"/>
+  <path d="M151 209C174 205 194 195 211 185V211H154Z" fill="#D7ECE5"/>
+</svg>

@@ -1,0 +1,24 @@
+digraph A01 {
+  graph [rankdir=LR, bgcolor="white", pad=0.35, nodesep=0.55, ranksep=0.8,
+         fontname="Helvetica", label="A01 — System context", labelloc=t, fontsize=22];
+  node [shape=box, style="rounded,filled", fillcolor="#f3f4f6", color="#6b7280",
+        fontcolor="#111827", fontname="Helvetica", fontsize=12, margin="0.18,0.12"];
+  edge [color="#4b5563", fontcolor="#374151", fontname="Helvetica", fontsize=10];
+
+  researcher [label="Researcher"];
+  reviewer [label="Qualified counsel / reviewer"];
+  praviar [label="Praviar research preview", fillcolor="#ccfbf1", color="#0f766e",
+           fontcolor="#134e4a", penwidth=2];
+  patent [label="Patent and legal-status sources"];
+  chemistry [label="Chemistry sources"];
+  models [label="Model providers / local models"];
+  literature [label="Literature sources"];
+
+  researcher -> praviar [label="fictional or authorized matter"];
+  reviewer -> praviar [label="review and decisions"];
+  praviar -> patent [label="queries under source terms"];
+  praviar -> chemistry [label="public identifiers"];
+  praviar -> models [label="optional requests"];
+  praviar -> literature [label="optional queries"];
+  praviar -> reviewer [label="review artefacts"];
+}

@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use Praviar in research, cite the software and the exact commit."
+title: "Praviar: an evidence-traceable patent landscape research preview"
+type: software
+authors:
+  - family-names: "McCann-Strain"
+    given-names: "Peter"
+repository-code: "https://github.com/Peter-McCann-Strain/praviar-open-source"
+url: "https://github.com/Peter-McCann-Strain/praviar-open-source"
+license: Apache-2.0
+keywords:
+  - patent analytics
+  - cheminformatics
+  - evidence provenance
+  - research software
+abstract: >-
+  Praviar is an engineering portfolio and research preview for structured,
+  counsel-supervised patent-landscape evidence triage. It is not legal advice
+  and does not provide a freedom-to-operate opinion.
