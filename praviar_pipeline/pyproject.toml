@@ -47,7 +47,7 @@ embeddings = [
 ]
 drawings = [
     "Pillow>=12.3,<13",
-    "opencv-python-headless>=4.10,<5",
+    "opencv-python-headless>=4.10,<6",
     "scikit-image>=0.24,<1",
 ]
 regulatory = [
