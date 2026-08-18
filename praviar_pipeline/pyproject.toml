@@ -71,7 +71,7 @@ dev = [
     "grimp==3.15",
     "complexipy==6.2.0",
     "vulture==2.16",
-    "mutmut==3.6.0",
+    "mutmut==3.7.0",
 ]
 
 [tool.hatch.build.targets.wheel]
