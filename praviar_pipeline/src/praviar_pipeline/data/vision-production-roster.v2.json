@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "roster_id": "praviar-vision-production-v2",
+  "architecture": "subprocess_venv_workers",
+  "worker_protocol_version": 1,
+  "runtime_downloads_allowed": false,
+  "jurisdictions": [
+    "US",
+    "EP",
+    "WO",
+    "JP",
+    "CN",
+    "KR"
+  ],
+  "runtime_contract": {
+    "segmentation_tool": "decimer",
+    "classifier_required": true,
+    "primary_ocsr_tools": [
+      "molscribe",
+      "molsight"
+    ],
+    "markush_ocsr_tools": [
+      "markushgrapher"
+    ],
+    "sar_table_tools": [],
+    "prohibited_production_tools": [
+      "moldet",
+      "decimer_ocsr",
+      "molnextr",
+      "molgrapher",
+      "molparser",
+      "doc2sar"
+    ]
+  },
+  "components": [
+    {
+      "component_id": "segmentation.decimer",
+      "role": "segmentation",
+      "venv_path": "venvs/decimer",
+      "worker_path": "src/praviar_pipeline/ocsr/workers/decimer_seg_worker.py",
+      "required_imports": [
+        "cv2",
+        "decimer_segmentation"
+      ],
+      "models": [
+        {
+          "model_id": "decimer-segmentation/mask_rcnn_molecule",
+          "artifact_kind": "file",
+          "runtime_path": "venvs/decimer/lib/python3.11/site-packages/decimer_segmentation/mask_rcnn_molecule.h5"
+        }
+      ]
+    },
+    {
+      "component_id": "classification.molclassifier",
+      "role": "classification",
+      "venv_path": "venvs/molclassifier",
+      "worker_path": "src/praviar_pipeline/ocsr/workers/molclassifier_worker.py",
+      "required_imports": [
+        "PIL",
+        "torch",
+        "torchvision"
+      ],
+      "models": [
+        {
+          "model_id": "molclassifier/local",
+          "artifact_kind": "file",
+          "runtime_path": "models/molclassifier/molclassifier_model.chpt"
+        }
+      ]
+    },
+    {
+      "component_id": "ocsr.molscribe",
+      "role": "primary_ocsr",
+      "venv_path": "venvs/molscribe",
+      "worker_path": "src/praviar_pipeline/ocsr/workers/molscribe_worker.py",
+      "required_imports": [
+        "molscribe",
+        "rdkit",
+        "torch"
+      ],
+      "models": [
+        {
+          "model_id": "molscribe/swin_base_char_aux_1m680k",
+          "artifact_kind": "file",
+          "runtime_path": "models/molscribe/ckpts/swin_base_char_aux_1m680k.pth"
+        }
+      ]
+    },
+    {
+      "component_id": "ocsr.molsight",
+      "role": "primary_ocsr",
+      "venv_path": "venvs/molsight",
+      "worker_path": "src/praviar_pipeline/ocsr/workers/molsight_worker.py",
+      "required_imports": [
+        "cv2",
+        "molsight",
+        "rdkit",
+        "torch"
+      ],
+      "models": [
+        {
+          "model_id": "molsight/pubchem_uspto_smiles_edges_30",
+          "artifact_kind": "file",
+          "runtime_path": "models/molsight/ckpts/pubchem_uspto_smiles_edges_30.pth"
+        }
+      ]
+    },
+    {
+      "component_id": "ocsr.markushgrapher",
+      "role": "markush_ocsr",
+      "venv_path": "venvs/markushgrapher",
+      "worker_path": "src/praviar_pipeline/ocsr/workers/markushgrapher_worker.py",
+      "required_imports": [
+        "PIL",
+        "markushgrapher",
+        "rdkit",
+        "torch",
+        "transformers"
+      ],
+      "models": [
+        {
+          "model_id": "markushgrapher/markushgrapher-2/pytorch_model",
+          "artifact_kind": "file",
+          "runtime_path": "venvs/markushgrapher/src/MarkushGrapher/models/markushgrapher-2/pytorch_model.bin"
+        },
+        {
+          "model_id": "markushgrapher/chemicalocr/model",
+          "artifact_kind": "file",
+          "runtime_path": "venvs/markushgrapher/src/MarkushGrapher/models/chemicalocr/model.safetensors"
+        }
+      ]
+    }
+  ]
+}

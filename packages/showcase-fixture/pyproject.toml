@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "praviar-showcase-fixture"
+version = "0.1.0"
+description = "Python and TypeScript accessors for Praviar's deterministic fictional showcase fixture"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = ["jsonschema>=4.20,<5", "pytest>=8.3"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/praviar_showcase_fixture"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

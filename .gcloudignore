@@ -1,0 +1,42 @@
+# Files to exclude from Cloud Build source uploads.
+# The API and workers Dockerfiles only need: api/ and praviar_pipeline/ source.
+.gcloudignore
+.git
+.gitignore
+#!include:.gitignore
+# Re-include the Python models package that .gitignore's praviar_pipeline/models/
+# pattern accidentally excludes via gcloud's suffix-match interpretation.
+!praviar_pipeline/src/praviar_pipeline/models/
+
+# Terraform provider downloads (250MB+ per environment)
+.terraform/
+*.tfplan
+**/*.plan
+infra/
+
+# Not needed by any Dockerfile
+research/
+web/
+docs/
+infra/
+packages/
+.codex/
+.agents/
+.serena/
+.github/
+scripts/
+bench/
+benchmark_results/
+ops/terraform/
+*.pdf
+pnpm-lock.yaml
+
+# Lock files — Dockerfiles use pip install directly
+praviar_pipeline/uv.lock
+api/uv.lock
+
+# Pipeline sub-dirs not COPYed into images (leading / anchors to repo root)
+/praviar_pipeline/external/
+/praviar_pipeline/models/
+/praviar_pipeline/tests/
+/praviar_pipeline/output/

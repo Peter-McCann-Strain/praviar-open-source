@@ -1,0 +1,1996 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Praviar Design System — v5 — "Forensic Teal + Clinical Copper"
+   Brand palette: Ink #0B1F24, Forensic Teal #0E6F68,
+   Clinical Mint #5FB7A6, Clinical Copper #B87333, Paper #F6F4EF.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Premium light palette fallback ───────────────────────────────────────── */
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Elevation layers — paper, glass, and clinical evidence zones */
+    --brand-ink: #0b1f24;
+    --brand-teal: #0e6f68;
+    --brand-mint: #5fb7a6;
+    --brand-copper: #b87333;
+    --brand-paper: #f6f4ef;
+    --brand-soft-mint: #d7ece5;
+    --praviar-mark-paper: #f6f4ef;
+    --praviar-mark-ink: #0b1f24;
+    --praviar-mark-band-1: #0e6f68;
+    --praviar-mark-band-2: #5fb7a6;
+    --praviar-mark-band-3: #b87333;
+    --praviar-mark-copper: #b87333;
+    --praviar-mark-soft-mint: #d7ece5;
+    --bg-base: #f6f4ef;
+    --bg-surface: #f6f4ef;
+    --bg-elevated: #d7ece5;
+    --bg-overlay: #f6f4ef;
+    --bg-sidebar: #d7ece5;
+    --bg-nav: #f6f4ef;
+
+    /* Text hierarchy (APCA-optimised for light mode — ink on paper) */
+    --text-primary: #0b1f24;
+    --text-secondary: color-mix(
+      in srgb,
+      var(--brand-ink) 82%,
+      var(--brand-teal)
+    );
+    --text-tertiary: color-mix(
+      in srgb,
+      var(--brand-ink) 64%,
+      var(--brand-teal)
+    );
+    --text-disabled: color-mix(
+      in srgb,
+      var(--brand-ink) 50%,
+      var(--brand-soft-mint)
+    );
+    --molecule-stroke: color-mix(
+      in srgb,
+      var(--brand-ink) 82%,
+      var(--brand-teal)
+    );
+
+    /* Brand — Forensic Teal + Clinical Copper */
+    --brand-primary: #0e6f68;
+    --brand-primary-rgb: 14, 111, 104;
+    --brand-primary-dim: #0b4f4c;
+    --brand-secondary: #b87333;
+    --brand-secondary-dim: #8a4f1f;
+
+    /* Semantic — 600 weights for contrast on light */
+    --semantic-success: #0e6f68;
+    --semantic-warning: #8a4f1f;
+    --semantic-error: #c2413a;
+    --semantic-info: #0e6f68;
+    --color-success: var(--semantic-success);
+    --color-warning: var(--semantic-warning);
+    --warning: var(--color-warning);
+    --color-error: var(--semantic-error);
+    --color-info: var(--semantic-info);
+
+    /* Emphasis — deeper shades for solid backgrounds in light mode */
+    --semantic-success-emphasis: #0b4f4c;
+    --semantic-warning-emphasis: #7a451b;
+    --semantic-error-emphasis: #7f1d1d;
+    --semantic-info-emphasis: #0b4f4c;
+    --color-success-emphasis: var(--semantic-success-emphasis);
+    --color-warning-emphasis: var(--semantic-warning-emphasis);
+    --color-error-emphasis: var(--semantic-error-emphasis);
+    --color-info-emphasis: var(--semantic-info-emphasis);
+    --color-success-badge-fg: var(--color-success-emphasis);
+    --color-warning-badge-fg: var(--color-warning-emphasis);
+    --color-error-badge-fg: var(--color-error-emphasis);
+    --color-info-badge-fg: var(--color-info-emphasis);
+    --brand-primary-hover: #0b5f59;
+
+    /* Risk levels — premium evidence semantics for light bg */
+    --risk-high: var(--semantic-error);
+    --risk-medium: var(--brand-secondary-dim);
+    --risk-low: #0c766d;
+    --risk-clear: var(--brand-primary);
+    --risk-high-wash: #fdecec;
+    --risk-medium-wash: #f7eee5;
+    --risk-clear-wash: #eaf6f2;
+
+    /* Borders — clearly visible solid colors */
+    --border-default: #c8d8d2;
+    --border-subtle: #d9e3de;
+    --border-emphasis: #7fa69a;
+
+    /* Interaction surfaces — clearly tinted */
+    --surface-hover: rgba(11, 31, 36, 0.06);
+    --surface-active: rgba(11, 31, 36, 0.1);
+    --surface-muted: color-mix(
+      in srgb,
+      var(--brand-soft-mint) 46%,
+      var(--brand-paper)
+    );
+    --surface-subtle: color-mix(
+      in srgb,
+      var(--brand-soft-mint) 32%,
+      var(--brand-paper)
+    );
+    --surface-default: var(--bg-surface);
+    --surface-card: var(--bg-surface);
+    --surface-base: var(--bg-base);
+    --surface-elevated: var(--bg-elevated);
+    --surface-background: var(--bg-base);
+
+    /* Glass */
+    --surface-glass: color-mix(in srgb, var(--brand-paper) 86%, transparent);
+
+    /* Shadows — light mode, Ink-derived visible depth */
+    --shadow-xs: 0 1px 2px rgba(11, 31, 36, 0.06);
+    --shadow-sm:
+      0 1px 2px rgba(11, 31, 36, 0.08), 0 1px 3px rgba(11, 31, 36, 0.06);
+    --shadow-md:
+      0 4px 6px -1px rgba(11, 31, 36, 0.1),
+      0 2px 4px -2px rgba(11, 31, 36, 0.08);
+    --shadow-lg:
+      0 10px 15px -3px rgba(11, 31, 36, 0.12),
+      0 4px 6px -4px rgba(11, 31, 36, 0.08);
+    --shadow-accent: 0 4px 14px rgba(14, 111, 104, 0.18);
+
+    /* Card — light mode: shadow + solid visible border */
+    --card-shadow:
+      0 1px 3px rgba(11, 31, 36, 0.1), 0 2px 8px rgba(11, 31, 36, 0.08);
+    --card-border: #d9e3de;
+
+    /* Skeleton loading */
+    --skeleton-base: #e3ece7;
+    --skeleton-highlight: #f8f6f1;
+
+    /* Chart theming */
+    --chart-grid: rgba(11, 31, 36, 0.06);
+    --chart-axis: rgba(11, 31, 36, 0.12);
+    --chart-cursor: rgba(11, 31, 36, 0.04);
+
+    /* Card shimmer */
+    --shimmer-color: rgba(11, 31, 36, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-thumb: rgba(11, 31, 36, 0.12);
+    --scrollbar-thumb-hover: rgba(11, 31, 36, 0.2);
+
+    /* Focus ring — forensic teal, WCAG 2.2 compliant contrast on light bg */
+    --focus-ring: #0e6f68;
+
+    /* Inverted surface — dark callout cards on light marketing pages */
+    --surface-inverted: #0b1f24;
+    --surface-inverted-fg: #f6f4ef;
+    --surface-inverted-fg-muted: rgba(246, 244, 239, 0.82);
+    --surface-inverted-fg-subtle: rgba(246, 244, 239, 0.66);
+    --surface-inverted-accent: #5fb7a6;
+    --surface-inverted-accent-strong: #b87333;
+    --surface-inverted-hover: #123238;
+
+    /* Chart palette — deeper light-mode variants for adequate contrast. */
+    --chart-mint: #8ed7c9;
+    --chart-1: #0e6f68;
+    --chart-2: #b87333;
+    --chart-3: #0b4f4c;
+    --chart-4: #c2413a;
+    --chart-5: #516f68;
+    --chart-6: #0c766d;
+    --chart-7: #8a4f1f;
+    --chart-8: #5fb7a6;
+    --chart-model-1: #0e6f68;
+    --chart-model-2: #b87333;
+    --chart-model-3: #0b4f4c;
+    --chart-model-4: #c2413a;
+    --chart-model-5: #516f68;
+    --chart-model-6: #5fb7a6;
+
+    /* Legacy aliases */
+    --background: var(--bg-base);
+    --foreground: var(--text-primary);
+    --color-bg-base: var(--bg-base);
+    --color-bg-surface: var(--bg-surface);
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-tertiary: var(--text-tertiary);
+    --color-border-default: var(--border-default);
+    --color-border-warning: color-mix(
+      in srgb,
+      var(--brand-secondary) 32%,
+      transparent
+    );
+    --color-bg-warning: color-mix(
+      in srgb,
+      var(--brand-secondary) 11%,
+      transparent
+    );
+    --color-text-warning: var(--color-warning-emphasis);
+  }
+} /* end @layer base — premium light fallback */
+
+/* ── Light class mirror, used by SSR and the hydration guard ─────────────── */
+
+@layer base {
+  .light {
+    color-scheme: light;
+
+    /* Elevation layers — paper, glass, and clinical evidence zones */
+    --brand-ink: #0b1f24;
+    --brand-teal: #0e6f68;
+    --brand-mint: #5fb7a6;
+    --brand-copper: #b87333;
+    --brand-paper: #f6f4ef;
+    --brand-soft-mint: #d7ece5;
+    --praviar-mark-paper: #f6f4ef;
+    --praviar-mark-ink: #0b1f24;
+    --praviar-mark-band-1: #0e6f68;
+    --praviar-mark-band-2: #5fb7a6;
+    --praviar-mark-band-3: #b87333;
+    --praviar-mark-copper: #b87333;
+    --praviar-mark-soft-mint: #d7ece5;
+    --bg-base: #f6f4ef;
+    --bg-surface: #f6f4ef;
+    --bg-elevated: #d7ece5;
+    --bg-overlay: #f6f4ef;
+    --bg-sidebar: #d7ece5;
+    --bg-nav: #f6f4ef;
+
+    /* Text hierarchy (APCA-optimised for light mode — ink on paper) */
+    --text-primary: #0b1f24;
+    --text-secondary: color-mix(
+      in srgb,
+      var(--brand-ink) 82%,
+      var(--brand-teal)
+    );
+    --text-tertiary: color-mix(
+      in srgb,
+      var(--brand-ink) 64%,
+      var(--brand-teal)
+    );
+    --text-disabled: color-mix(
+      in srgb,
+      var(--brand-ink) 50%,
+      var(--brand-soft-mint)
+    );
+    --molecule-stroke: color-mix(
+      in srgb,
+      var(--brand-ink) 82%,
+      var(--brand-teal)
+    );
+
+    /* Brand — Forensic Teal + Clinical Copper */
+    --brand-primary: #0e6f68;
+    --brand-primary-rgb: 14, 111, 104;
+    --brand-primary-dim: #0b4f4c;
+    --brand-secondary: #b87333;
+    --brand-secondary-dim: #8a4f1f;
+
+    /* Semantic — 600 weights for contrast on light */
+    --semantic-success: #0e6f68;
+    --semantic-warning: #8a4f1f;
+    --semantic-error: #c2413a;
+    --semantic-info: #0e6f68;
+    --color-success: var(--semantic-success);
+    --color-warning: var(--semantic-warning);
+    --warning: var(--color-warning);
+    --color-error: var(--semantic-error);
+    --color-info: var(--semantic-info);
+
+    /* Emphasis — deeper shades for solid backgrounds in light mode */
+    --semantic-success-emphasis: #0b4f4c;
+    --semantic-warning-emphasis: #7a451b;
+    --semantic-error-emphasis: #7f1d1d;
+    --semantic-info-emphasis: #0b4f4c;
+    --color-success-emphasis: var(--semantic-success-emphasis);
+    --color-warning-emphasis: var(--semantic-warning-emphasis);
+    --color-error-emphasis: var(--semantic-error-emphasis);
+    --color-info-emphasis: var(--semantic-info-emphasis);
+    --color-success-badge-fg: var(--color-success-emphasis);
+    --color-warning-badge-fg: var(--color-warning-emphasis);
+    --color-error-badge-fg: var(--color-error-emphasis);
+    --color-info-badge-fg: var(--color-info-emphasis);
+    --brand-primary-hover: #0b5f59;
+
+    /* Risk levels — premium evidence semantics for light bg */
+    --risk-high: var(--semantic-error);
+    --risk-medium: var(--brand-secondary-dim);
+    --risk-low: #0c766d;
+    --risk-clear: var(--brand-primary);
+    --risk-high-wash: #fdecec;
+    --risk-medium-wash: #f7eee5;
+    --risk-clear-wash: #eaf6f2;
+
+    /* Borders — clearly visible solid colors */
+    --border-default: #c8d8d2;
+    --border-subtle: #d9e3de;
+    --border-emphasis: #7fa69a;
+
+    /* Interaction surfaces — clearly tinted */
+    --surface-hover: rgba(11, 31, 36, 0.06);
+    --surface-active: rgba(11, 31, 36, 0.1);
+    --surface-muted: color-mix(
+      in srgb,
+      var(--brand-soft-mint) 46%,
+      var(--brand-paper)
+    );
+    --surface-subtle: color-mix(
+      in srgb,
+      var(--brand-soft-mint) 32%,
+      var(--brand-paper)
+    );
+    --surface-default: var(--bg-surface);
+    --surface-card: var(--bg-surface);
+    --surface-base: var(--bg-base);
+    --surface-elevated: var(--bg-elevated);
+    --surface-background: var(--bg-base);
+
+    /* Glass */
+    --surface-glass: color-mix(in srgb, var(--brand-paper) 86%, transparent);
+
+    /* Shadows — light mode, Ink-derived visible depth */
+    --shadow-xs: 0 1px 2px rgba(11, 31, 36, 0.06);
+    --shadow-sm:
+      0 1px 2px rgba(11, 31, 36, 0.08), 0 1px 3px rgba(11, 31, 36, 0.06);
+    --shadow-md:
+      0 4px 6px -1px rgba(11, 31, 36, 0.1),
+      0 2px 4px -2px rgba(11, 31, 36, 0.08);
+    --shadow-lg:
+      0 10px 15px -3px rgba(11, 31, 36, 0.12),
+      0 4px 6px -4px rgba(11, 31, 36, 0.08);
+    --shadow-accent: 0 4px 14px rgba(14, 111, 104, 0.18);
+
+    /* Card — light mode: shadow + solid visible border */
+    --card-shadow:
+      0 1px 3px rgba(11, 31, 36, 0.1), 0 2px 8px rgba(11, 31, 36, 0.08);
+    --card-border: #d9e3de;
+
+    /* Skeleton loading */
+    --skeleton-base: #e3ece7;
+    --skeleton-highlight: #f8f6f1;
+
+    /* Chart theming */
+    --chart-grid: rgba(11, 31, 36, 0.06);
+    --chart-axis: rgba(11, 31, 36, 0.12);
+    --chart-cursor: rgba(11, 31, 36, 0.04);
+
+    /* Card shimmer */
+    --shimmer-color: rgba(11, 31, 36, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-thumb: rgba(11, 31, 36, 0.12);
+    --scrollbar-thumb-hover: rgba(11, 31, 36, 0.2);
+
+    /* Focus ring — forensic teal, WCAG 2.2 compliant contrast on light bg */
+    --focus-ring: #0e6f68;
+
+    /* Inverted surface — dark callout cards on light marketing pages */
+    --surface-inverted: #0b1f24;
+    --surface-inverted-fg: #f6f4ef;
+    --surface-inverted-fg-muted: rgba(246, 244, 239, 0.82);
+    --surface-inverted-fg-subtle: rgba(246, 244, 239, 0.66);
+    --surface-inverted-accent: #5fb7a6;
+    --surface-inverted-accent-strong: #b87333;
+    --surface-inverted-hover: #123238;
+
+    /* Chart palette — deeper light-mode variants for adequate contrast. */
+    --chart-mint: #8ed7c9;
+    --chart-1: #0e6f68;
+    --chart-2: #b87333;
+    --chart-3: #0b4f4c;
+    --chart-4: #c2413a;
+    --chart-5: #516f68;
+    --chart-6: #0c766d;
+    --chart-7: #8a4f1f;
+    --chart-8: #5fb7a6;
+    --chart-model-1: #0e6f68;
+    --chart-model-2: #b87333;
+    --chart-model-3: #0b4f4c;
+    --chart-model-4: #c2413a;
+    --chart-model-5: #516f68;
+    --chart-model-6: #5fb7a6;
+
+    --background: var(--bg-base);
+    --foreground: var(--text-primary);
+    --color-bg-base: var(--bg-base);
+    --color-bg-surface: var(--bg-surface);
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-tertiary: var(--text-tertiary);
+    --color-border-default: var(--border-default);
+    --color-border-warning: color-mix(
+      in srgb,
+      var(--brand-secondary) 32%,
+      transparent
+    );
+    --color-bg-warning: color-mix(
+      in srgb,
+      var(--brand-secondary) 11%,
+      transparent
+    );
+    --color-text-warning: var(--color-warning-emphasis);
+  }
+} /* end @layer base — light theme */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Brand */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-soft-mint: var(--brand-soft-mint);
+  --color-brand-accent: var(--color-warning);
+  --color-brand-primary-dim: var(--brand-primary-dim);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+
+  /* Semantic status — generates text-success, bg-success/15, border-error/30, etc. */
+  /* Actual values come from the premium light root and .light mirror. */
+  --color-success: var(--semantic-success);
+  --color-warning: var(--semantic-warning);
+  --color-error: var(--semantic-error);
+  --color-info: var(--semantic-info);
+
+  /* Emphasis — solid backgrounds for buttons/badges with white text */
+  --color-success-emphasis: var(--semantic-success-emphasis);
+  --color-warning-emphasis: var(--semantic-warning-emphasis);
+  --color-error-emphasis: var(--semantic-error-emphasis);
+  --color-info-emphasis: var(--semantic-info-emphasis);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+  --animate-accordion-down: accordion-down 200ms ease-out;
+  --animate-accordion-up: accordion-up 200ms ease-out;
+}
+
+/* ── Base body ───────────────────────────────────────────────────────────── */
+
+html {
+  /* Bump base font-size from 16px to 17px — scales all rem-based text up */
+  font-size: 106.25%;
+  /* Local/system-only stacks keep production builds independent of font CDNs. */
+  --font-inter:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-geist-mono:
+    "SFMono-Regular", "Roboto Mono", "Cascadia Code", "Liberation Mono",
+    monospace;
+  --font-newsreader: Georgia, "Times New Roman", ui-serif, serif;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Praviar visual asset layer ──────────────────────────────────────────── */
+
+.praviar-marketing-shell {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.96) 0%,
+      rgba(215, 236, 229, 0.9) 48%,
+      var(--bg-base) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 18% / min(900px, 94vw)
+      auto no-repeat,
+    url("/brand/visuals/praviar-report-evidence-paper.svg") top right /
+      min(960px, 82vw) auto no-repeat,
+    var(--bg-base);
+}
+
+.praviar-share-access-field {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.97) 0%,
+      rgba(215, 236, 229, 0.82) 48%,
+      var(--bg-base) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 18% / min(820px, 96vw)
+      auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") 100% top /
+      min(920px, 104vw) auto no-repeat,
+    var(--bg-base);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+.praviar-hero-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.98) 0%,
+      rgba(246, 244, 239, 0.9) 42%,
+      rgba(246, 244, 239, 0.72) 66%,
+      rgba(215, 236, 229, 0.38) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 18% /
+      min(960px, 108vw) auto no-repeat,
+    url("/brand/visuals/praviar-hero-evidence.svg") right center /
+      min(1040px, 120vw) auto no-repeat,
+    var(--bg-base);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+.praviar-secondary-hero-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.92) 48%,
+      rgba(215, 236, 229, 0.7) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 16% /
+      min(920px, 108vw) auto no-repeat,
+    url("/brand/visuals/praviar-report-evidence-paper.svg") 88% 18% /
+      min(760px, 92vw) auto no-repeat;
+}
+
+.praviar-report-hero-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.94) 42%,
+      rgba(246, 244, 239, 0.8) 64%,
+      rgba(215, 236, 229, 0.5) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 14% /
+      min(920px, 108vw) auto no-repeat,
+    url("/brand/visuals/praviar-evidence-desk-field-v2.webp") right center /
+      min(1040px, 120vw) auto no-repeat,
+    var(--bg-base);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+.praviar-trust-hero-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.95) 48%,
+      rgba(215, 236, 229, 0.78) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 16% /
+      min(920px, 108vw) auto no-repeat,
+    url("/brand/visuals/praviar-report-evidence-paper.svg") 88% 18% /
+      min(760px, 92vw) auto no-repeat;
+}
+
+.praviar-legal-hero-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.94) 56%,
+      rgba(215, 236, 229, 0.66) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 14% /
+      min(880px, 108vw) auto no-repeat,
+    url("/brand/visuals/praviar-report-evidence-paper.svg") 92% 12% /
+      min(720px, 92vw) auto no-repeat;
+}
+
+.praviar-hero-proof-card {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.94),
+      rgba(215, 236, 229, 0.74)
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% center /
+      min(760px, 118vw) auto no-repeat,
+    url("/brand/visuals/praviar-sample-report-field.svg") 72% center /
+      min(760px, 128vw) auto no-repeat,
+    var(--bg-surface);
+}
+
+.praviar-app-field {
+  background:
+    linear-gradient(180deg, rgba(246, 244, 239, 0.78), var(--bg-base) 46%),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% top /
+      min(880px, 118vw) auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") top right /
+      min(980px, 118vw) auto no-repeat,
+    var(--bg-base);
+}
+
+.praviar-control-plane-header {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.97) 0%,
+      rgba(246, 244, 239, 0.91) 48%,
+      rgba(215, 236, 229, 0.68) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 4% / min(700px, 116vw)
+      auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") 100% center /
+      min(820px, 122vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, screen, soft-light, normal;
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.82);
+}
+
+.praviar-workflow-atlas-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.95) 38%,
+      rgba(246, 244, 239, 0.78) 63%,
+      rgba(215, 236, 229, 0.72) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(var(--brand-primary-rgb), 0.1),
+      rgba(184, 115, 51, 0.08)
+    ),
+    url("/brand/visuals/praviar-workflow-atlas-field.webp") 100% center /
+      min(860px, 116vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, soft-light, soft-light, normal;
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.9);
+}
+
+.praviar-operational-field {
+  border: 1px solid var(--border-subtle);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246, 244, 239, 0.98) 0%,
+      rgba(246, 244, 239, 0.93) 50%,
+      rgba(215, 236, 229, 0.72) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 10% /
+      min(620px, 110vw) auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") 100% center /
+      min(760px, 118vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, screen, soft-light, normal;
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.8);
+}
+
+.praviar-auth-field {
+  background:
+    linear-gradient(180deg, rgba(246, 244, 239, 0.9), var(--bg-base) 52%),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% top /
+      min(820px, 116vw) auto no-repeat,
+    url("/brand/visuals/praviar-auth-evidence-field.svg") top right /
+      min(920px, 116vw) auto no-repeat,
+    var(--bg-base);
+}
+
+.praviar-analysis-launch-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.95) 44%,
+      rgba(246, 244, 239, 0.8) 68%,
+      rgba(215, 236, 229, 0.68) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 14% /
+      min(720px, 108vw) auto no-repeat,
+    url("/brand/visuals/praviar-analysis-launch-workspace.webp") right center /
+      min(940px, 128vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+@supports (
+  background-image: image-set(
+      url("/brand/visuals/praviar-analysis-launch-workspace.avif")
+        type("image/avif")
+    )
+) {
+  .praviar-analysis-launch-field {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(246, 244, 239, 0.99) 0%,
+        rgba(246, 244, 239, 0.95) 44%,
+        rgba(246, 244, 239, 0.8) 68%,
+        rgba(215, 236, 229, 0.68) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 100% 14% /
+        min(720px, 108vw) auto no-repeat,
+      image-set(
+          url("/brand/visuals/praviar-analysis-launch-workspace.avif")
+            type("image/avif"),
+          url("/brand/visuals/praviar-analysis-launch-workspace.webp")
+            type("image/webp"),
+          url("/brand/visuals/praviar-analysis-launch-workspace.png")
+            type("image/png")
+        )
+        right center / min(940px, 128vw) auto no-repeat,
+      var(--bg-surface);
+    background-blend-mode: normal, screen, soft-light, normal;
+  }
+}
+
+.praviar-credit-ledger-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.94) 42%,
+      rgba(246, 244, 239, 0.82) 64%,
+      rgba(215, 236, 229, 0.62) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 18% /
+      min(760px, 110vw) auto no-repeat,
+    url("/brand/visuals/praviar-credit-ledger-field.svg") right center /
+      min(840px, 124vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+.praviar-capacity-runway-field {
+  background:
+    linear-gradient(
+      110deg,
+      color-mix(in srgb, var(--brand-soft-mint) 70%, transparent) 0%,
+      color-mix(in srgb, var(--brand-paper) 88%, transparent) 42%,
+      color-mix(in srgb, var(--brand-copper) 8%, transparent) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 18% / min(620px, 96vw)
+      auto no-repeat,
+    url("/brand/visuals/praviar-credit-ledger-field.svg") right center /
+      min(640px, 98vw) auto no-repeat;
+  background-blend-mode: normal, screen, soft-light;
+}
+
+.praviar-sidebar-field {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 25, 29, 0.97) 0%,
+      rgba(8, 38, 43, 0.94) 48%,
+      rgba(6, 54, 58, 0.96) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 52% 8% / min(520px, 150vw)
+      auto no-repeat,
+    #06191d;
+  background-blend-mode: normal, screen, normal;
+}
+
+.praviar-evidence-paper {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.9),
+      rgba(215, 236, 229, 0.72)
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") center / cover no-repeat,
+    url("/brand/visuals/praviar-report-evidence-paper.svg") center / cover
+      no-repeat,
+    var(--bg-surface);
+}
+
+.praviar-share-access-panel {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.93),
+      rgba(215, 236, 229, 0.72)
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") center / cover no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") center / cover
+      no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+.praviar-share-handoff-field {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.96) 54%,
+      rgba(215, 236, 229, 0.78) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") right center /
+      min(620px, 104vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, soft-light, normal;
+}
+
+.praviar-auth-visual {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.92),
+      rgba(215, 236, 229, 0.76)
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") center / cover no-repeat,
+    url("/brand/visuals/praviar-auth-evidence-field.svg") center / cover
+      no-repeat,
+    var(--bg-surface);
+}
+
+.praviar-surface-premium {
+  border: 1px solid var(--card-border);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.92),
+      rgba(215, 236, 229, 0.74)
+    ),
+    var(--bg-surface);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.9);
+}
+
+.praviar-surface-premium.praviar-operational-field {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246, 244, 239, 0.98) 0%,
+      rgba(246, 244, 239, 0.93) 50%,
+      rgba(215, 236, 229, 0.72) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 10% /
+      min(620px, 110vw) auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") 100% center /
+      min(760px, 118vw) auto no-repeat,
+    var(--bg-surface);
+  background-blend-mode: normal, screen, soft-light, normal;
+}
+
+.praviar-account-control-card {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.96),
+      rgba(246, 244, 239, 0.86) 48%,
+      rgba(215, 236, 229, 0.66)
+    ),
+    var(--bg-surface);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.86);
+}
+
+.praviar-account-control-header {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.84),
+      rgba(215, 236, 229, 0.48)
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(var(--brand-primary-rgb), 0.055) 0 1px,
+      transparent 1px 18px
+    );
+  background-blend-mode: normal, soft-light;
+}
+
+.praviar-account-metric-panel,
+.praviar-plan-option-card {
+  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  box-shadow: inset 0 1px 0 rgba(246, 244, 239, 0.72);
+}
+
+.praviar-plan-option-card-featured {
+  border-color: color-mix(in srgb, var(--brand-primary) 48%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(var(--brand-primary-rgb), 0.08),
+      rgba(246, 244, 239, 0.82)
+    ),
+    color-mix(in srgb, var(--bg-surface) 82%, transparent);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.78);
+}
+
+.praviar-glass-panel,
+.praviar-glass-panel-soft,
+.praviar-glass-chip,
+.praviar-glass-pill,
+.praviar-code-surface {
+  border: 1px solid var(--border-default);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.praviar-glass-strip {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.praviar-glass-panel {
+  background: color-mix(in srgb, var(--bg-surface) 86%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+
+.praviar-glass-panel-soft {
+  background: color-mix(in srgb, var(--bg-surface) 72%, transparent);
+  box-shadow: var(--shadow-xs);
+}
+
+.praviar-glass-strip {
+  background: color-mix(in srgb, var(--bg-surface) 66%, transparent);
+}
+
+.praviar-glass-chip {
+  border-color: var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-surface) 74%, transparent);
+  box-shadow: var(--shadow-xs);
+}
+
+.praviar-glass-pill {
+  border-color: var(--border-default);
+  background: color-mix(in srgb, var(--bg-surface) 76%, transparent);
+}
+
+.praviar-code-surface {
+  border-color: var(--border-subtle);
+  background: color-mix(in srgb, var(--surface-muted) 70%, transparent);
+}
+
+.praviar-glass-field {
+  border: 1px solid var(--border-default);
+  background: color-mix(in srgb, var(--bg-surface) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.praviar-ink-evidence-overlay {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-ink) 96%, transparent),
+    color-mix(in srgb, var(--brand-ink) 78%, transparent) 46%,
+    color-mix(in srgb, var(--brand-teal) 48%, transparent)
+  );
+}
+
+.praviar-trust-control-field {
+  pointer-events: none;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--brand-ink) 96%, transparent),
+      color-mix(in srgb, var(--brand-ink) 78%, transparent) 46%,
+      color-mix(in srgb, var(--brand-teal) 48%, transparent)
+    ),
+    url("/brand/visuals/praviar-trust-control-field.svg") center / cover
+      no-repeat;
+  opacity: 1;
+}
+
+.praviar-ink-frame {
+  border: 1px solid
+    color-mix(in srgb, var(--surface-inverted-fg) 16%, transparent);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--surface-inverted-fg) 8%, transparent),
+      transparent 54%
+    ),
+    var(--surface-inverted);
+}
+
+.praviar-brand-mark-shell {
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 88%, transparent);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--bg-elevated) 92%, transparent),
+    color-mix(in srgb, var(--surface-glass) 72%, transparent)
+  );
+  box-shadow: var(--shadow-xs);
+  isolation: isolate;
+}
+
+.praviar-brand-mark-shell-dark {
+  border-color: color-mix(in srgb, var(--surface-inverted-fg) 18%, transparent);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--surface-inverted-fg) 12%, transparent),
+    color-mix(in srgb, var(--surface-inverted-fg) 5%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0
+      color-mix(in srgb, var(--surface-inverted-fg) 18%, transparent),
+    var(--shadow-xs);
+}
+
+.praviar-ink-glass,
+.praviar-ink-chip,
+.praviar-ink-pill {
+  border: 1px solid
+    color-mix(in srgb, var(--surface-inverted-fg) 13%, transparent);
+  background: color-mix(in srgb, var(--surface-inverted-fg) 7%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.praviar-ink-chip {
+  background: color-mix(in srgb, var(--surface-inverted-fg) 8%, transparent);
+}
+
+.praviar-ink-pill {
+  border-color: color-mix(in srgb, var(--surface-inverted-fg) 16%, transparent);
+  background: color-mix(in srgb, var(--surface-inverted-fg) 8%, transparent);
+}
+
+.praviar-ink-divide > * + * {
+  border-top: 1px solid
+    color-mix(in srgb, var(--surface-inverted-fg) 12%, transparent);
+}
+
+.praviar-ink-cta {
+  background: var(--surface-inverted-fg);
+  color: var(--surface-inverted);
+}
+
+.praviar-ink-cta:hover {
+  background: color-mix(in srgb, var(--surface-inverted-fg) 90%, transparent);
+}
+
+.praviar-ink-secondary-action {
+  border: 1px solid
+    color-mix(in srgb, var(--surface-inverted-fg) 20%, transparent);
+  color: var(--surface-inverted-fg);
+}
+
+.praviar-ink-secondary-action:hover {
+  background: color-mix(in srgb, var(--surface-inverted-fg) 10%, transparent);
+}
+
+.praviar-overlay-scrim {
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--brand-ink) 68%, transparent),
+      color-mix(in srgb, var(--brand-teal) 26%, transparent)
+    ),
+    color-mix(in srgb, var(--bg-overlay) 52%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.praviar-overlay-scrim-strong {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-ink) 94%, transparent),
+    color-mix(in srgb, var(--brand-ink) 88%, var(--brand-teal))
+  );
+  backdrop-filter: blur(14px) saturate(70%);
+  -webkit-backdrop-filter: blur(14px) saturate(70%);
+}
+
+.praviar-overlay-scrim-soft {
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--brand-ink) 44%, transparent),
+      color-mix(in srgb, var(--brand-teal) 18%, transparent)
+    ),
+    color-mix(in srgb, var(--bg-overlay) 32%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.praviar-dialog-panel {
+  border: 1px solid var(--border-default);
+  background:
+    linear-gradient(
+      180deg,
+      rgb(246, 244, 239),
+      color-mix(in srgb, var(--brand-soft-mint) 13%, rgb(246, 244, 239))
+    ),
+    var(--bg-surface);
+  box-shadow:
+    0 28px 80px rgba(11, 31, 36, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.praviar-report-decision-field {
+  border: 1px solid var(--card-border);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.99) 0%,
+      rgba(246, 244, 239, 0.94) 48%,
+      rgba(215, 236, 229, 0.7) 100%
+    ),
+    var(--bg-surface);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.9);
+}
+
+.praviar-provenance-rail {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246, 244, 239, 0.98),
+      rgba(215, 236, 229, 0.5) 52%,
+      rgba(246, 244, 239, 0.94)
+    ),
+    var(--bg-surface);
+}
+
+.praviar-live-dossier-field {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.98) 0%,
+      rgba(246, 244, 239, 0.94) 46%,
+      rgba(215, 236, 229, 0.62) 100%
+    ),
+    var(--bg-surface);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.86);
+}
+
+.praviar-dashboard-command-deck {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(246, 244, 239, 0.97) 0%,
+      rgba(246, 244, 239, 0.9) 46%,
+      rgba(215, 236, 229, 0.6) 100%
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 18% / min(720px, 96vw)
+      auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") 100% center /
+      min(820px, 108vw) auto no-repeat,
+    var(--surface-muted);
+  background-blend-mode: normal, screen, soft-light, normal;
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(246, 244, 239, 0.86);
+}
+
+.praviar-command-deck-art {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(246, 244, 239, 0.18) 38%,
+      rgba(215, 236, 229, 0.48)
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% center /
+      min(520px, 82vw) auto no-repeat,
+    url("/brand/visuals/praviar-app-evidence-field.svg") 100% center /
+      min(760px, 92vw) auto no-repeat,
+    linear-gradient(
+      135deg,
+      transparent 0 47%,
+      rgba(var(--brand-primary-rgb), 0.13) 47% 48%,
+      transparent 48% 100%
+    );
+  background-blend-mode: normal, screen, soft-light, normal;
+  background-size:
+    auto,
+    min(520px, 82vw) auto,
+    min(760px, 92vw) auto,
+    24px 24px;
+}
+
+.praviar-share-evidence-grid {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(var(--brand-primary-rgb), 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      180deg,
+      rgba(var(--brand-primary-rgb), 0.05) 1px,
+      transparent 1px
+    );
+  background-size: 44px 44px;
+}
+
+[data-praviar-share-report],
+[data-praviar-share-packet-receipt],
+[data-praviar-share-reliance-status],
+[data-praviar-share-review-workflow],
+[data-praviar-share-trust-bar] {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@media print {
+  .praviar-share-access-field {
+    background: var(--bg-base) !important;
+    color: var(--text-primary) !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .praviar-share-evidence-grid {
+    display: none !important;
+  }
+
+  .praviar-share-access-field header,
+  .praviar-share-access-field footer,
+  [data-praviar-share-report] > section,
+  [data-praviar-share-packet-receipt],
+  [data-praviar-share-reliance-status],
+  [data-praviar-share-review-workflow],
+  [data-praviar-share-trust-bar] {
+    background: var(--bg-surface) !important;
+    border-color: var(--border-emphasis) !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  [data-praviar-share-trust-bar] {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .praviar-share-access-field .praviar-glass-panel,
+  .praviar-share-access-field .praviar-glass-panel-soft,
+  .praviar-share-access-field .praviar-glass-strip,
+  .praviar-share-access-field .praviar-glass-chip,
+  .praviar-share-access-field .praviar-glass-pill,
+  .praviar-share-access-field .praviar-code-surface {
+    backdrop-filter: none !important;
+    background: var(--bg-surface) !important;
+    box-shadow: none !important;
+  }
+
+  .praviar-share-access-field a {
+    color: var(--brand-primary) !important;
+  }
+}
+
+.praviar-provenance-map,
+.praviar-evidence-fact-card {
+  border: 1px solid var(--border-subtle);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.98),
+      rgba(246, 244, 239, 0.9)
+    ),
+    url("/brand/visuals/praviar-dossier-thread.svg") 100% 14% / min(520px, 92vw)
+      auto no-repeat,
+    repeating-linear-gradient(
+      90deg,
+      rgba(var(--brand-primary-rgb), 0.055) 0 1px,
+      transparent 1px 28px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(var(--brand-primary-rgb), 0.04) 0 1px,
+      transparent 1px 28px
+    ),
+    color-mix(in srgb, var(--brand-soft-mint) 18%, var(--bg-surface));
+  background-blend-mode: normal, soft-light, normal, normal, normal;
+  box-shadow:
+    var(--shadow-xs),
+    inset 0 1px 0 rgba(246, 244, 239, 0.78);
+}
+
+.praviar-provenance-map {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.praviar-provenance-step {
+  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-surface) 76%, transparent);
+  box-shadow: inset 0 1px 0 rgba(246, 244, 239, 0.62);
+}
+
+.praviar-evidence-fact-card {
+  min-height: 8.75rem;
+}
+
+.praviar-mobile-command-surface {
+  isolation: isolate;
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-surface);
+  background:
+    linear-gradient(180deg, rgb(246, 244, 239), rgb(246, 244, 239)),
+    var(--bg-surface);
+  box-shadow:
+    0 -10px 28px rgba(11, 31, 36, 0.12),
+    inset 0 1px 0 rgba(246, 244, 239, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@media print {
+  .praviar-report-workspace details > summary {
+    display: none !important;
+  }
+}
+
+.praviar-summary-workbench {
+  align-items: start;
+}
+
+.praviar-summary-rail {
+  container-type: inline-size;
+}
+
+.praviar-summary-rail-section {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 244, 239, 0.82),
+      rgba(215, 236, 229, 0.54)
+    ),
+    var(--bg-surface);
+}
+
+.praviar-risk-docket-row {
+  border: 1px solid
+    color-mix(in srgb, var(--semantic-error) 14%, var(--border-subtle));
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--semantic-error) 5%, transparent),
+    color-mix(in srgb, var(--bg-surface) 84%, transparent)
+  );
+  box-shadow: inset 3px 0 0
+    color-mix(in srgb, var(--semantic-error) 72%, transparent);
+}
+
+.praviar-section-band {
+  border-block: 1px solid var(--border-default);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--brand-primary-rgb), 0.08),
+      transparent 42%
+    ),
+    var(--bg-surface);
+}
+
+.praviar-report-workspace {
+  isolation: isolate;
+  position: relative;
+}
+
+.praviar-report-workspace::before {
+  content: "";
+  position: absolute;
+  inset: -28px -32px auto;
+  height: 360px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--brand-primary-rgb), 0.13),
+    transparent 74%
+  );
+  opacity: 0.72;
+  z-index: -1;
+}
+
+.praviar-mobile-safe {
+  max-width: min(100%, 100vw);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+  .praviar-hero-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.97) 0%,
+        rgba(246, 244, 239, 0.9) 54%,
+        rgba(215, 236, 229, 0.76) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 62% top / auto 520px
+        no-repeat,
+      url("/brand/visuals/praviar-hero-evidence.svg") 56% top / auto 560px
+        no-repeat,
+      var(--bg-base);
+    background-blend-mode: normal, screen, soft-light, normal;
+  }
+
+  .praviar-report-hero-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.98) 0%,
+        rgba(246, 244, 239, 0.92) 52%,
+        rgba(215, 236, 229, 0.78) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 64% top / auto 560px
+        no-repeat,
+      url("/brand/visuals/praviar-evidence-desk-field-v2.webp") 58% top / auto
+        620px no-repeat,
+      var(--bg-base);
+    background-blend-mode: normal, screen, soft-light, normal;
+  }
+
+  .praviar-secondary-hero-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.98) 0%,
+        rgba(246, 244, 239, 0.92) 52%,
+        rgba(215, 236, 229, 0.78) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 64% top / auto 540px
+        no-repeat,
+      url("/brand/visuals/praviar-report-evidence-paper.svg") 58% top / auto
+        600px no-repeat;
+  }
+
+  .praviar-trust-hero-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.98) 0%,
+        rgba(246, 244, 239, 0.93) 58%,
+        rgba(215, 236, 229, 0.82) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 66% top / auto 540px
+        no-repeat,
+      url("/brand/visuals/praviar-report-evidence-paper.svg") 58% top / auto
+        600px no-repeat;
+  }
+
+  .praviar-legal-hero-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.98) 0%,
+        rgba(246, 244, 239, 0.92) 58%,
+        rgba(215, 236, 229, 0.76) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 66% top / auto 520px
+        no-repeat,
+      url("/brand/visuals/praviar-report-evidence-paper.svg") 60% top / auto
+        580px no-repeat;
+  }
+
+  .praviar-share-handoff-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.97) 0%,
+        rgba(246, 244, 239, 0.88) 58%,
+        rgba(215, 236, 229, 0.78) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 66% top / auto 560px
+        no-repeat,
+      url("/brand/visuals/praviar-sample-report-field.svg") 64% top / auto 620px
+        no-repeat,
+      var(--bg-surface);
+  }
+
+  .praviar-credit-ledger-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.99) 0%,
+        rgba(246, 244, 239, 0.94) 58%,
+        rgba(215, 236, 229, 0.78) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 64% top / auto 520px
+        no-repeat,
+      url("/brand/visuals/praviar-credit-ledger-field.svg") 68% top / auto 560px
+        no-repeat,
+      var(--bg-surface);
+    background-blend-mode: normal, screen, soft-light, normal;
+  }
+
+  .praviar-capacity-runway-field {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--brand-paper) 92%, transparent) 0%,
+        color-mix(in srgb, var(--brand-paper) 82%, transparent) 52%,
+        color-mix(in srgb, var(--brand-soft-mint) 64%, transparent) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 64% top / auto 480px
+        no-repeat,
+      url("/brand/visuals/praviar-credit-ledger-field.svg") 66% top / auto 520px
+        no-repeat;
+    background-blend-mode: normal, screen, soft-light;
+  }
+
+  .praviar-auth-field {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(246, 244, 239, 0.98) 0%,
+        rgba(246, 244, 239, 0.9) 58%,
+        rgba(215, 236, 229, 0.78) 100%
+      ),
+      url("/brand/visuals/praviar-dossier-thread.svg") 62% top / auto 520px
+        no-repeat,
+      url("/brand/visuals/praviar-auth-evidence-field.svg") 58% top / auto 560px
+        no-repeat,
+      var(--bg-base);
+  }
+
+  .praviar-report-workspace::before {
+    inset: -18px -16px auto;
+    height: 260px;
+    background-size:
+      auto,
+      640px auto,
+      640px auto;
+  }
+}
+
+/* ── Tabular numbers for data ────────────────────────────────────────────── */
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Brand gradients — refined ───────────────────────────────────────────── */
+
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary-dim),
+    var(--brand-primary),
+    var(--brand-secondary-dim)
+  );
+}
+
+.brand-gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary),
+    var(--brand-secondary),
+    var(--brand-primary-dim)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glassmorphism — refined ─────────────────────────────────────────────── */
+
+.glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid var(--border-default);
+  box-shadow: inset 0 0.5px 0 0 rgba(246, 244, 239, 0.22);
+}
+
+/* ── Card top-edge shimmer (use .card-shine on featured cards only) ───────── */
+
+.card-shine {
+  position: relative;
+}
+
+.card-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 10%,
+    var(--shimmer-color) 50%,
+    transparent 90%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Scrollbar — minimal ─────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+
+@keyframes bond-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hover-bond-rotate:hover svg {
+  animation: bond-rotate 2s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-mint) 28%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 16px 2px
+      color-mix(in srgb, var(--brand-secondary) 14%, transparent);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+.praviar-evidence-field-pattern {
+  background: linear-gradient(
+    135deg,
+    transparent 0 48%,
+    color-mix(in srgb, var(--brand-primary) 8%, transparent) 48% 49%,
+    transparent 49% 100%
+  );
+  background-size: 28px 28px;
+  opacity: 0.78;
+}
+
+.praviar-chart-swatch {
+  --chart-swatch-color: currentColor;
+
+  background-color: var(--chart-swatch-color);
+  border: 1px solid color-mix(in srgb, var(--brand-ink) 10%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--brand-paper) 52%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--brand-ink) 10%, transparent);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-up {
+    animation: slide-up 0.4s ease-out !important;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-highlight) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count-up {
+  animation: count-up 0.6s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* ── Accessibility — focus-visible ─────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Let buttons and inputs use their own focus ring rather than doubling up */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="tab"]:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ── Spring easing fallbacks (CSS) ────────────────────────────────────────── */
+
+:root {
+  --ease-snappy: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-gentle: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* ── Patent ID monospace ─────────────────────────────────────────────────── */
+
+.patent-id {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+}
+
+/* ── Hover lift utility ──────────────────────────────────────────────────── */
+
+.hover-lift {
+  transition:
+    transform 0.15s var(--ease-snappy),
+    box-shadow 0.15s var(--ease-snappy);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Typography scale (Vercel Geist / Apple HIG inspired) ─────────────────── */
+/* Each class bundles size + line-height + tracking + weight as a composite token */
+
+/* Display — hero headings, landing page */
+.type-display-xl {
+  font-size: 4rem;
+  line-height: 1.08;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+.type-display-lg {
+  font-size: 3rem;
+  line-height: 1.1;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+.type-display-md {
+  font-size: 2.25rem;
+  line-height: 1.12;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* Heading — section titles, card headers */
+.type-heading-xl {
+  font-size: 1.75rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.type-heading-lg {
+  font-size: 1.375rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.type-heading-md {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.type-heading-sm {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* Body — paragraph text, descriptions */
+.type-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+.type-body-md {
+  font-size: 1rem;
+  line-height: 1.55;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+.type-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+  font-weight: 400;
+}
+
+/* Label — buttons, form labels, UI chrome */
+.type-label-lg {
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+.type-label-md {
+  font-size: 0.875rem;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  font-weight: 500;
+}
+.type-label-sm {
+  font-size: 0.8125rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+/* Marketing micro-labels — stronger than tertiary UI metadata at small sizes. */
+.type-marketing-label {
+  color: color-mix(in srgb, var(--text-secondary) 88%, var(--brand-primary));
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.11em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .type-marketing-label {
+    font-size: 0.8125rem;
+    letter-spacing: 0.13em;
+  }
+}
+
+/* Caption — footnotes, metadata, timestamps */
+.type-caption {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  letter-spacing: 0.015em;
+  font-weight: 400;
+}
+
+/* Mono — patent IDs, SMILES, code, data values */
+.type-mono-md {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-family: var(--font-mono);
+}
+.type-mono-sm {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-family: var(--font-mono);
+}
+
+/* ── Solid button hover — premium light brightness shift ──────────────────── */
+
+.solid-btn-hover {
+  transition: filter 0.15s ease;
+}
+.solid-btn-hover:hover {
+  filter: brightness(0.9);
+}
+
+/* ── Range slider filled track ────────────────────────────────────────────── */
+
+input[type="range"] {
+  --range-progress: 0%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--brand-primary) var(--range-progress),
+    var(--border-default) var(--range-progress)
+  );
+  border-radius: 9999px;
+  height: 6px;
+}
+
+input[type="range"]::-moz-range-progress {
+  background: var(--brand-primary);
+  border-radius: 9999px;
+  height: 6px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: var(--border-default);
+  border-radius: 9999px;
+  height: 6px;
+}
+
+/* ── Content-visibility for off-screen lazy rendering ─────────────────────── */
+
+.content-lazy {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* ── Hide scrollbar utility ───────────────────────────────────────────────── */
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Accessibility — reduced motion ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hover-bond-rotate:hover svg,
+  .pulse-glow,
+  .skeleton-shimmer,
+  .animate-count-up,
+  .animate-fade-up {
+    animation: none !important;
+  }
+}

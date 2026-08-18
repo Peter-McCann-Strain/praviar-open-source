@@ -1,0 +1,40 @@
+digraph A02 {
+  graph [rankdir=LR, bgcolor="white", pad=0.35, nodesep=0.45, ranksep=0.75,
+         compound=true, fontname="Helvetica", label="A02 — Container view", labelloc=t, fontsize=22];
+  node [shape=box, style="rounded,filled", fillcolor="#ecfeff", color="#0f766e",
+        fontcolor="#134e4a", fontname="Helvetica", fontsize=11, margin="0.16,0.1"];
+  edge [color="#4b5563", fontcolor="#374151", fontname="Helvetica", fontsize=9];
+
+  browser [label="Browser", fillcolor="#f3f4f6", color="#6b7280", fontcolor="#111827"];
+  tasks [label="Cloud Tasks\n(reference)", fillcolor="#fff7ed", color="#c2410c", fontcolor="#7c2d12"];
+  database [label="PostgreSQL + RLS", shape=cylinder, fillcolor="#eff6ff", color="#1d4ed8", fontcolor="#1e3a8a"];
+  redis [label="Redis", shape=cylinder, fillcolor="#eff6ff", color="#1d4ed8", fontcolor="#1e3a8a"];
+  objects [label="Private object storage", shape=cylinder, fillcolor="#eff6ff", color="#1d4ed8", fontcolor="#1e3a8a"];
+  providers [label="External data / model providers", fillcolor="#f3f4f6", color="#6b7280", fontcolor="#111827"];
+
+  subgraph cluster_request {
+    label="Request plane"; color="#99f6e4"; style="rounded"; fontname="Helvetica";
+    web [label="Next.js web"];
+    api [label="FastAPI API"];
+  }
+  subgraph cluster_execution {
+    label="Execution plane"; color="#99f6e4"; style="rounded"; fontname="Helvetica";
+    launcher [label="Worker launcher service"];
+    job [label="Analysis Job"];
+    pipeline [label="Praviar pipeline library"];
+  }
+
+  browser -> web [label="HTTP(S)"];
+  web -> api [label="REST + SSE"];
+  api -> database [label="tenant-scoped SQL"];
+  api -> redis [dir=both, label="cache + live events"];
+  api -> tasks [label="durable task"];
+  tasks -> launcher [label="OIDC internal HTTP"];
+  launcher -> database [label="reserve fence"];
+  launcher -> job [label="Cloud Run v2 run"];
+  job -> pipeline;
+  job -> database;
+  job -> redis;
+  job -> objects [label="exports"];
+  pipeline -> providers;
+}

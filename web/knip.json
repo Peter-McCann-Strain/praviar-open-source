@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/app/**/{page,layout,loading,error,global-error,not-found,route}.{ts,tsx}",
+    "src/{instrumentation,proxy}.{ts,tsx}",
+    "playwright*.config.ts",
+    "scripts/**/*.{mjs,ts}",
+    "tests/**/*.test.{ts,tsx}",
+    "tests/**/*.spec.{ts,tsx}",
+    "tests/server-only.ts"
+  ],
+  "project": [
+    "src/**/*.{css,ts,tsx}",
+    "scripts/**/*.{mjs,ts}",
+    "tests/**/*.{ts,tsx}",
+    "*.config.{js,mjs,ts}"
+  ],
+  "playwright": false
+}

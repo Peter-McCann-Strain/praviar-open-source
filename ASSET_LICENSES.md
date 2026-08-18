@@ -1,0 +1,20 @@
+# Asset licensing and provenance
+
+The root Apache-2.0 licence covers Praviar-authored source code and
+documentation. It does not automatically cover every visual, binary, dataset,
+or third-party component stored beside that source.
+
+| Asset group                                                  | Location                                                                                                     | Archive treatment                                                                                                                                                                                             |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Praviar marks and icons                                      | `web/public/brand/praviar-*`, `web/public/icons/praviar-*.png`, application icons, and report-template marks | Copyright retained; identification and attribution only. Apache-2.0 grants no trademark right.                                                                                                                |
+| Interface illustrations                                      | `web/public/brand/visuals/`                                                                                  | Conceptual decoration, not product captures, customer material, scientific evidence, or case studies. Original authoring-session evidence is incomplete; do not assume rights beyond display in this archive. |
+| AI-generated editorial illustrations                         | `web/public/brand/editorial/`                                                                                | Generated for this project with OpenAI tools and subject to the applicable OpenAI terms and adjacent metadata. Not customer imagery or product evidence.                                                      |
+| Chemical-structure illustrations                             | `web/public/brand/markush/`                                                                                  | Project-generated examples with adjacent source metadata. Original authoring-session and exact runtime evidence is incomplete; do not treat the metadata as proof of authorship or a separate licence grant.  |
+| RDKit WebAssembly bundle                                     | `web/public/rdkit/`                                                                                          | Official `@rdkit/rdkit` `2025.3.4-1.0.0` distribution under BSD-3-Clause. Version, licence, source, and checksums are recorded in that directory.                                                             |
+| Research datasets, source documents, and corpora             | Not included in the public archive                                                                           | Not relicensed. Public accessibility is not redistribution permission.                                                                                                                                        |
+| Product screenshots, office documents, and generated reports | Not included in the public archive                                                                           | No rights or accuracy claim is made for excluded working material.                                                                                                                                            |
+
+Do not add an asset merely because it can be downloaded publicly. Record its
+authoritative source, exact version, applicable terms, and redistribution
+decision first. Technical hashes establish file identity, not authorship,
+ownership, legal clearance, or permission.

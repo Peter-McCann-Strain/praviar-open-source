@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /api
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: pip
+    directory: /praviar_pipeline
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: npm
+    # pnpm-lock.yaml and pnpm-workspace.yaml live at the repository root.
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6F4EF"/>
+      <stop offset="0.46" stop-color="#F6F4EF"/>
+      <stop offset="1" stop-color="#D7ECE5"/>
+    </linearGradient>
+    <radialGradient id="mintEvidenceGlow" cx="72%" cy="25%" r="58%">
+      <stop offset="0" stop-color="#5FB7A6" stop-opacity=".48"/>
+      <stop offset=".45" stop-color="#5FB7A6" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#5FB7A6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="copperRiskSignal" cx="88%" cy="68%" r="34%">
+      <stop offset="0" stop-color="#B87333" stop-opacity=".22"/>
+      <stop offset=".62" stop-color="#B87333" stop-opacity=".05"/>
+      <stop offset="1" stop-color="#B87333" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6F4EF" stop-opacity=".78"/>
+      <stop offset=".58" stop-color="#F6F4EF" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#F6F4EF" stop-opacity=".08"/>
+    </linearGradient>
+    <pattern id="microDots" width="84" height="84" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="2" fill="#0B1F24" opacity=".12"/>
+      <circle cx="58" cy="48" r="1.4" fill="#B87333" opacity=".18"/>
+    </pattern>
+    <pattern id="documentLines" width="180" height="120" patternUnits="userSpaceOnUse">
+      <path d="M0 28H108M0 52H148M0 76H126" stroke="#0B1F24" stroke-width="1" opacity=".13"/>
+    </pattern>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="34" flood-color="#0B1F24" flood-opacity=".14"/>
+    </filter>
+    <filter id="blurLine" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#paper)"/>
+  <rect width="1600" height="1000" fill="url(#mintEvidenceGlow)"/>
+  <rect width="1600" height="1000" fill="url(#copperRiskSignal)"/>
+  <rect width="1600" height="1000" fill="url(#microDots)" opacity=".5"/>
+  <rect x="820" y="80" width="680" height="760" rx="42" fill="url(#documentLines)" opacity=".7" transform="rotate(-4 1160 460)"/>
+
+  <g filter="url(#softShadow)" opacity=".9">
+    <path d="M890 134c166-42 350-35 486 19 51 20 78 75 61 128l-103 321c-19 58-79 92-139 78l-475-109c-65-15-104-82-84-146l87-279c21-68 98-92 167-12Z" fill="url(#glass)" stroke="#F6F4EF" stroke-width="1.5"/>
+    <path d="M1015 238c105-18 212 6 301 58M982 326c96-12 190 6 281 45M948 416c87-8 174 7 253 38" fill="none" stroke="#0B1F24" stroke-width="2" stroke-linecap="round" opacity=".18"/>
+  </g>
+
+  <g fill="none" stroke="#0B1F24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M962 604h306M962 656h234M962 708h346" stroke-width="3" opacity=".28"/>
+    <path d="M1046 570v172M1189 586v210M1261 610v116" stroke-width="3" opacity=".24"/>
+    <path d="M1014 484h238M1014 526h184" stroke-width="3" opacity=".2"/>
+    <rect x="1037" y="561" width="18" height="18" rx="4" fill="#5FB7A6" stroke="none" opacity=".52"/>
+    <rect x="1181" y="727" width="16" height="16" rx="4" fill="#B87333" stroke="none" opacity=".54"/>
+    <rect x="1254" y="603" width="14" height="14" rx="3" fill="#B87333" stroke="none" opacity=".7"/>
+  </g>
+
+  <g opacity=".58">
+    <path d="M768 720C616 658 489 671 340 724 212 769 103 754 0 696" fill="none" stroke="#5FB7A6" stroke-width="2"/>
+    <path d="M778 751C605 698 491 724 360 786 220 852 103 827 0 775" fill="none" stroke="#0B1F24" stroke-width="1.5" opacity=".33"/>
+    <path d="M792 685C607 594 450 604 292 650 175 684 77 669 0 620" fill="none" stroke="#B87333" stroke-width="1.4" opacity=".48"/>
+  </g>
+
+  <g opacity=".8">
+    <circle cx="760" cy="719" r="38" fill="#F6F4EF" fill-opacity=".56" stroke="#5FB7A6" stroke-opacity=".38"/>
+    <circle cx="340" cy="724" r="32" fill="#F6F4EF" fill-opacity=".5" stroke="#0B1F24" stroke-opacity=".2"/>
+    <circle cx="604" cy="652" r="25" fill="#F6F4EF" fill-opacity=".5" stroke="#B87333" stroke-opacity=".46"/>
+    <path d="M744 716h32M760 700v32M326 712l26 26M352 712l-26 26M594 652h20" stroke="#0B1F24" stroke-width="2" stroke-linecap="round" opacity=".38"/>
+  </g>
+
+  <g filter="url(#blurLine)" opacity=".34">
+    <path d="M876 82c152 74 266 166 342 276" fill="none" stroke="#5FB7A6" stroke-width="22" stroke-linecap="round"/>
+    <path d="M1138 768c114 8 216 42 308 102" fill="none" stroke="#B87333" stroke-width="16" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+{
+  "deterministicIDSeed": "praviar-architecture-v1",
+  "deterministicIds": true,
+  "flowchart": {
+    "htmlLabels": false
+  },
+  "htmlLabels": false,
+  "securityLevel": "strict",
+  "startOnLoad": false,
+  "suppressErrorRendering": true,
+  "theme": "neutral"
+}

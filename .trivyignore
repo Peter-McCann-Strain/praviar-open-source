@@ -1,0 +1,10 @@
+# CVEs in setuptools' _vendor/ bundle — these are internal copies used only
+# by setuptools' own build machinery, not exposed to external input.
+# The standalone packages (wheel >=0.46.2, jaraco.context >=6.1.0) are already
+# pinned at patched versions in the Dockerfile.
+
+# CVE-2026-23949: jaraco.context path traversal — affects setuptools/_vendor only
+CVE-2026-23949
+
+# CVE-2026-24049: wheel privilege escalation — affects setuptools/_vendor only
+CVE-2026-24049

@@ -1,0 +1,172 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "praviar-api"
+version = "0.1.0"
+description = "FastAPI backend for the Praviar patent-landscape research preview"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = [
+    # Web framework
+    "fastapi>=0.139,<0.142",
+    "starlette>=1.3.1,<2",
+    "uvicorn[standard]>=0.34,<1",
+    # Database
+    "sqlalchemy[asyncio]>=2.0,<3",
+    "asyncpg>=0.30,<1",
+    "alembic>=1.14,<2",
+    # Redis / Celery
+    "celery[redis]>=5.4,<6",
+    "redis>=5.2,<9",
+    # Auth
+    "pyjwt[crypto]>=2.13,<3",
+    "cryptography>=50.0.0,<51",
+    "pwdlib[argon2]>=0.2,<1",
+    "httpx>=0.27,<1",
+    "svix>=1.33,<2",
+    # Export
+    "python-docx>=1.1,<2",
+    "python-pptx>=1.0,<2",
+    "openpyxl>=3.1,<4",
+    # Rate limiting & monitoring
+    "slowapi>=0.1,<1",
+    "prometheus-fastapi-instrumentator>=6,<9",
+    # Billing
+    "stripe>=8.0,<16",
+    # LLM
+    "anthropic>=0.83,<2",
+    # Observability
+    "sentry-sdk[fastapi]>=2.0,<3",
+    # OpenTelemetry — Honeycomb + Cloud Trace dual exporter per 10-gcp-architecture.md §8.
+    # Lazy-loaded via importlib in api/observability/otel.py — safe to remove without
+    # breaking startup, but required for production traces to actually ship.
+    "opentelemetry-api>=1.27,<2",
+    "opentelemetry-sdk>=1.27,<2",
+    "opentelemetry-exporter-otlp-proto-http>=1.27,<2",
+    "opentelemetry-exporter-gcp-trace>=1.7,<2",
+    "opentelemetry-instrumentation-fastapi>=0.62b1,<1",
+    "opentelemetry-instrumentation-sqlalchemy>=0.62b1,<1",
+    "opentelemetry-instrumentation-httpx>=0.62b1,<1",
+    # GCP SDKs — load-bearing for storage + Cloud Tasks workers (W2-C / W3-C).
+    "google-cloud-storage>=2.18,<4",
+    "google-cloud-tasks>=2.16,<3",
+    "google-auth>=2.35,<3",
+    # Utilities
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.14.2,<3",
+    "structlog>=24.4,<27",
+    "python-multipart>=0.0.31,<0.1",
+    "urllib3>=2.7,<3",
+    # Praviar pipeline (installed separately via: pip install -e ../praviar_pipeline)
+    # "praviar-pipeline",  # installed as editable from ../praviar_pipeline
+    "email-validator>=2.0",
+]
+
+[project.scripts]
+praviar-api = "api.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "grimp==3.15",
+    "complexipy==6.2.0",
+    "vulture==2.16",
+    "hypothesis>=6.100",
+    "httpx>=0.27",
+    # Shared-types codegen — produces packages/shared-types/src/generated.ts
+    # from praviar_pipeline.models.report. The PyPI package name differs from the
+    # CLI binary name; the binary is `pydantic2ts`. Pair with `json2ts` from
+    # `pnpm add -D --filter @praviar/shared-types json-schema-to-typescript`.
+    "pydantic-to-typescript>=2.0,<3",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/api"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+pythonpath = ["src", "tests", "../praviar_pipeline/src", "../praviar_pipeline/tests"]
+
+[tool.coverage.run]
+source = ["api"]
+omit = [
+    "*/api/cli.py",                    # CLI entry-points; not unit-testable
+    "*/api/fixtures/demo_reports.py",  # Static fixture data; no logic to test
+    "*/api/observability/otel.py",     # OTel exporter setup; requires live collector
+]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+
+[tool.complexipy]
+failed = true
+max-complexity-allowed = 15
+paths = ["src"]
+sort = "desc"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+strict = false
+# Start permissive; tighten over time
+warn_return_any = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+strict_equality = true
+no_implicit_optional = true
+check_untyped_defs = true
+extra_checks = true
+
+[[tool.mypy.overrides]]
+module = [
+    "api.auth",
+    "api.auth.*",
+    "api.db",
+    "api.db.*",
+    "api.schemas",
+    "api.schemas.*",
+]
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "api.services.monitor_runtime",
+    "api.services.setup_readiness",
+]
+disallow_any_generics = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# Alembic migrations are auto-generated — skip line-length checks
+"alembic/**/*.py" = ["E501"]
+# Test fixtures embed long legal/report evidence strings; keep wrapping strict in src.
+"tests/**/*.py" = ["E501"]
+"tests/conftest.py" = ["E402", "E501"]
+
+[tool.vulture]
+exclude = ["*/__pycache__/*"]
+ignore_names = ["ignore_subscribe_messages", "keys_and_args", "numkeys"]
+min_confidence = 100
+paths = ["src"]
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.100",
+]

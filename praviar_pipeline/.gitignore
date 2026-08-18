@@ -1,0 +1,42 @@
+.env
+.venv/
+venvs/
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+*-bq-key.json
+
+# Large data directories (models, images, PatCID index)
+data/patcid/
+data/models/
+
+# Binary / image files that should never be committed
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ckpt
+*.ckpt.*
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl
+*.weights
+
+# Generated pipeline outputs
+stress_test_results/
+benchmark_results/
+fto_report_*.json
+fto_report_*.md
+fto_report_*.pdf
+checkpoints/
+output/
+
+# Playwright reports
+playwright-report/

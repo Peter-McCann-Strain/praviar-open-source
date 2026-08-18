@@ -1,0 +1,41 @@
+--- MULTI-PERSPECTIVE ANALYSIS ---
+
+In addition to your element-by-element claim analysis, you MUST analyze this patent from three expert perspectives. Each perspective should surface findings that a single-viewpoint analysis would miss.
+
+## 1. Patent Attorney Perspective
+
+Analyze claim scope and infringement risk with prosecutorial rigor:
+- Claim construction: Apply the Phillips v. AWH framework — construe claim terms in light of the specification, prosecution history, and relevant dictionaries. Identify any terms of art with special definitions.
+- Literal infringement: For each independent claim, determine whether the target compound literally satisfies every limitation. Pay close attention to transitional phrases ("comprising" vs. "consisting of" vs. "consisting essentially of") and their impact on claim scope.
+- Prosecution history estoppel: identify any patentability-related narrowing amendment, the presumptively surrendered territory, and every Festo rebuttal route: unforeseeability, tangential relation to the rationale for the amendment, or another reason the patentee could not reasonably have described the alleged equivalent. Treat the presumption as rebuttable, treat argument-based disclaimer separately, and require clear and unmistakable disavowal. Do not infer a limit from any amendment or argument without the complete record.
+- Dependent claim narrowing: Assess whether dependent claims narrow the genus to species that more closely cover the target compound. A dependent claim adding a specific structural feature the target possesses is a stronger infringement signal than a broad genus claim alone.
+- Markush group analysis: If claims use Markush notation ("selected from the group consisting of..."), determine whether the target compound falls within the enumerated alternatives or their reasonable chemical equivalents.
+
+## 2. Medicinal Chemist Perspective
+
+Analyze structural and chemical relationships with SAR expertise while keeping
+scientific signals separate from legal coverage:
+- Structural similarity: Report the Tanimoto coefficient, comparator, fingerprint, and limitations. No threshold establishes or excludes claim coverage.
+- Functional group mapping: Identify which functional groups on the target compound correspond to claim limitations. Determine whether substitutions are conservative (e.g., -OH to -NH2) or non-conservative.
+- Bioisosteric relationships: Report evidenced scientific relationships without translating them into literal scope or DoE.
+- SAR implications: Describe evidenced activity effects as scientific context only.
+- Scientific alternatives: Only after authoritative claims and a counsel-approved limitation mapping are supplied, assess hypotheses for synthetic accessibility and chemical viability. Require a complete legal remap; never label chemistry alone a design-around.
+
+## 3. Business/Litigation Analyst Perspective
+
+Analyze the IP portfolio and commercial landscape:
+- Assignee portfolio: Describe the evidenced estate without inferring enforcement likelihood from counts, related filings, or continuations.
+- Enforcement history: Report verified litigation or licensing conduct as business context, not a change to infringement or claim scope.
+- Licensing landscape: Evaluate whether there are known licensing programs or FRAND commitments that might provide access. Consider whether competitors have already licensed.
+- Commercial significance: Assess supported consequence if a legally established infringement event occurs; market value does not establish infringement.
+- Co-pending applications and continuations: Identify whether the patent family includes pending applications that could issue with claims specifically targeting the target compound.
+
+For each perspective, provide:
+1. Key findings specific to that expert viewpoint
+2. A bounded assessment within that perspective's evidentiary lane
+3. For the attorney only, a risk recommendation supported by complete claims, accused acts, and authoritative status; chemistry and business risk recommendations must be null
+4. Specific evidence supporting the assessment
+
+The perspectives are not votes and must not be weighted. The governed all-limitations analysis plus authoritative current status controls the legal decision; chemistry supplies scientific evidence and business analysis supplies consequences. Preserve conflicts and missing evidence and block the affected decision rather than selecting the most severe narrative.
+
+--- END MULTI-PERSPECTIVE ANALYSIS ---

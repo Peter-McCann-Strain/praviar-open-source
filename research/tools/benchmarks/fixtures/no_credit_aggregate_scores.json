@@ -1,0 +1,61 @@
+{
+  "_evidence_boundary": {
+    "schema_version": "evidence-quarantine/v1",
+    "evidence_status": "static_no_credit_fixture_not_performance_evidence",
+    "not_release_evidence": true,
+    "prohibited_uses": [
+      "benchmark_accuracy_gate",
+      "false_clear_bound",
+      "customer_accuracy_claim",
+      "production_release_gate"
+    ]
+  },
+  "mean_discovery_recall": 0.94,
+  "mean_risk_accuracy": 0.9,
+  "mean_triage_recall": 1.0,
+  "provenance": {
+    "execution_mode": "no_credit_fixture",
+    "source": "offline benchmark contract fixture"
+  },
+  "release_gate_summary": {
+    "cohorts": [
+      {
+        "active_blocking_false_clear_cases": 0,
+        "case_results": [
+          {
+            "active_blocking_false_clear": false,
+            "case_id": "no-credit-smoke-clear",
+            "citation_fidelity_pass": true,
+            "false_clear": false,
+            "failures": [],
+            "passed": true,
+            "unsupported_claim_count": 0
+          }
+        ],
+        "citation_fidelity_rate": 1.0,
+        "cohort": "no_credit_smoke",
+        "failures": [],
+        "false_clear_cases": 0,
+        "passed": true,
+        "unsupported_claim_count": 0
+      }
+    ],
+    "jurisdiction_lanes": [
+      {
+        "case_results": [
+          {
+            "case_id": "no-credit-smoke-clear",
+            "failures": [],
+            "jurisdiction": "US",
+            "passed": true
+          }
+        ],
+        "failures": [],
+        "false_clear_cases": 0,
+        "lane": "US",
+        "passed": true
+      }
+    ],
+    "overall_passed": true
+  }
+}

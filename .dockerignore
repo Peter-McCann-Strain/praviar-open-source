@@ -1,0 +1,126 @@
+# Dependencies & builds
+node_modules/
+.next/
+out/
+.turbo/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+**/node_modules/
+**/.next/
+**/out/
+**/.turbo/
+**/.venv/
+**/venv/
+**/dist/
+**/build/
+**/*.egg-info/
+
+# Archive
+archive/
+_archive/
+docs/_archive/
+docs/archive/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+.claude/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+*-bq-key.json
+credentials*.json
+**/.env
+**/.env.local
+**/.env.*.local
+**/*-bq-key.json
+**/credentials*.json
+
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage/
+htmlcov/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/coverage/
+**/htmlcov/
+**/.coverage
+
+# Test data
+test-data/
+test-results/
+playwright-report/
+**/test-data/
+**/test-results/
+**/playwright-report/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated
+fto_report_*.md
+fto_report_*.pdf
+fto_report_*.json
+*.log
+
+# Pipeline outputs and local model artifacts
+praviar_pipeline/output/
+praviar_pipeline/checkpoints/
+praviar_pipeline/models/
+praviar_pipeline/venvs/
+praviar_pipeline/data/models/
+praviar_pipeline/data/external/
+praviar_pipeline/external/
+
+# Large research and validation artifacts. The release-certification issuer image
+# receives only its isolated entrypoint from research/; every sibling stays outside
+# the Docker build context.
+research/*
+!research/tools/
+research/tools/*
+!research/tools/trust/
+research/tools/trust/*
+!research/tools/trust/issue_release_certification.py
+research/benchmarks/MarkushGrapher-Datasets/
+research/benchmarks/USPTO-30K/
+research/benchmarks/patcid/
+research/benchmarks/real/
+research/benchmarks/real.zip
+research/experiments/drawing_analysis/output/
+research/research/
+research/validation/ground-truth/**/*.pdf
+research/validation/ground-truth/**/*.zip
+research/validation/ground-truth/**/*.xls
+research/validation/ground-truth/**/*.xlsx
+research/validation/external-datasets/panorama/
+research/validation/external-datasets/claimcompare/
+research/validation/external-datasets/pedantic/
+research/validation/external-datasets/ipbench/
+research/validation/external-datasets/nber-orange-book/*.zip
+research/validation/external-datasets/paragraph-iv/*.pdf
+
+# Model weights and binary datasets
+*.arrow
+*.parquet
+*.pth
+*.ckpt
+*.safetensors
+*.h5
+*.onnx

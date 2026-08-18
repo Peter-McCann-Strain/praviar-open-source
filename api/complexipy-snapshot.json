@@ -1,0 +1,730 @@
+[
+  {
+    "path": "src/api/audit.py",
+    "file_name": "audit.py",
+    "functions": [
+      {
+        "name": "write_audit_log",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/api/config.py",
+    "file_name": "config.py",
+    "functions": [
+      {
+        "name": "APISettings::_validate_environment_contract",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/db/epo_checkpoint_store.py",
+    "file_name": "epo_checkpoint_store.py",
+    "functions": [
+      {
+        "name": "PostgresEPAtomicCheckpointStore::_compare_and_advance_once",
+        "complexity": 16
+      },
+      {
+        "name": "_classify_batch",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/fixtures/demo_reports.py",
+    "file_name": "demo_reports.py",
+    "functions": [
+      {
+        "name": "_sync_demo_decision_audit",
+        "complexity": 30
+      },
+      {
+        "name": "_govern_demo_report",
+        "complexity": 31
+      },
+      {
+        "name": "_sync_demo_blocker_family_records",
+        "complexity": 37
+      }
+    ]
+  },
+  {
+    "path": "src/api/http_utils.py",
+    "file_name": "http_utils.py",
+    "functions": [
+      {
+        "name": "retry_with_jitter",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/middleware/input_validation.py",
+    "file_name": "input_validation.py",
+    "functions": [
+      {
+        "name": "InputValidationMiddleware::dispatch",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/api/routes/internal.py",
+    "file_name": "internal.py",
+    "functions": [
+      {
+        "name": "_verify_oidc_token",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/routes/reports.py",
+    "file_name": "reports.py",
+    "functions": [
+      {
+        "name": "create_share_grant",
+        "complexity": 21
+      },
+      {
+        "name": "_sanitize_export_manifest_snapshot",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/api/routes/webhooks_stripe.py",
+    "file_name": "webhooks_stripe.py",
+    "functions": [
+      {
+        "name": "stripe_webhook",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/api/schemas/analyses.py",
+    "file_name": "analyses.py",
+    "functions": [
+      {
+        "name": "_is_likely_smiles",
+        "complexity": 27
+      },
+      {
+        "name": "CreateAnalysisRequest::runtime_config",
+        "complexity": 28
+      }
+    ]
+  },
+  {
+    "path": "src/api/security.py",
+    "file_name": "security.py",
+    "functions": [
+      {
+        "name": "_redact_log_value",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/admin_analytics.py",
+    "file_name": "admin_analytics.py",
+    "functions": [
+      {
+        "name": "_redact_audit_detail_value",
+        "complexity": 17
+      },
+      {
+        "name": "calculate_cache_hit_rate",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/admin_users.py",
+    "file_name": "admin_users.py",
+    "functions": [
+      {
+        "name": "_claim_admin_operation",
+        "complexity": 23
+      },
+      {
+        "name": "update_user_role_for_admin_impl",
+        "complexity": 31
+      },
+      {
+        "name": "invite_user_to_org_impl",
+        "complexity": 33
+      },
+      {
+        "name": "reconcile_admin_operation_impl",
+        "complexity": 36
+      },
+      {
+        "name": "_update_user_role_in_clerk",
+        "complexity": 48
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/analyses.py",
+    "file_name": "analyses.py",
+    "functions": [
+      {
+        "name": "_serialize_launch_context",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/analysis_maintenance.py",
+    "file_name": "analysis_maintenance.py",
+    "functions": [
+      {
+        "name": "mark_stale_analyses_failed_async",
+        "complexity": 48
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/apikeys.py",
+    "file_name": "apikeys.py",
+    "functions": [
+      {
+        "name": "authenticate_api_key",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/billing.py",
+    "file_name": "billing.py",
+    "functions": [
+      {
+        "name": "resolve_credit_capacity_request_data",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/billing_webhooks.py",
+    "file_name": "billing_webhooks.py",
+    "functions": [
+      {
+        "name": "handle_credit_pack_checkout_completed_impl",
+        "complexity": 21
+      },
+      {
+        "name": "handle_subscription_updated_impl",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/chat_document_sections.py",
+    "file_name": "chat_document_sections.py",
+    "functions": [
+      {
+        "name": "build_patent_sections",
+        "complexity": 16
+      },
+      {
+        "name": "build_report_sections",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/chat_history.py",
+    "file_name": "chat_history.py",
+    "functions": [
+      {
+        "name": "build_chat_policy",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/chat_stream.py",
+    "file_name": "chat_stream.py",
+    "functions": [
+      {
+        "name": "_citation_matches_prepared_source",
+        "complexity": 19
+      },
+      {
+        "name": "stream_chat_events",
+        "complexity": 32
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/claimed_use_receipts.py",
+    "file_name": "claimed_use_receipts.py",
+    "functions": [
+      {
+        "name": "_resolve_current_claim_context",
+        "complexity": 18
+      },
+      {
+        "name": "_governed_evidence_references",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/clerk_webhooks.py",
+    "file_name": "clerk_webhooks.py",
+    "functions": [
+      {
+        "name": "_handle_membership_delete",
+        "complexity": 19
+      },
+      {
+        "name": "bootstrap_clerk_membership",
+        "complexity": 24
+      },
+      {
+        "name": "_handle_membership_upsert",
+        "complexity": 46
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/comments_assignment.py",
+    "file_name": "comments_assignment.py",
+    "functions": [
+      {
+        "name": "build_review_queue_response",
+        "complexity": 37
+      },
+      {
+        "name": "build_listed_comments",
+        "complexity": 44
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/comments_crud.py",
+    "file_name": "comments_crud.py",
+    "functions": [
+      {
+        "name": "serialize_comment",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/comments_escalation.py",
+    "file_name": "comments_escalation.py",
+    "functions": [
+      {
+        "name": "build_thread_metadata",
+        "complexity": 22
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/compounds.py",
+    "file_name": "compounds.py",
+    "functions": [
+      {
+        "name": "_load_latest_report_patents_by_compound",
+        "complexity": 27
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/email.py",
+    "file_name": "email.py",
+    "functions": [
+      {
+        "name": "PostmarkClient::lookup_outbound_submission",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/export_receipts.py",
+    "file_name": "export_receipts.py",
+    "functions": [
+      {
+        "name": "verify_export_receipt",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/faithfulness_uq.py",
+    "file_name": "faithfulness_uq.py",
+    "functions": [
+      {
+        "name": "iter_evidence_pairs",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/markush_evidence.py",
+    "file_name": "markush_evidence.py",
+    "functions": [
+      {
+        "name": "verify_analyst_markush_draft",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/monitor_delta_computation.py",
+    "file_name": "monitor_delta_computation.py",
+    "functions": [
+      {
+        "name": "diff_snapshot",
+        "complexity": 16
+      },
+      {
+        "name": "build_snapshot",
+        "complexity": 26
+      },
+      {
+        "name": "_build_affected_conclusions",
+        "complexity": 33
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/monitor_query_strategy.py",
+    "file_name": "monitor_query_strategy.py",
+    "functions": [
+      {
+        "name": "_report_search_terms",
+        "complexity": 16
+      },
+      {
+        "name": "build_monitor_queries",
+        "complexity": 36
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/monitor_reassessment_lifecycle.py",
+    "file_name": "monitor_reassessment_lifecycle.py",
+    "functions": [
+      {
+        "name": "record_monitor_conclusion_invalidations",
+        "complexity": 25
+      },
+      {
+        "name": "resolve_monitor_conclusion",
+        "complexity": 28
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/monitor_runtime.py",
+    "file_name": "monitor_runtime.py",
+    "functions": [
+      {
+        "name": "_merge_snapshot_pages",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/notifications.py",
+    "file_name": "notifications.py",
+    "functions": [
+      {
+        "name": "_collect_notification_resource_reference",
+        "complexity": 20
+      },
+      {
+        "name": "_credit_request_view",
+        "complexity": 27
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/offboarding.py",
+    "file_name": "offboarding.py",
+    "functions": [
+      {
+        "name": "execute_org_erasure",
+        "complexity": 27
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/patents.py",
+    "file_name": "patents.py",
+    "functions": [
+      {
+        "name": "list_patents_for_org",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/pipeline_stream.py",
+    "file_name": "pipeline_stream.py",
+    "functions": [
+      {
+        "name": "stream_pipeline_events",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/public_reports.py",
+    "file_name": "public_reports.py",
+    "functions": [
+      {
+        "name": "_shared_evidence_limitation_candidates",
+        "complexity": 17
+      },
+      {
+        "name": "_shared_key_patents",
+        "complexity": 21
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_access.py",
+    "file_name": "report_access.py",
+    "functions": [
+      {
+        "name": "_validate_authority_coverage_parity",
+        "complexity": 16
+      },
+      {
+        "name": "_validate_analysis_funnel_parity",
+        "complexity": 17
+      },
+      {
+        "name": "_claim_program_parity_projection",
+        "complexity": 22
+      },
+      {
+        "name": "_supported_claim_source_patent_ids",
+        "complexity": 24
+      },
+      {
+        "name": "_validate_supported_source_spans",
+        "complexity": 24
+      },
+      {
+        "name": "validate_report_publishability",
+        "complexity": 34
+      },
+      {
+        "name": "_derived_claim_program_summary",
+        "complexity": 39
+      },
+      {
+        "name": "validate_report_source_span_provenance",
+        "complexity": 40
+      },
+      {
+        "name": "validate_material_report_assertion_provenance",
+        "complexity": 44
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_content_load.py",
+    "file_name": "report_content_load.py",
+    "functions": [
+      {
+        "name": "load_report_for_org_impl",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_content_search.py",
+    "file_name": "report_content_search.py",
+    "functions": [
+      {
+        "name": "filter_risk_ratings_impl",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_evidence_filter.py",
+    "file_name": "report_evidence_filter.py",
+    "functions": [
+      {
+        "name": "collect_blocking_patent_ids",
+        "complexity": 17
+      },
+      {
+        "name": "collect_jurisdictions",
+        "complexity": 21
+      },
+      {
+        "name": "collect_sources",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_evidence_searchers.py",
+    "file_name": "report_evidence_searchers.py",
+    "functions": [
+      {
+        "name": "search_coverage_and_uncertainty",
+        "complexity": 19
+      },
+      {
+        "name": "search_search_loop",
+        "complexity": 28
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_external_evidence.py",
+    "file_name": "report_external_evidence.py",
+    "functions": [
+      {
+        "name": "ExternalEvidenceProviderSpec::build_governance_note",
+        "complexity": 17
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/report_workspace.py",
+    "file_name": "report_workspace.py",
+    "functions": [
+      {
+        "name": "_build_suggested_evidence_queries",
+        "complexity": 16
+      },
+      {
+        "name": "_build_target_jurisdictions",
+        "complexity": 18
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/reports.py",
+    "file_name": "reports.py",
+    "functions": [
+      {
+        "name": "_find_export_review_blockers",
+        "complexity": 18
+      },
+      {
+        "name": "_extract_export_required_finding_reviews",
+        "complexity": 19
+      },
+      {
+        "name": "resolve_export_download",
+        "complexity": 21
+      },
+      {
+        "name": "delete_export_job",
+        "complexity": 27
+      },
+      {
+        "name": "build_drawing_governance_blockers",
+        "complexity": 36
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/review_status.py",
+    "file_name": "review_status.py",
+    "functions": [
+      {
+        "name": "create_analysis_review_handoff_impl",
+        "complexity": 20
+      },
+      {
+        "name": "_serialize_review_status",
+        "complexity": 26
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/reviewer_decisions.py",
+    "file_name": "reviewer_decisions.py",
+    "functions": [
+      {
+        "name": "list_reviewer_decisions",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/api/services/sso.py",
+    "file_name": "sso.py",
+    "functions": [
+      {
+        "name": "_fetch_clerk_enterprise_connections",
+        "complexity": 19
+      }
+    ]
+  },
+  {
+    "path": "src/api/templates/email_templates_transactional.py",
+    "file_name": "email_templates_transactional.py",
+    "functions": [
+      {
+        "name": "render_monitor_alert",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/workers/email_task_weekly.py",
+    "file_name": "email_task_weekly.py",
+    "functions": [
+      {
+        "name": "_process_digest_recipient",
+        "complexity": 19
+      },
+      {
+        "name": "send_weekly_digest_task",
+        "complexity": 19
+      },
+      {
+        "name": "_reconcile_due_deliveries",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "src/api/workers/task_exports.py",
+    "file_name": "task_exports.py",
+    "functions": [
+      {
+        "name": "_scoped_report_dump",
+        "complexity": 45
+      }
+    ]
+  },
+  {
+    "path": "src/api/workers/task_faithfulness.py",
+    "file_name": "task_faithfulness.py",
+    "functions": [
+      {
+        "name": "compute_faithfulness_scores_impl",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "src/api/workers/task_persistence.py",
+    "file_name": "task_persistence.py",
+    "functions": [
+      {
+        "name": "_extract_manifest_provenance",
+        "complexity": 24
+      }
+    ]
+  }
+]

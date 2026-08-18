@@ -1,0 +1,43 @@
+# Build artifacts (Vercel rebuilds)
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# Test files (not needed in production build)
+tests/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+.pnpm-store/
+
+# Python/tool caches (from local dev, not needed for build)
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.turbo/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*

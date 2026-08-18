@@ -1,0 +1,1 @@
+"""Deterministic report-validation helpers."""

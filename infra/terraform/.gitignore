@@ -1,0 +1,27 @@
+# Terraform state and lock files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Plan output
+*.tfplan
+tfplan
+tfplan-*
+tfplan.*
+
+# Local secrets — never commit
+*.tfvars
+!*.tfvars.example
+
+# Provider plugins + module cache. Commit locks only in environment root modules.
+.terraform/
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
